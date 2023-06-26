@@ -1,5 +1,8 @@
 from django.shortcuts import render, HttpResponse
 from .models import data
+import json
+from django.core.serializers import serialize
+from .choices import IITS,BRANCHES,SEAT_TYPES,GENDERS
 # Create your views here.
 
 
@@ -16,3 +19,38 @@ def upload_csv(request):
                         closing_rank=fields[6], year=fields[7], roundNo=fields[8], institute_type=fields[10])
             info.save()
     return render(request, 'main/upload.html')
+
+def printdata(request):
+    # alldata = data.objects.filter(institute='Indian Institute of Technology Guwahati').all()
+
+    # jsdata = alldata.values('year','closing_rank','roundNo','program')
+    # jsdata = list(jsdata)
+    # jsdata = json.dumps(jsdata)
+    context = {
+        'colleges':IITS,
+        'branches':BRANCHES,
+        'seat_types':SEAT_TYPES,
+        'genders':GENDERS,
+    }
+    if request.method == 'POST':
+        seat_type = request.POST.get('seat_type')
+        institute = request.POST.get('college_name')
+        branch_name = request.POST.get('branch_name')
+        gender = request.POST.get('gender')
+        alldata = data.objects.filter(seat_type=seat_type,institute=institute,gender=gender,program=branch_name).all()
+
+        jsdata = alldata.values('year','closing_rank','roundNo','program')
+        jsdata = list(jsdata)
+        jsdata = json.dumps(jsdata)
+        context1 = {
+            'colleges':IITS,
+            'branches':BRANCHES,
+            'seat_types':SEAT_TYPES,
+            'genders':GENDERS,
+            'alldata':alldata,
+            'jsdata':jsdata}
+        return render(request, 'main/index.html',context1)
+        
+
+
+    return render(request, 'main/index.html',context)
