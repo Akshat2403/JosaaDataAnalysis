@@ -54,3 +54,23 @@ def printdata(request):
 
 
     return render(request, 'main/index.html',context)
+
+
+
+def dig_q1(request):
+    popular_branches = [
+        'Computer Science and Engineering (4 Years Bachelor of Technology)',
+        'Electrical Engineering (4 Years Bachelor of Technology)',
+        'Mechanical Engineering (4 Years Bachelor of Technology)',
+        'Mathematics and Computing (4 Years Bachelor of Technology)',
+        ]
+    filtered_data = data.objects.filter(roundNo='6',seat_type='OPEN',gender='Gender-Neutral',program__in=popular_branches)
+
+    jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':filtered_data,
+        'jsdata':jsdata,
+    }
+
+    return render(request, 'main/digvijay_q1.html',context)

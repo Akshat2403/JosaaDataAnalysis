@@ -8,8 +8,8 @@ IITS = [
     ("Indian Institute of Technology Guwahati", "Indian Institute of Technology Guwahati"),
     ("Indian Institute of Technology Hyderabad", "Indian Institute of Technology Hyderabad"),
     ("Indian Institute of Technology Indore", "Indian Institute of Technology Indore"),
-    ("Indian Institute of Technology Bhubaneswar", "Indian Institute of Technology Bhubaneswar"),
-    ("Indian Institute of Technology Gandhinagar", "Indian Institute of Technology Gandhinagar"),
+    ("Indian Institute of Technology (BHU) Varanasi", "Indian Institute of Technology Bhubaneswar"),
+    ("Indian Institute of Technology Gandhinagar", "Indian Institute of Technology Gandhinagar"), 
     ("Indian Institute of Technology Jodhpur", "Indian Institute of Technology Jodhpur"),
     ("Indian Institute of Technology Patna", "Indian Institute of Technology Patna"),
     ("Indian Institute of Technology Mandi", "Indian Institute of Technology Mandi"),
@@ -18,7 +18,7 @@ IITS = [
     ("Indian Institute of Technology Jammu", "Indian Institute of Technology Jammu"),
     ("Indian Institute of Technology Goa", "Indian Institute of Technology Goa"),
     ("Indian Institute of Technology Bhilai", "Indian Institute of Technology Bhilai"),
-    ("Indian Institute of Technology Dhanbad", "Indian Institute of Technology Dhanbad"),
+    ("Indian Institute of Technology (ISM) Dhanbad", "Indian Institute of Technology Dhanbad"),
     ("Indian Institute of Technology Tirupati", "Indian Institute of Technology Tirupati")
 ]
 
