@@ -5,6 +5,14 @@ from django.core.serializers import serialize
 from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS
 # Create your views here.
 
+def base(request):
+    context={
+        'colleges':IITS,
+        'branches':BRANCHES,
+        'seat_types':SEAT_TYPES,
+        'genders':GENDERS,
+    }
+    return render(request,'main/base.html',context)
 
 def upload_csv(request):
     if request.method == 'POST':
@@ -218,3 +226,42 @@ def trendspecial(request):
     }
     # if request.method == 'POST':
     return render(request, 'main/trendspecial.html', context)
+
+
+
+
+def dig_q1(request):
+    popular_branches = [
+        'Computer Science and Engineering (4 Years Bachelor of Technology)',
+        'Electrical Engineering (4 Years Bachelor of Technology)',
+        'Mechanical Engineering (4 Years Bachelor of Technology)',
+        'Mathematics and Computing (4 Years Bachelor of Technology)',
+        ]
+    filtered_data = data.objects.filter(roundNo='6',seat_type='OPEN',gender='Gender-Neutral',program__in=popular_branches)
+
+    jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':filtered_data,
+        'jsdata':jsdata,
+    }
+
+    return render(request, 'main/digvijay_q1.html',context)
+
+def dig_q2(request):
+    popular_branches = [
+        'Computer Science and Engineering (4 Years Bachelor of Technology)',
+        'Electrical Engineering (4 Years Bachelor of Technology)',
+        'Mechanical Engineering (4 Years Bachelor of Technology)',
+        'Mathematics and Computing (4 Years Bachelor of Technology)',
+        ]
+    filtered_data = data.objects.filter(roundNo='6',seat_type='OPEN',gender='Gender-Neutral',closing_rank__lt = '1000',program='Computer Science and Engineering (4 Years Bachelor of Technology)')
+
+    jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':filtered_data,
+        'jsdata':jsdata,
+    }
+
+    return render(request, 'main/digvijay_q2.html',context)
