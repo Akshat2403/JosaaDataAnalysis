@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>OLD vs NEW</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<style>
+  .custom-button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.custom-button:hover {
+  background-color: #45a049;
+}
+
+.button-container {
+  text-align: center;
+}
+
+</style>
+<body>
+  <h1 style="padding-top: 10px;text-align:center;">What is the Popularity Variation between New and Old IITs?
+  </h1>
+  <div id="graph-container" style="width:80vw; height: 70vh;"></div>
+  <div class="button-container">
+    <button id="redirectButton" class="custom-button" onclick="redirectToMohitQ1()">Check variations among New IITS</button>
+    <button id="redirectButton" class="custom-button" onclick="redirectToMohitQ2()">Check variations among Old IITS</button>
+  </div>
+  <script>
+      
+      function redirectToMohitQ1() {
+      var url = "{% url 'Moh_q1exp' %}";
+      window.location.href = url;
+    }
+    function redirectToMohitQ2() {
+      var url = "{% url 'Moh_q1exp2' %}";
+      window.location.href = url;
+    }
+    // Create an ECharts instance
+    var myChart = echarts.init(document.getElementById('graph-container'));
+
+    var newIITData = JSON.parse('{{ new_iit_data|escapejs }}');
+    var oldIITData = JSON.parse('{{ old_iit_data|escapejs }}');
+
+
+    var years = newIITData.map(function(item) {
+      return item.year;
+    });
+
+    var newIITPopularity = newIITData.map(function(item) {
+    
+      return  1000/item.avg_closing_rank;
+    });
+
+    var oldIITPopularity = oldIITData.map(function(item) {
+   
+      return 1000/item.avg_closing_rank;
+    });
+
+    var option = {
+        legend: {
+        data: ['New IIT', 'Old IIT'],
+        orient: 'vertical',
+        right: 10,
+        top: 'center'
+      },
+      xAxis: {
+        type: 'category',
+        data: years,
+        name: 'Years'
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Popularity'
+      },
+      series: [
+        {
+          name: 'New IIT',
+          data: newIITPopularity,
+          type: 'line',
+        },
+        {
+          name: 'Old IIT',
+          data: oldIITPopularity,
+          type: 'line'
+        }
+      ]
+    };
+
+
+    myChart.setOption(option);
+  </script>
+</body>
+</html>
