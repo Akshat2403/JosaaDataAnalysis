@@ -66,20 +66,22 @@
         for (var k = 0; k < branches.length; k++) {
             var avg1=0;
             var avg2=0;
+            var collegenum=[];
             for (var i = 0; i < years.length; i++) {
                 var sum1 = 0;
                 var sum2 = 0;
                 for (var j = 0; j < data.length; j++) {
                     if (data[j].program == branches[k]) {
                         if (data[j].year == years[i]) {
+                            collegenum.push(data[j].institute);
                             sum1 += parseInt(data[j].opening_rank, 10); //don't forget to add the base
                             sum2 += parseInt(data[j].closing_rank, 10); //don't forget to add the base
                         }
                     }
                 }
-                avg1 += sum1 / colleges.length;
+                avg1 += sum1 / collegenum.length;
                 avg1 = Math.round(avg1);
-                avg2 += sum2 / colleges.length;
+                avg2 += sum2 / collegenum.length;
                 avg2 = Math.round(avg2);
                 console.log(avg1);
             }
@@ -90,27 +92,34 @@
         for (var k = 0; k < other_branches.length; k++) {
             var avg1=0;
             var avg2=0;
+            var collegenum=[];
             for (var i = 0; i < years.length; i++) {
                 var sum1 = 0;
                 var sum2 = 0;
                 for (var j = 0; j < data.length; j++) {
                     if (data[j].program == other_branches[k]) {
                         if (data[j].year == years[i]) {
+                            collegenum.push(data[j].institute);
                             sum1 += parseInt(data[j].opening_rank, 10); //don't forget to add the base
                             sum2 += parseInt(data[j].closing_rank, 10); //don't forget to add the base
                         }
                     }
                 }
-                avg1 = sum1 / colleges.length;
+                avg1 = sum1 / collegenum.length;
                 avg1 = Math.round(avg1);
-                 avg2 = sum2 / colleges.length;
+                 avg2 = sum2 / collegenum.length;
                 avg2 = Math.round(avg2);
             }
              rank_avgSum+=((avg2+avg1)/2)/years.length;
             
         }
+        var labels=[];
         rank_average.push(rank_avgSum/other_branches.length);
         branches.push("Other Branches",other_branches);
+        labels.push[0];
+        for(var i=1;i<17;i++){
+            labels.push(branches[i]);
+        }
         var dom = document.getElementById("chart-container");
         var myChart = echarts.init(dom, null, {
             renderer: "canvas",
@@ -166,9 +175,13 @@
             xAxis: {
                 type: "category",
                 boundaryGap: true,
-                data: branches,
+                data:labels,
                 name: "Branches",
-            },
+                axisLabel: {
+        fontSize:10,
+        rotate:30 
+    },
+},
             yAxis: [
                 {
                     type: "value",
