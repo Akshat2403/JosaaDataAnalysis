@@ -74,3 +74,53 @@ def dig_q1(request):
     }
 
     return render(request, 'main/digvijay_q1.html',context)
+def sid_q1(request):
+    non_btech_courses=[
+        'Architecture (5 Years, Bachelor of Architecture)',
+        'Economics (5 Years, Integrated Master of Science)',
+        'Physics (5 Years, Integrated Master of Science)',
+        'Physics (4 Years, Bachelor of Science)',
+        'Physics (5 Years, Bachelor of Science and Master of Science (Dual Degree))',
+        'Applied Geology (5 Years, Integrated Master of Science)',
+        'Economics (4 Years, Bachelor of Science)',
+        'Earth Sciences (4 Years, Bachelor of Science)',
+        'Applied Mathematics (5 Years, Integrated Master of Science)',
+        'Geological Technology (5 Years, Integrated Master of Technology)',
+        'Applied Geology (5 Years, Integrated Master of Technology)',
+        'Applied Geophysics (5 Years, Integrated Master of Technology)',
+        'Pharmaceutics (4 Years, Bachelor of Pharmaceutics)',
+        'Pharmaceutics (5 Years, Bachelor and Master of Pharmaceutics(Dual Degree))',
+        'Chemistry (4 Years, Bachelor of Science)',
+        'Chemistry (5 Years, Integrated Master of Science)',
+        'Exploration Geophysics (5 Years, Integrated Master of Science)',
+        'BS in Mathematics (4 Years, Bachelor of Science)',
+    ]
+    colleges = [i[0] for i in IITS]  
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges) 
+    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':all_data,
+        'jsdata':jsdata,
+    }
+    return render(request,'main/siddhant_q1.html',context)
+def sid_q2(request):
+    colleges = [i[0] for i in IITS]  
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges) 
+    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':all_data,
+        'jsdata':jsdata,
+    }
+    return render(request,'main/siddhant_q2.html',context)
+def sid_q3(request):
+    colleges = [i[0] for i in IITS]  
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
+    jsdata = all_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata': all_data,
+        'jsdata': jsdata,
+    }
+    return render(request, 'main/siddhant_q3.html', context)
