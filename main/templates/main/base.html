@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+    <title>Base</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-container {
+            color: white;
+            display: flex;
+        }
+
+        .side-bar {
+            flex: 0.5;
+            /* width: 20%; */
+            border-right: solid rgb(38, 44, 55);
+            height: 100vh;
+            background-color: rgb(55, 65, 81);
+            padding: 1vw;
+        }
+
+        .chart-container {
+            flex: 2;
+            background-color: rgb(31, 41, 55);
+        }
+
+        .go-back-btn {
+            display: flex;
+            font-size: 1.3vw;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="side-bar">
+            <div class="go-back-btn">
+                <svg height="2.5vw" id="Layer_1" style="enable-background: new 0 0 512 512; color: white" version="1.1"
+                    viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <polygon fill="white"
+                        points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
+                </svg>
+                Go Back
+            </div>
+
+            <div class="relative">
+
+                <!-- Dropdown menu -->
+                <div id="dropdown" 
+                    class="inset-0 mx-auto mt-2  p-4 bg-dark shadow-lg rounded-lg z-10">
+                    <div class="mb-4">
+                        <h6 class="text-lg font-bold mb-2">Filters</h6>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-primary-600 dark:text-primary-500">Save view</a>
+                            <a href="#" class="text-primary-600 dark:text-primary-500">Clear all</a>
+                        </div>
+                    </div>
+                    <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white"
+                        data-inactive-classes="text-gray-500 dark:text-gray-400">
+
+
+                        <!-- Category -->
+                        <h2 id="category-heading">
+                            <button type="button"
+                                class="flex items-center justify-between text-white dark:text-white focus:outline-none"
+                                data-accordion-target="#dropdownSearch" aria-expanded="true"
+                                aria-controls="category-body">
+                                <span>College</span>
+                                <svg aria-hidden="true" data-accordion-icon=""
+                                    class="w-4 h-4 ml-2 -mr-1 transition-transform transform" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </h2>
+
+
+                        <!-- Dropdown menu -->
+                <div id="dropdownSearch" class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                    <div class="p-3"> 
+                        <label for="input-group-search" class="sr-only">Select College</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="text" id="input-group-search"
+                                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search College" />
+                        </div>
+                    </div>
+                    <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownSearchButton">
+                        {% for college in colleges %}
+                        <li>
+                            <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input id="checkbox-item-{{forloop.counter}}" type="checkbox" value="{{college.0}}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                <label for="checkbox-item-{{forloop.counter}}"
+                                    class="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{college.0}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div
+                        class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500 hover:underline">
+                         
+                    </div>
+                </div>
+
+
+                        <!-- Price -->
+                        <h2 id="price-heading">
+                            <button type="button"
+                                class=" dark:bg-white text-white dark:text-white rounded-lg py-2  flex items-center focus:outline-none"
+                                data-accordion-target="#dropdownSearchBranch" aria-expanded="false" aria-controls="price-body">
+                                <span>Branch</span>
+                                <svg aria-hidden="true" data-accordion-icon=""
+                                    class="w-4 h-4 ml-2 transform rotate-0 transition-transform duration-200"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </h2>
+                        <!-- Dropdown menu -->
+                <div id="dropdownSearchBranch" class="z-10  bg-white rounded-lg shadow w-60 dark:bg-gray-700">
+                    <div class="p-3"> 
+                        <label for="input-group-search" class="sr-only">Select Branch</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <input type="text" id="input-group-search-branch"
+                                class="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Search College" />
+                        </div>
+                    </div>
+                    <ul class="h-48 px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200"
+                        aria-labelledby="dropdownSearchButton">
+                        {% for branch in branches %}
+                        <li>
+                            <div class="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <input id="checkbox-item-branch-{{forloop.counter}}" type="checkbox" value="{{branch.0}}"
+                                    class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+                                <label for="checkbox-item-branch-{{forloop.counter}}"
+                                    class="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">{{branch.0}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    <div
+                        class="flex items-center p-3 text-sm font-medium text-red-600 border-t border-gray-200 rounded-b-lg bg-gray-50 dark:border-gray-600 hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-red-500 hover:underline">
+                         
+                    </div>
+                </div>
+
+
+
+                        <!-- Worldwide Shipping -->
+                        <h2 id="worldwide-shipping-heading">
+                            <button type="button"
+                                class="dark:bg-gray-400 text-white dark:text-white rounded-lg  py-2 flex items-center focus:outline-none"
+                                data-accordion-target="#dropdownSearchSeatType" aria-expanded="false"
+                                aria-controls="worldwide-shipping-body">
+                                <span>Seat Type</span>
+                                <svg aria-hidden="true" data-accordion-icon=""
+                                    class="w-4 h-4 ml-2 transform rotate-0 transition-transform duration-200"
+                                    fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </h2>
+                        <div id="dropdownSearchSeatType" class="" aria-labelledby="category-heading">
+                            <div class="flex flex-col space-y-2">
+                                {% for seat in seat_types %}
+                                <label for="input-seat-{{forloop.counter}}" class="flex items-center">
+                                    <input id="input-seat-{{forloop.counter}}" type="checkbox" name="seat-input-{{forloop.counter}}" value="{{seat.0}}"
+                                        class="mr-2 text-sm focus:ring-primary-500 dark:focus:ring-primary-600">
+                                    <span>{{seat.0}}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Rating -->
+                        <h2 id="gender-heading">
+                            <button type="button" class="flex items-center space-x-1 text-white dark:text-white"
+                                data-accordion-target="#dropdownSearchGender" aria-expanded="false" aria-controls="rating-body">
+                                <span class="">Gender</span>
+                                <svg aria-hidden="true" data-accordion-icon=""
+                                    class="w-5 h-5 text-primary-600 dark:text-primary-600" fill="currentColor"
+                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z">
+                                    </path>
+                                </svg>
+                            </button>
+                        </h2>
+                        <div id="dropdownSearchGender" class="" aria-labelledby="category-heading">
+                            <div class="flex flex-col space-y-2">
+                                {% for gender in genders %}
+                                <label for="input-gender-{{forloop.counter}}" class="flex items-center">
+                                    <input id="input-gender-{{forloop.counter}}" type="checkbox" name="gender-input-{{forloop.counter}}" value="{{gender.0}}"
+                                        class="mr-2 text-sm focus:ring-primary-500 dark:focus:ring-primary-600">
+                                    <span>{{gender.0}}</span>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chart-container">
+            <div>?main question</div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+
+</body>
+
+</html>

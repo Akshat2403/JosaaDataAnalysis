@@ -49,3 +49,13 @@ GENDERS = [
     ('Gender-Neutral','Gender-Neutral'),
     ('Female-only (including Supernumerary)','Female-only (including Supernumerary)')
 ]
+
+YEARS = [
+    ('2016','2016'),
+    ('2017','2017'),
+    ('2018','2018'),
+    ('2019','2019'),
+    ('2020','2020'),
+    ('2021','2021'),
+    ('2022','2022'),
+]
