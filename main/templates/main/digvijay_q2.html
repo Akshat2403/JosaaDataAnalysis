@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>digvijay q1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
         table,
         th,
@@ -14,20 +16,37 @@
             border: solid;
             text-align: center;
         }
+
         #chart-container {
             position: relative;
             height: 90vh;
             width: 80%;
             overflow: hidden;
-            }
+            padding-left: 20px;
+        }
     </style>
 </head>
+
 <body>
-    <h2>What is the distribution of top-ranking students (based on JEE Advanced scores) across different colleges and branches?
+    <h2>What is the distribution of top-ranking students across different colleges and branches?
     </h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="col-auto mb-2">
+        <!-- Select -->
+            <select class="form-select form-select-sm" name="year">
+            <option disabled selected value="0">Select Year</option>
+            {% for yr in years %}
+            <option value="{{yr.0}}">{{yr.1}}</option>
+            {% endfor %}
+            </select>
+        <!-- End Select -->
+      </div>
+      <button type="submit">Show Graph</button>
+    </form>
     <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" onchange=changeData() id="flexSwitchCheckDefault">
-    <label class="form-check-label" for="flexSwitchCheckDefault">Closing Rank </label>
+        <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        <label class="form-check-label" for="flexSwitchCheckDefault">Closing Rank </label>
     </div>
     <div id="chart-container"></div>
 
@@ -71,14 +90,14 @@
         years = [];
         colleges = [];
         opening_ranks = [];
-        closing_ranks =[];
-        branches =[];
+        closing_ranks = [];
+        branches = [];
 
         function removeDuplicates(arr) {
             return [...new Set(arr)];
         }
 
-        for(var i = 0;i<data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             years.push(data[i].year);
             colleges.push(data[i].institute);
             branches.push(data[i].program);
@@ -87,33 +106,52 @@
         years = removeDuplicates(years);
         branches = removeDuplicates(branches);
 
-        // console.log(colleges);
-        // for(var k = 0 ;k<branches.length ;k++) {
-            temp1 = [];
-            temp2 = []; 
-            for(var i = 0; i < years.length; i++){
-                var sum1 = 0;
-                var sum2 = 0;
-                for(var j = 0;j<data.length;j++){
-                    if(data[j].program == branches[k]){
-                        if(data[j].year == years[i]){
-                            sum1 += parseInt( data[j].opening_rank, 10); //don't forget to add the base
-                            sum2 += parseInt( data[j].closing_rank, 10); //don't forget to add the base
+        console.log(years);
+        console.log(colleges);
+        console.log(branches);
+
+        yearWiseNumbers = [];
+        for (var k = 0; k < years.length; k++) {
+            var collegeWiseNumbers = [];
+            for (var i = 0; i < colleges.length; i++) {
+                // var collegesTotal = [];
+                var collegeTotal = 0;
+                for (var x = 0; x < branches.length; x++) {
+                    var diff = 0;
+                    for (var j = 0; j < data.length; j++) {
+                        if (data[j].institute == colleges[i]) {
+                            if (data[j].program == branches[x]) {
+                                if (data[j].year == years[k]) {
+                                    diff = data[j].closing_rank - data[j].opening_rank;
+                                }
+                            }
+                        }
+                    }
+                    collegeTotal = collegeTotal + diff;
+                }
+                collegeWiseNumbers.push({'value':collegeTotal,'name':colleges[i]});
+            }
+            yearWiseNumbers.push(collegeWiseNumbers);
+        }
+
+        var finalList = [];
+        for(var i=0; i<years.length; i++){
+            var branchWiseYearWise = [];
+            for(var j=0; j<branches.length; j++){
+                var total = 0;
+                for(var k=0; k<data.length; k++){
+                    if(data[k].year == years[i]){
+                        if(data[k].program == branches[j]){
+                            total += (data[k].closing_rank - data[k].opening_rank);
                         }
                     }
                 }
-                var avg1 = sum1/colleges.length;
-                avg1 = Math.round(avg1);
-                var avg2 = sum2/colleges.length;
-                avg2 = Math.round(avg2);
-                temp1.push(avg1);
-                temp2.push(avg2);
+                branchWiseYearWise.push({'value':total,'name':branches[j]});
             }
-            opening_ranks.push(temp1);
-            closing_ranks.push(temp2);
-        // }
-        console.log(opening_ranks);
+            finalList.push(branchWiseYearWise);
+        }
 
+        // console.log(finalList);
 
 
         var dom = document.getElementById("chart-container");
@@ -123,116 +161,95 @@
         });
 
 
-        var series1 = [];
-        colors = ['#ae1029','#0065c2','#26c238', '#9876aa', '#fb8649', 
-            '#57904b','#d35b5c'];
-        for (var i = 0; i < opening_ranks.length;i++) {
-            series1.push({
-                name:branches[i],
-                type: "line",
-                data: opening_ranks[i],
-                smooth: true, 
-                symbolSize: 3,
-                // color:colors[i],
-                // yAxisIndex: 0,
-            }
-            );
-        }
-        var series2 = [];
-        colors = ['#ae1029','#0065c2','#26c238', '#9876aa', '#fb8649', 
-            '#57904b','#d35b5c'];
-        for (var i = 0; i < closing_ranks.length;i++) {
-            series2.push(
-            {
-                name:branches[i],
-                type: "line",
-                data: closing_ranks[i],
-                smooth: true, 
-                symbolSize: 3,
-                // yAxisIndex: 1,
-            },
-            );
-        }
+        var series = [];
+        colors = ['#ae1029', '#0065c2', '#26c238', '#9876aa', '#fb8649',
+            '#57904b', '#d35b5c'];
 
-        // console.log(series);
-        var isClosing = 0;
-        var text = '';
-        if(isClosing){
-            text = 'Trend of Closing ranks over different years.'
-        }
-        else{
-            text = 'Trend of Opening ranks over different years.'
-        }
+        var option;
+
         option = {
-                title: {
-                    text: text,
-                    bottom:0,
-                    left:350,
-                    // bottom:'middle',
-                    textStyle: {
-                        fontSize: 20,
-                    },
-                }, 
-                tooltip: {
-                    trigger: "axis",
-                },
-                legend: {
-                    zLevel: 1,
-                    orient:'vertical',
-                    type:'scroll',
-                    top:25,
-                    // itemHeight:2,
-                }, 
-                series: series1,
-                grid: {
-                    left: "5%",
-                    right: "7%",
-                    bottom: "8%",
-                    containLabel: true,
-                },
-                toolbox: {
-                },
-                xAxis: {
-                    type: "category",
-                    boundaryGap: true,
-                    data: years,
-                    name:'Years',
-                },
-                yAxis: [
-                    {
-                        type: "value",
-                        boundaryGap:true,
-                        scale:true,
-                        name: isClosing ? 'Closing Ranks' : 'Opening Ranks',
-                    },
-                ]
-            }
-            if (option && typeof option === "object") {
-                        myChart.setOption(option);
-                }
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b}: ({d}%)'
+            },
+            legend: {
+                data: []
+            },
+            series: [
+                {
+                    name: 'Branch',
+                    type: 'pie',
+                    selectedMode: 'single',
+                    radius: [0, '30%'],
+                    label: {
+                        show:false,
+                        fontSize: 14,
+                        overflow: 'hidden',
 
-            function changeData(){
-                var isChecked = document.getElementById('flexSwitchCheckDefault').checked;
-                console.log(isChecked);
-                // var table = document.getElementById('data_table');
-                if(isChecked) {
-                    if (option && typeof option === "object") {
-                        option.series = series2;
-                        myChart.setOption(option);
-                    }
-                    // table.style.display = 'block';
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    data: finalList[0],
+                    // [
+                    //     { value: 1548, name: 'Search Engine' },
+                    //     { value: 775, name: 'Direct' },
+                    //     { value: 679, name: 'Marketing', selected: true }
+                    // ]
                 }
-                else{
-                    if (option && typeof option === "object") {
-                        option.series = series1;
-                        myChart.setOption(option);
-                    }
-                    // table.style.display = 'none';
+                ,
+                {
+                    name: 'College',
+                    type: 'pie',
+                    radius: ['45%', '60%'],
+                    labelLine: {
+                        length: 45,
+                    },
+                    label: {
+                        formatter: '{a|{a}}{abg|}\n{hr|}\n{b|{b}：}{per|{d}%}  ',
+                        backgroundColor: '#F6F8FC',
+                        borderColor: '#8C8D8E',
+                        fontSize :14,
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        rich: {
+                            a: {
+                                color: '#6E7079',
+                                lineHeight: 27,
+                                align: 'center',
+                            },
+                            hr: {
+                                borderColor: '#8C8D8E',
+                                width: '100%',
+                                borderWidth: 1,
+                                height: 0,
+                            },
+                            b: {
+                                color: '#4C5058',
+                                fontWeight: 'bold',
+                                lineHeight: 35,
+                                padding:[3,4]
+                            },
+                            per: {
+                                color: '#fff',
+                                backgroundColor: '#4C5058',
+                                padding: [3, 4],
+                                borderRadius: 4,
+                            }
+                        }
+                    },
+                    data:yearWiseNumbers[0],
                 }
-            }
-            window.addEventListener("resize", myChart.resize);
-        
+            ]
+        };
+
+        if (option && typeof option === "object") {
+            myChart.setOption(option);
+        }
+        window.addEventListener("resize", myChart.resize);
+
 
     </script>
 </body>
+
 </html>
