@@ -2,7 +2,8 @@ from django.shortcuts import render, HttpResponse
 from .models import data
 import json
 from django.core.serializers import serialize
-from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS,YEARS
+from django.db.models import Max
+from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS
 # Create your views here.
 from django.db.models import Avg
 from django.core.paginator import Paginator
@@ -248,6 +249,32 @@ def dig_q1(request):
 
     return render(request, 'main/digvijay_q1.html',context)
 
+def dev_q3(request):
+    filtered_data = data.objects.filter(roundNo='6')
+
+    seat_types = ['OPEN','EWS','SC','ST','OBC-NCL']
+    result = []
+
+    for seat_type in seat_types:
+        for year in range(2000, 2024):  # Assuming the range of years you want to consider
+            max_closing_rank = filtered_data.filter(seat_type=seat_type, year=year).aggregate(Max('closing_rank'))
+            if max_closing_rank['closing_rank__max']:
+                obj = filtered_data.filter(seat_type=seat_type, year=year, closing_rank=max_closing_rank['closing_rank__max']).first()
+                result.append({
+                    'seat_type': obj.seat_type,
+                    'year': obj.year,
+                    'closing_rank': obj.closing_rank,
+                    'institute':obj.institute,
+                    # Add more fields if necessary
+                })
+
+    jsdata = json.dumps(result)
+    context = {
+        'alldata':result,
+        'jsdata':jsdata,
+    }
+    return render(request, 'main/dev_q3.html',context)
+
 def dig_q2(request):
     if request.method == 'POST':
         year = request.POST.get('year')
@@ -270,7 +297,7 @@ def dig_q2(request):
     context = {
         'alldata':filtered_data,
         'jsdata':jsdata,
-        'years':YEARS,
+        'years': year,
     }
 
     return render(request, 'main/digvijay_q2.html',context)

@@ -9,6 +9,7 @@ urlpatterns = [
     path('mohit-q1exp/',views.Moh_q1exp,name = 'Moh_q1exp'),
     path('mohit-q1exp2/',views.Moh_q1exp2,name = 'Moh_q1exp2'),
     path('mohit-q2',views.branch_popularity,name = 'Moh_q2'),
+    path('dev-q3',views.dev_q3,name = 'dev_q3'),
     path('dig-q2',views.dig_q2,name = 'dig_q2'),
     path('trendspecial', views.trendspecial, name='trendspeacial'),
     path('trenddual', views.trenddual, name='trenddual')
