@@ -3,7 +3,7 @@ from .models import data
 import json
 from django.core.serializers import serialize
 from django.db.models import Max
-from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS
+from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS,YEARS
 # Create your views here.
 from django.db.models import Avg
 from django.core.paginator import Paginator
@@ -248,6 +248,36 @@ def dig_q1(request):
     }
 
     return render(request, 'main/digvijay_q1.html',context)
+def sid_q1(request):
+    
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral') 
+    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':all_data,
+        'jsdata':jsdata,
+    }
+    return render(request,'main/siddhant_q1.html',context)
+def sid_q2(request):
+    colleges = [i[0] for i in IITS]  
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges) 
+    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata':all_data,
+        'jsdata':jsdata,
+    }
+    return render(request,'main/siddhant_q2.html',context)
+def sid_q3(request):
+    colleges = [i[0] for i in IITS]  
+    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
+    jsdata = all_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    jsdata = json.dumps(list(jsdata))
+    context = {
+        'alldata': all_data,
+        'jsdata': jsdata,
+    }
+    return render(request, 'main/siddhant_q3.html', context)
 
 def dev_q3(request):
     filtered_data = data.objects.filter(roundNo='6')
@@ -377,7 +407,7 @@ def Moh_q1(request):
         'old_iit_data': old_iit_json_data,
     }
 
-    return render(request, 'main/mohit_q1.html', context)
+    return render(request, 'main/Mohit_q1.html', context)
 
 def Moh_q1exp(request):
     new_iits = [
@@ -435,7 +465,7 @@ def Moh_q1exp(request):
         'institute_data': institute_data_json,
     }
 
-    return render(request, 'main/mohit_q1exp.html', context)
+    return render(request, 'main/Mohit_q1exp.html', context)
 
 
 def Moh_q1exp2(request):
@@ -489,7 +519,7 @@ def Moh_q1exp2(request):
         'institute_data': institute_data_json,
     }
 
-    return render(request, 'main/mohit_q1exp2.html', context)
+    return render(request, 'main/Mohit_q1exp2.html', context)
 
 
 

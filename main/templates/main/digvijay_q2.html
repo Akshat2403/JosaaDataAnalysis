@@ -1,10 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "main/base.html" %}
+
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>digvijay q1</title>
+    {% block title %}digvijay q2{% endblock %}
+    {% block additional_content %}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
@@ -25,9 +24,13 @@
             padding-left: 20px;
         }
     </style>
+    {% endblock %}
+
 </head>
 
 <body>
+    {% block content %}
+
     <h2>What is the distribution of top-ranking students across different colleges and branches?
     </h2>
     <form method="post">
@@ -250,6 +253,8 @@
 
 
     </script>
+    {% endblock %}
+
 </body>
 
 </html>
