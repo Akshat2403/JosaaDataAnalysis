@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Popularity among New IITS </title>
+ 
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+</head>
+<body>
+  <h1 style="padding-top: 10px;text-align:center;">What is the Popularity Variation among New IITs?
+  </h1>
+  <div id="graph-container" style="width: 80vw; height: 70vh;"></div>
+
+  <script>
+    // Create an ECharts instance
+    var myChart = echarts.init(document.getElementById('graph-container'));
+
+    
+    var instituteData = JSON.parse('{{ institute_data|escapejs }}');
+
+    
+    var years = instituteData[0].data.map(function(item) {
+      return item.year;
+    });
+
+    
+    var seriesData = instituteData.map(function(institute) {
+  var popularityData = institute.data.map(function(item) {
+    // Calculate popularity based on the inverse of closing rank and scale it to a range of 0 to 5
+    var popularity = 1 / item.avg_closing_rank;
+    var scaledPopularity = popularity * (5 / Math.max(...instituteData.map(i => Math.max(...i.data.map(d => 1 / d.avg_closing_rank)))));
+    return scaledPopularity;
+  });
+
+  return {
+    name: institute.name,
+    type: 'line',
+    data: popularityData
+  };
+});
+    
+    var option = {
+      legend: {
+        data: instituteData.map(function(institute) {
+          return institute.name;
+        }),
+        orient: 'vertical',
+        right: 0,
+        top: 'center'
+      },
+      xAxis: {
+        type: 'category',
+        data: years,
+        name: 'Years'
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Popularity'
+      },
+      series: seriesData
+    };
+
+    
+    myChart.setOption(option);
+  </script>
+</body>
+</html>
