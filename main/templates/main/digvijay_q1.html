@@ -11,7 +11,6 @@
 <!-- Include jQuery library -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-
 <!-- Include DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
@@ -28,7 +27,7 @@
             justify-content: center;
             padding-top: 2%;
             padding-bottom: 2%;
-            width: 70vw;
+            width: 90%;
             padding-left: 10%;
         }
         div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
@@ -39,9 +38,9 @@
             color: white !important;
         }
         
-        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
-            color: white !important;
-        }
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
+    color: white !important;
+}
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             border: 1px solid white !important;
             background: white !important;
@@ -207,10 +206,15 @@
 
 </div>
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js" async></script>
-    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
-    <script>
-        $(document).ready(function() {
+   
+      <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script> -->
+      <script>
+        jQuery.noConflict();
+        (function($) {
+          // Your DataTables initialization code here, using the `$` alias
           $('#data_table').DataTable({
+            // Configuration options
             paging: true, // Enable pagination
             lengthMenu: false,
             pageLength: 10,
@@ -220,11 +224,11 @@
                 info: "", // Display the total number of entries
                 infoEmpty: "", // Hide the information when no entries are available
                 infoFiltered: "" // Hide the filtered information
-            },
-            responsive: true 
+            }
           });
-        });
+        })(jQuery);
       </script>
+      
     <script>
         window.addEventListener('load', function() {
             var loadingScreen = document.getElementsByClassName('load')[0];
