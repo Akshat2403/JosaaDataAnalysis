@@ -11,6 +11,7 @@
 <!-- Include jQuery library -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <!-- Include DataTables JavaScript -->
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 
@@ -27,7 +28,7 @@
             justify-content: center;
             padding-top: 2%;
             padding-bottom: 2%;
-            width: 90%;
+            width: 70vw;
             padding-left: 10%;
         }
         div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
@@ -38,9 +39,9 @@
             color: white !important;
         }
         
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
-    color: white !important;
-}
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
+            color: white !important;
+        }
         .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             border: 1px solid white !important;
             background: white !important;
@@ -206,6 +207,7 @@
 
 </div>
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js" async></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
     <script>
         $(document).ready(function() {
           $('#data_table').DataTable({
@@ -218,7 +220,8 @@
                 info: "", // Display the total number of entries
                 infoEmpty: "", // Hide the information when no entries are available
                 infoFiltered: "" // Hide the filtered information
-            }
+            },
+            responsive: true 
           });
         });
       </script>
