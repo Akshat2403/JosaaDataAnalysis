@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "main/base.html" %}
+
 
 <head>
-  <meta charset="utf-8">
-  <title>Branch Popularity</title>
+    {% block title %}Branch Popularity{% endblock %}
+    {% block additional_content %}
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js" async></script>
-</head>
 <style>
   .pagination {
     display: flex;
@@ -57,7 +56,7 @@
     font-family: 'Courier New', Courier, monospace;
     display: flex;
     font-size: larger;
-    color: black;
+    color: white;
     text-align: center;
     align-items: center;
   }
@@ -115,13 +114,19 @@
   #fade {
     filter: blur(5px);
   }
+  
 </style>
+{% endblock %}
+</head>
+
 
 <body>
+  {% block content %}
+
   <div class="load"></div>
   <div id="fade">
     <div>
-      <h1 style="padding-top: 10px; text-align:center;">What is the Popularity Variation of Different branches?
+      <h1 style="padding-top: 10px; text-align:center; font-size: 5vh;">What is the Popularity Variation of Different branches?
       </h1>
     </div>
     <div id="graph-container" style="width: 80vw; height: 70vh; padding-top: 30px;"></div>
@@ -196,7 +201,10 @@
         },
         legend: {
           orient: 'vertical',
-          right: '-100vw'
+          right: '-100vw',
+          textStyle:{
+          color:'white'
+        }
         },
         xAxis: {
           type: 'category',
@@ -219,6 +227,8 @@
     console.log(years)
 
   </script>
+    {% endblock %}
+
 </body>
 
 </html>

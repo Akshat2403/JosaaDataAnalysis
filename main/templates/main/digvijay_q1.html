@@ -1,26 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "main/base.html" %}
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>digvijay q1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    {% block title %}digvijay q1{% endblock %}
+    {% block additional_content %}
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    <!-- Include DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+<!-- Include jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables JavaScript -->
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+
     <style>
-        table,
-        th,
-        tr,
-        td {
-            padding: 5px;
-            border: solid;
-            text-align: center;
+        div.dataTables_wrapper div.dataTables_filter{
+            color: white;
+
         }
+        div.dataTables_wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            width: 90%;
+            padding-left: 10%;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
+            color: white !important;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .paginate_button,.dataTables_wrapper .dataTables_paginate .paginate_button{
+            
+            color: white !important;
+        }
+        
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled{
+    color: white !important;
+}
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            border: 1px solid white !important;
+            background: white !important;
+            color: black !important;
+        }
+        .dataTables_wrapper .dataTables_length{
+            display: none;
+        }
+        div.dataTables_wrapper div.dataTables_filter{
+            padding-bottom: 2%;
+        }
+        
+        div.dataTables_wrapper div.dataTables_filter input {
+            background-color: #222;
+            color: #FFF;
+            border: 1px solid #FFF;
+            padding-bottom: 2%;
+            /* Add any other CSS styles as needed */
+        }
+
+        /* Customize pagination buttons */
+         .dark-table {
+                    background-color: #333;
+                    color: white;
+                    width: 70%;
+                    position: relative;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                .dark-table th,
+                .dark-table td {
+                    padding: 10px;
+                    border: 1px solid #555;
+                }
+
+                .dark-table th {
+                    background-color: #222;
+                }
+
+                .dark-table td{
+                    background-color: #222;
+                }
+
+                .dark-table tr:hover {
+                    background-color: #444;
+                }
         #chart-container {
-            position: relative;
-            height: 90vh;
-            width: 80%;
-            overflow: hidden;
-            }
-            #chart-container {
             position: relative;
             height: 90vh;
             width: 80%;
@@ -70,8 +138,27 @@
             filter: blur(5px);
         }
     </style>
+    {% endblock %}
+    <style>
+    .dataTables_filter input {
+        /* Customize the search input styles */
+        background-color: #000;
+        color: #FFF;
+        /* Add any other CSS styles as needed */
+      }
+      
+      .dataTables_paginate .paginate_button {
+        /* Customize the pagination button styles */
+        background-color: #000;
+        color: #FFF;
+        /* Add any other CSS styles as needed */
+      }
+    </style>
+
 </head>
 <body>
+    {% block content %}
+
     <div class="load"></div>
     <div id="fade">
         <h2> What is the trend in the opening and closing ranks for popular branches?</h2>
@@ -81,38 +168,60 @@
     </div>
     <div id="chart-container"></div>
 
-    <table id="data_table">
-        <tr>
-            <th>SI No</th>
-            <th>Institute Name</th>
-            <th>Institute Type</th>
-            <th>Program</th>
-            <th>Seat Type</th>
-            <th>Gender</th>
-            <th>Opening Rank</th>
-            <th>Closing Rank</th>
-            <th>Year</th>
-            <th>Round No</th>
-        </tr>
-        {% for data in alldata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{data.institute}}</td>
-            <td>{{data.institute_type}}</td>
-            <td>{{data.program}}</td>
-            <td>{{data.seat_type}}</td>
-            <td>{{data.gender}}</td>
-            <td>{{data.opening_rank}}</td>
-            <td>{{data.closing_rank}}</td>
-            <td>{{data.year}}</td>
-            <td>{{data.roundNo}}</td>
-        </tr>
-        {% endfor %}
-    </table>
+<div>
+<table id="data_table" class="dark-table">
+    <thead>
+      <tr>
+        <th>SI No</th>
+        <th>Institute Name</th>
+        <th>Institute Type</th>
+        <th>Program</th>
+        <th>Seat Type</th>
+        <th>Gender</th>
+        <th>Opening Rank</th>
+        <th>Closing Rank</th>
+        <th>Year</th>
+        <th>Round No</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for data in alldata %}
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{data.institute}}</td>
+        <td>{{data.institute_type}}</td>
+        <td>{{data.program}}</td>
+        <td>{{data.seat_type}}</td>
+        <td>{{data.gender}}</td>
+        <td>{{data.opening_rank}}</td>
+        <td>{{data.closing_rank}}</td>
+        <td>{{data.year}}</td>
+        <td>{{data.roundNo}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>       
+      
 
 </div>
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js" async></script>
-
+    <script>
+        $(document).ready(function() {
+          $('#data_table').DataTable({
+            paging: true, // Enable pagination
+            lengthMenu: false,
+            pageLength: 10,
+            searching: true, // Enable search functionality
+            ordering: true, // Enable column sorting
+            language: {
+                info: "", // Display the total number of entries
+                infoEmpty: "", // Hide the information when no entries are available
+                infoFiltered: "" // Hide the filtered information
+            }
+          });
+        });
+      </script>
     <script>
         window.addEventListener('load', function() {
             var loadingScreen = document.getElementsByClassName('load')[0];
@@ -292,5 +401,7 @@
         
 
     </script>
+    {% endblock %}
+
 </body>
 </html>

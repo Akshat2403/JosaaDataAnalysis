@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+{% extends "main/base.html" %}
 {% load static %}
 <html lang="en">
     <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        {% block additional_content %}
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <title>All Dats</title>
+        {% block title %}All data{% endblock %}
+
         <style>
             table,
             th,
@@ -24,8 +24,12 @@
             overflow: hidden;
             }
         </style>
+    {% endblock %}
+
     </head>
     <body>
+    {% block content %}
+
         <form method="post">
 {% csrf_token %}
         <div style="padding: 20px;">
@@ -246,6 +250,7 @@
 
             window.addEventListener("resize", myChart.resize);
         </script>
+    {% endblock %}
 
     </body>
 </html>
