@@ -6,10 +6,10 @@
 
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
 </head>
-<body>
+<body style="background-color: rgb(31, 41, 55); color: white;">
   <h1 style="padding-top: 10px;text-align:center;">What is the Popularity Variation among Old IITs?
   </h1>
-  <div id="graph-container" style="width: 80vw; height: 70vh;"></div>
+  <div id="graph-container" style="width: 80vw; height: 70vh; "></div>
 
   <script>
     // Create an ECharts instance
@@ -44,7 +44,10 @@
         }),
         orient: 'vertical',
         right: 10,
-        top: 'center'
+        top: 'center',
+        textStyle: {
+            color: 'white'
+        }
       },
       xAxis: {
         type: 'category',

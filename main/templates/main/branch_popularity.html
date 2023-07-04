@@ -56,15 +56,15 @@
      font-family: 'Courier New', Courier, monospace;
      display: flex;
      font-size: larger;
-     color: black;
+     color: white;
      text-align: center;
      align-items: center;
   }
   </style>
   
-<body>
+<body style="background-color: rgb(31, 41, 55); color: white;">
     <div>
-    <h1 style="padding-top: 10px; text-align:center;">What is the Popularity Variation of Different branches?
+    <h1 style="padding-top: 10px; text-align:center; color: white;">What is the Popularity Variation of Different branches?
     </h1>
     </div>
   <div id="graph-container" style="width: 80vw; height: 70vh; padding-top: 30px;"></div>
@@ -140,7 +140,10 @@
                 },
                 legend: {
                     orient:'vertical',
-                    right:'-100vw'
+                    right:'-100vw',
+                    textStyle: {
+                      color: 'white'
+                  }
                 }, 
       xAxis: {
         type: 'category',
