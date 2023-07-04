@@ -334,6 +334,12 @@ def dig_q2(request):
             'branches':BRANCHES,
             'seat_types':SEAT_TYPES,
             'genders':GENDERS,
+            'isCollegeNeeded':"False",
+            'isBranchNeeded':"False",
+            'isSeatTypeNeeded':"False",
+            'isGenderNeeded':"False",
+            'isYearNeeded':"True",
+
         }
         return render(request, 'main/digvijay_q2.html',context)
 
@@ -350,6 +356,11 @@ def dig_q2(request):
         'branches':BRANCHES,
         'seat_types':SEAT_TYPES,
         'genders':GENDERS,
+        'isCollegeNeeded':"False",
+        'isBranchNeeded':"False",
+        'isSeatTypeNeeded':"False",
+        'isGenderNeeded':"False",
+        'isYearNeeded':"True",
     }
 
     return render(request, 'main/digvijay_q2.html',context)

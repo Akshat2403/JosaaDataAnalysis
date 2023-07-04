@@ -386,7 +386,7 @@
                             </div>
                         </div>
                         <div id="accordion-flush">
-
+                            {% if isCollegeNeeded == "True" %}
                             <h2 id="category-heading" class="flex items-center justify-between text-white dark:text-white focus:outline-none py-2 ">
                                     <span>College</span>
                             </h2>
@@ -399,8 +399,9 @@
                                     {% endfor %}
                                 </select>
                             </div>
-
+                            {% endif %}
                             <!-- Branch -->
+                            {% if isBranchNeeded == "True" %}
                             <h2 id="price-heading" class=" dark:bg-white text-white dark:text-white rounded-lg py-2  flex items-center focus:outline-none">
                                     <span>Branch</span>
                             </h2>
@@ -412,8 +413,10 @@
                                     {% endfor %}
                                 </select>
                             </div>
-
+                            {% endif %}
                             <!-- Seat  Type-->
+                            {% if isSeatTypeNeeded == "True" %}
+
                             <h2 id="worldwide-shipping-heading" class="dark:bg-gray-400 text-white dark:text-white rounded-lg  py-2 flex items-center focus:outline-none">
                                     <span>Seat Type</span></h2>
                             <div class="multiSelect">
@@ -423,8 +426,9 @@
                                     {% endfor %}
                                 </select>
                             </div>
-                            
+                            {% endif %}
                             <!-- Year -->
+                            {% if isYearNeeded == "True" %}
                             <h2 id="year-heading" class="dark:bg-gray-400 text-white dark:text-white rounded-lg  py-2 flex items-center focus:outline-none">
                                     <span> Year</span>
                             </h2>
@@ -438,8 +442,10 @@
                                     {% endfor %}
                                 </select>
                             </div>
+                            {% endif %}
 
                             <!-- gender -->
+                            {% if isGenderNeeded == "True" %}
                             <h2 id="gender-heading" class="flex items-center space-x-1 text-white dark:text-white py-2">
                                     <span class="">Gender</span>
                             </h2>
@@ -450,6 +456,7 @@
                                     {% endfor %}
                                 </select>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -461,7 +468,7 @@
 
         <div class="chart-container">
             {% block content %}
-            <div class="container">
+            <!-- <div class="container">
                 <div class="box">
                     <h2>Box 1</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -516,7 +523,7 @@
                     <h2>Box 3</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
-            </div>
+            </div> -->
             {% endblock %}
         </div>
 
