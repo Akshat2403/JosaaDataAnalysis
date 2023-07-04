@@ -232,22 +232,29 @@ def trendspecial(request):
 
 
 def dig_q1(request):
+
     popular_branches = [
         'Computer Science and Engineering (4 Years Bachelor of Technology)',
         'Electrical Engineering (4 Years Bachelor of Technology)',
         'Mechanical Engineering (4 Years Bachelor of Technology)',
         'Mathematics and Computing (4 Years Bachelor of Technology)',
-        ]
-    filtered_data = data.objects.filter(roundNo='6',seat_type='OPEN',gender='Gender-Neutral',program__in=popular_branches)
+    ]
 
-    jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
-    jsdata = json.dumps(list(jsdata))
+    filtered_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
+    filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
+    jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
+    jsdata = json.dumps(jsdata)
+
     context = {
-        'alldata':filtered_data,
-        'jsdata':jsdata,
+        'alldata': filtered_data,
+        'jsdata': jsdata,
     }
 
-    return render(request, 'main/digvijay_q1.html',context)
+    return render(request, 'main/digvijay_q1.html', context)
+
+
+
 def sid_q1(request):
     
     all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral') 
