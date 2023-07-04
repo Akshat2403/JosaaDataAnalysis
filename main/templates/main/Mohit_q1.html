@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html>
+{% extends "main/base.html" %}
 <head>
-  <meta charset="utf-8">
-  <title>OLD vs NEW</title>
 
+  {% block title %}OLD vs NEW{% endblock %}
+  {% block additional_content %}
   <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-</head>
+
 <style>
   .custom-button {
   background-color: #4CAF50;
@@ -25,7 +24,10 @@
 }
 
 </style>
+{% endblock %}
+</head>
 <body>
+  {% block content %}
   <h1 style="padding-top: 10px;text-align:center;">What is the Popularity Variation between New and Old IITs?
   </h1>
   <div id="graph-container" style="width:80vw; height: 70vh;"></div>
@@ -97,5 +99,6 @@
 
     myChart.setOption(option);
   </script>
+{% endblock %}
+
 </body>
-</html>

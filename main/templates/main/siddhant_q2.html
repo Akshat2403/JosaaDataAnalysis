@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "main/base.html" %}
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>siddhant q2</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    {% block title %}siddhant q2{% endblock %}
+    {% block additional_content %}
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
     <style>
+        body{
+            background-color:rgb(31, 41, 55);
+        }
         table,
         th,
         tr,
@@ -17,12 +20,14 @@
         #chart-container {
             position: relative;
             height: 90vh;
-            width: 80%;
+            width: 100%;
             overflow: hidden;
             }
     </style>
+    {% endblock %}
 </head>
 <body>
+    {% block content %}
     <h2> What is the average rank difference between opening and closing rank of each branch?</h2>
     <div id="chart-container"></div>
 
@@ -155,6 +160,7 @@
                 left: 350,
                 textStyle: {
                     fontSize: 20,
+                    color:'white',
                 },
             },
             tooltip: {
@@ -165,6 +171,9 @@
                 orient: "vertical",
                 type: "scroll",
                 top: 25,
+                textStyle:{
+                    color:'white',
+                }
             },
             series: series1,
             grid: {
@@ -181,7 +190,8 @@
                 name: "Branches",
                 axisLabel: {
         fontSize:10,
-        rotate:30 
+        rotate:30 ,
+        color:'white',
     },
       
             },
@@ -200,6 +210,6 @@
     
        
     </script>
-    
+    {% endblock %}
 </body>
-</html>
+

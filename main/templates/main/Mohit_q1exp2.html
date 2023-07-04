@@ -1,12 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Popularity among OLD IITS</title>
+{% extends "main/base.html" %}
 
-  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+
+<head>
+    {% block title %}Popularity among OLD IITS{% endblock %}
+    {% block additional_content %}
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+    {% endblock %}
 </head>
 <body>
+  {% block content %}
+
   <h1 style="padding-top: 10px;text-align:center;">What is the Popularity Variation among Old IITs?
   </h1>
   <div id="graph-container" style="width: 80vw; height: 70vh;"></div>
@@ -44,7 +47,10 @@
         }),
         orient: 'vertical',
         right: 10,
-        top: 'center'
+        top: 'center',
+        textStyle:{
+          color:'white'
+        }
       },
       xAxis: {
         type: 'category',
@@ -62,5 +68,7 @@
 
     myChart.setOption(option);
   </script>
+    {% endblock %}
+
 </body>
 </html>

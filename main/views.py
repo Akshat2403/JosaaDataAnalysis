@@ -407,7 +407,7 @@ def Moh_q1(request):
         'old_iit_data': old_iit_json_data,
     }
 
-    return render(request, 'main/mohit_q1.html', context)
+    return render(request, 'main/Mohit_q1.html', context)
 
 def Moh_q1exp(request):
     new_iits = [
@@ -465,7 +465,7 @@ def Moh_q1exp(request):
         'institute_data': institute_data_json,
     }
 
-    return render(request, 'main/mohit_q1exp.html', context)
+    return render(request, 'main/Mohit_q1exp.html', context)
 
 
 def Moh_q1exp2(request):
@@ -519,7 +519,7 @@ def Moh_q1exp2(request):
         'institute_data': institute_data_json,
     }
 
-    return render(request, 'main/mohit_q1exp2.html', context)
+    return render(request, 'main/Mohit_q1exp2.html', context)
 
 
 

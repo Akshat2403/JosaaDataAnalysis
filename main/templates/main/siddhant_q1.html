@@ -1,35 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "main/base.html" %}
+
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>siddhant q1</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    {% block title %}siddhant q3{% endblock %}
+    {% block additional_content %}
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
     <style>
-        table,
-        th,
-        tr,
-        td {
-            padding: 5px;
-            border: solid;
-            text-align: center;
+        body{
+            background-color:rgb(31, 41, 55);
         }
+      
         #chart-container {
             position: relative;
             height: 90vh;
-            width: 80%;
+            width: 100%;
             overflow: hidden;
             }
     </style>
+    {% endblock %}
 </head>
+   
+
 <body>
-    <h2> How does the popularity of non-engineering courses (such as B.Arch, B.Des, etc.) compare to traditional engineering branches?</h2>
+    {% block content %}
+
+    <h2> How does the popularity of non-engineering courses (such as B.Arch, B.Sc, etc.) compare to traditional engineering branches?</h2>
     <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" onchange=changeData() id="flexSwitchCheckDefault">
     <label class="form-check-label" for="flexSwitchCheckDefault">Closing Rank </label>
     </div>
     <div id="chart-container"></div>
-
+    
     <table id="data_table">
         <tr>
             <th>SI No</th>
@@ -58,6 +59,9 @@
         </tr>
         {% endfor %}
     </table>
+    
+
+    
 
 
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
@@ -229,6 +233,7 @@
             left: 350,
             textStyle: {
                 fontSize: 20,
+                color:'white',
             },
         },
         tooltip: {
@@ -239,6 +244,10 @@
             orient: 'vertical',
             type: 'scroll',
             top: 25,
+            textStyle: {
+            color: 'white'
+        }
+            
         },
         series: mergedSeries,
         grid: {
@@ -253,6 +262,10 @@
             boundaryGap: true,
             data: years,
             name: 'Years',
+            textStyle:{
+                color:'white',
+            }
+            
         },
         yAxis: [{
             type: "value",
@@ -289,5 +302,6 @@
         
 
     </script>
+    {% endblock %}
 </body>
-</html>
+

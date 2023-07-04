@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
-    <title>Base</title>
+    <title>{% block title %}Base{% endblock %}</title>
     <style>
         body {
             margin: 0;
@@ -35,6 +35,36 @@
             display: flex;
             font-size: 1.3vw;
             align-items: center;
+        }
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .box {
+            width: calc(33.33% - 20px);
+            background-color: rgb(55, 65, 81);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Adjust the box width for smaller screens */
+        @media (max-width: 767px) {
+            .box {
+                width: calc(50% - 20px);
+            }
+        }
+
+        /* Adjust the box width for mobile screens */
+        @media (max-width: 479px) {
+            .box {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -238,10 +268,74 @@
                 </div>
             </div>
         </div>
+        {% block additional_content %}
+        {% endblock %}    
+          
         <div class="chart-container">
-            <div>?main question</div>
+            {% block content %}
+            <div class="container">
+                <div class="box">
+                    <h2>Box 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 3</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="box">
+                    <h2>Box 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 3</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="box">
+                    <h2>Box 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 3</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            <div class="container">
+                <div class="box">
+                    <h2>Box 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 3</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+            {% endblock %}
         </div>
+        
+
+        
     </div>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
 
 </body>
