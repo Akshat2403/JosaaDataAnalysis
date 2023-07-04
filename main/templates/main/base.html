@@ -23,14 +23,16 @@
             flex: 0.5;
             /* width: 20%; */
             border-right: solid rgb(38, 44, 55);
-            /* height: 100vh; */
-            background-color: rgb(55, 65, 81);
+            height: 100vh;
+            /* background-color: rgb(55, 65, 81); */
             padding: 1vw;
         }
 
         .chart-container {
             flex: 2;
-            background-color: rgb(31, 41, 55);
+            padding-left: 27vw;
+            padding-top: 6vw;
+            /* background-color: rgb(31, 41, 55); */
         }
 
         .go-back-btn {
@@ -360,9 +362,10 @@
 
 </head>
 
-<body>
-    <div class="main-container">
-        <div class="side-bar">
+<body class="bg-white dark:bg-gray-900">
+    {% include 'main/navbar.html' %}
+    <div class="main-container bg-white dark:bg-gray-900">
+        <div class="side-bar bg-white fixed top-60 dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
             <div class="go-back-btn">
                 <svg height="2.5vw" id="Layer_1" style="enable-background: new 0 0 512 512; color: white" version="1.1"
                     viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
@@ -378,15 +381,15 @@
                     <!-- Dropdown menu -->
                     <div id="dropdown" class="inset-0 mx-auto mt-2  p-4 bg-dark shadow-lg rounded-lg z-10">
                         <div class="mb-4">
-                            <h6 class="text-lg font-bold mb-2">Filters</h6>
-                            <div class="flex space-x-4">
-                                <input type="submit" class="text-primary-600 dark:text-primary-500" value="Apply Filter">
-                                <input type="button" id="clearButton" class="text-primary-600 dark:text-primary-500" value="Clear Selections">
+                            <h6 class="text-lg font-bold mb-2 text-gray-900 dark:text-white">Filters</h6>
+                            <div class="flex space-x-4">    
+                                <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Apply Filter</button>
+                                <button id="clearButton" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Clear Selections</button>
                             </div>
                         </div>
                         <div id="accordion-flush">
                             {% if isCollegeNeeded == "True" %}
-                            <h2 id="category-heading" class="flex items-center justify-between text-white dark:text-white focus:outline-none py-2 ">
+                            <h2 id="category-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
                                     <span>College</span>
                             </h2>
 
@@ -401,7 +404,7 @@
                             {% endif %}
                             <!-- Branch -->
                             {% if isBranchNeeded == "True" %}
-                            <h2 id="price-heading" class=" dark:bg-white text-white dark:text-white rounded-lg py-2  flex items-center focus:outline-none">
+                            <h2 id="price-heading" class=" flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
                                     <span>Branch</span>
                             </h2>
 
@@ -416,7 +419,7 @@
                             <!-- Seat  Type-->
                             {% if isSeatTypeNeeded == "True" %}
 
-                            <h2 id="worldwide-shipping-heading" class="dark:bg-gray-400 text-white dark:text-white rounded-lg  py-2 flex items-center focus:outline-none">
+                            <h2 id="worldwide-shipping-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
                                     <span>Seat Type</span></h2>
                             <div class="multiSelect">
                                 <select class="multiSelect_field" data-placeholder="Select Seat Type" name="seat_type" multiple>
@@ -428,7 +431,7 @@
                             {% endif %}
                             <!-- Year -->
                             {% if isYearNeeded == "True" %}
-                            <h2 id="year-heading" class="dark:bg-gray-400 text-white dark:text-white rounded-lg  py-2 flex items-center focus:outline-none">
+                            <h2 id="year-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
                                     <span> Year</span>
                             </h2>
 
@@ -445,7 +448,7 @@
 
                             <!-- gender -->
                             {% if isGenderNeeded == "True" %}
-                            <h2 id="gender-heading" class="flex items-center space-x-1 text-white dark:text-white py-2">
+                            <h2 id="gender-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
                                     <span class="">Gender</span>
                             </h2>
                             <div class="multiSelect">
@@ -467,62 +470,6 @@
 
         <div class="chart-container">
             {% block content %}
-            <div class="container">
-                <div class="box">
-                    <h2>Box 1</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 2</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 3</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="box">
-                    <h2>Box 1</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 2</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 3</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="box">
-                    <h2>Box 1</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 2</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 3</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="box">
-                    <h2>Box 1</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 2</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 3</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
             {% endblock %}
         </div>
 

@@ -14,23 +14,20 @@
         }
 
         #chart-container {
-            /* position: absolute; */
             height: 100vh;
             width: 100%;
-            transform: scale(0.8);
-            /* overflow: hidden; */
-            /* padding-left: 20px; */
+            
         }
     </style>
     {% endblock %}
 </head>
 
     {% block content %}
-    <h2>What is the distribution of top-ranking students across different colleges and branches?
+    <h2 class="text-gray-900 dark:text-white">What is the distribution of top-ranking students across different colleges and branches?
     </h2>
     <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" onchange=showTable() id="flexSwitchCheckDefault">
-        <label class="form-check-label" for="flexSwitchCheckDefault">Show Table</label>
+        <label class="form-check-label text-gray-900 dark:text-white" for="flexSwitchCheckDefault">Show Table</label>
       </div>
     <div id="chart-container"></div>
 
@@ -150,7 +147,7 @@
 
 
         var dom = document.getElementById("chart-container");
-        var myChart = echarts.init(dom, null, 'dark', {
+        var myChart = echarts.init(dom, null, {
             renderer: "canvas",
             useDirtyRect: false,
         });
