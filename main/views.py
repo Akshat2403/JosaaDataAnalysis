@@ -315,7 +315,14 @@ def dev_q3(request):
 def dig_q2(request):
     if request.method == 'POST':
         year = request.POST.get('year')
-        print(year)
+        gender = request.POST.get('gender')
+        college = request.POST.getlist('college')
+        branch = request.POST.getlist('branch')
+        seat_type = request.POST.getlist('seat_types')
+
+        # for option in college:
+        #     print(option)
+        print(college)
         filtered_data = data.objects.filter(year=(year),roundNo='6',seat_type='OPEN',gender='Gender-Neutral',closing_rank__lt = '1000',program__contains='4').filter(program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
         jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
         jsdata = json.dumps(list(jsdata))
@@ -323,6 +330,16 @@ def dig_q2(request):
             'alldata':filtered_data,
             'jsdata':jsdata,
             'years':YEARS,
+            'colleges':IITS,
+            'branches':BRANCHES,
+            'seat_types':SEAT_TYPES,
+            'genders':GENDERS,
+            'isCollegeNeeded':"False",
+            'isBranchNeeded':"False",
+            'isSeatTypeNeeded':"False",
+            'isGenderNeeded':"False",
+            'isYearNeeded':"True",
+
         }
         return render(request, 'main/digvijay_q2.html',context)
 
@@ -334,7 +351,16 @@ def dig_q2(request):
     context = {
         'alldata':filtered_data,
         'jsdata':jsdata,
-        'years': year,
+        'years': YEARS,
+        'colleges':IITS,
+        'branches':BRANCHES,
+        'seat_types':SEAT_TYPES,
+        'genders':GENDERS,
+        'isCollegeNeeded':"False",
+        'isBranchNeeded':"False",
+        'isSeatTypeNeeded':"False",
+        'isGenderNeeded':"False",
+        'isYearNeeded':"True",
     }
 
     return render(request, 'main/digvijay_q2.html',context)
