@@ -8,6 +8,9 @@ from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS,YEARS
 from django.db.models import Avg
 from django.core.paginator import Paginator
 
+def dashboard(request):
+    return render(request, 'main/dashboard.html')
+
 def base(request):
     context={
         'colleges':IITS,
@@ -319,10 +322,14 @@ def dig_q2(request):
         college = request.POST.getlist('college')
         branch = request.POST.getlist('branch')
         seat_type = request.POST.getlist('seat_types')
+        if(year == None):
+            year = 2016
+        
+        print(year)
 
         # for option in college:
         #     print(option)
-        print(college)
+        # print(college)
         filtered_data = data.objects.filter(year=(year),roundNo='6',seat_type='OPEN',gender='Gender-Neutral',closing_rank__lt = '1000',program__contains='4').filter(program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
         jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
         jsdata = json.dumps(list(jsdata))

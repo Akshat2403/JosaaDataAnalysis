@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="multiselect/jquery.multiselect.css">
     <title>{% block title %}Base{% endblock %}</title>
     {% block additional_content %}
     {% endblock %}
@@ -381,7 +380,7 @@
                         <div class="mb-4">
                             <h6 class="text-lg font-bold mb-2">Filters</h6>
                             <div class="flex space-x-4">
-                                <input type="submit" class="text-primary-600 dark:text-primary-500" value="Save view">
+                                <input type="submit" class="text-primary-600 dark:text-primary-500" value="Apply Filter">
                                 <input type="button" id="clearButton" class="text-primary-600 dark:text-primary-500" value="Clear Selections">
                             </div>
                         </div>
@@ -436,7 +435,7 @@
 
                             <div>
                                 <select data-placeholder="Select Year" class="year_dropdown" name="year">
-                                    <option value="" selected disabled >Select Year</option>
+                                    <option value='0' selected disabled >Select Year</option>
                                     {% for yr in years %}
                                     <option value="{{yr.0}}">{{yr.1}}</option>
                                     {% endfor %}
@@ -468,20 +467,6 @@
 
         <div class="chart-container">
             {% block content %}
-            <!-- <div class="container">
-                <div class="box">
-                    <h2>Box 1</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 2</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-                <div class="box">
-                    <h2>Box 3</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
             <div class="container">
                 <div class="box">
                     <h2>Box 1</h2>
@@ -523,7 +508,21 @@
                     <h2>Box 3</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
-            </div> -->
+            </div>
+            <div class="container">
+                <div class="box">
+                    <h2>Box 1</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 2</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="box">
+                    <h2>Box 3</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
             {% endblock %}
         </div>
 
