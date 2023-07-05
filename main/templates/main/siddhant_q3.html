@@ -94,7 +94,7 @@
             }
     
             var rank_avg = ((avg2 + avg1)/2)/years.length;
-            rank_average.push(rank_avg);
+            rank_average.push(Math.round(rank_avg));
         }
         for (var k = 0; k < other_branches.length; k++) {
             var avg1=0;
@@ -121,7 +121,7 @@
             
         }
         var labels=[];
-        rank_average.push(rank_avgSum/other_branches.length);
+        rank_average.push(Math.round(rank_avgSum/other_branches.length));
         branches.push("Other Branches",other_branches);
         labels.push[0];
         labels=['CL(B.Tech)','CH(BS)','CE(B.Tech)','CSE(B.Tech)','EE(B.Tech)','ECE(M.Tech)','EE(M.Tech)','ERE(M.Tech)','EP(B.Tech)','EP(M.Tech)','ME(B.Tech)','ME(M.Tech)','MSE(B.Tech)','MSE&CR(M.Tech)','MSE&MP(M.Tech)','Others']
