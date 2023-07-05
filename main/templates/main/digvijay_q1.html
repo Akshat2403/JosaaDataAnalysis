@@ -291,15 +291,17 @@
                         fontSize: 20,
                     },
                 }, 
+                darkMode: true,
                 tooltip: {
                     trigger: "axis",
                 },
                 legend: {
-                    zLevel: 1,
-                    orient:'vertical',
+                    show:true,
                     type:'scroll',
-                    top:25,
-                    // itemHeight:2,
+                    orient: "horizontal",
+                    height: 100,
+                    top: 0,
+                    data:branches,
                 }, 
                 series: series1,
                 grid: {
