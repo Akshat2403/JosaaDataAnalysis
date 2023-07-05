@@ -1,52 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css" rel="stylesheet" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.css"
+      rel="stylesheet"
+    />
     <title>Document</title>
-</head>
+  </head>
 
-<body class="bg-white dark:bg-gray-900">
-
-      {% include 'main/navbar.html' %}
+  <body class="bg-white dark:bg-gray-900">
+    {% include 'main/navbar.html' %}
 
     <div class="pt-20">
-        <div class="container mx-auto px-4 py-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                <div
-                    class="h-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="h-auto mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Just Want to filter data of your choice ?
-                    </h5>
-                    <p class="h-auto mb-3 font-normal text-gray-700 dark:text-gray-400">Customize your data exploration experience! Unleash the power to filter data of your choice, unlocking insights tailored to your specific interests. Dive deep into the details that matter to you and unravel hidden patterns with precision. It's time to take control and uncover the answers you seek.
-                    </p>
-                    <a href="{% url 'filter' %}"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-auto">
-                        Click to know more  
-                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
-                </div>
-                <div
-                    class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What is the Popularity Variation between New and Old IITs?
-                    </h5>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"> Unveil the intriguing popularity variation between the esteemed New and Old IITs. Explore how the preferences of students have shifted over time, offering valuable insights into the reputation and desirability of these premier institutions. Dive into the contrasting dynamics and make informed decisions based on this analysis.
-                    </p>
-                    <a href="{% url 'Moh_q1' %}"
-                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Click to know more
-                        <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M1 5h12m0 0L9 1m4 4L9 9" />
-                        </svg>
-                    </a>
-                </div>
+      <div class="container mx-auto px-4 py-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+          <div
+            class="h-auto max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
+            <h5
+              class="h-auto mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              Just Want to filter data of your choice ?
+            </h5>
+            <p class="h-auto mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Customize your data exploration experience! Unleash the power to
+              filter data of your choice, unlocking insights tailored to your
+              specific interests. Dive deep into the details that matter to you
+              and unravel hidden patterns with precision. It's time to take
+              control and uncover the answers you seek.
+            </p>
+            <a
+              href="{% url 'filter' %}"
+              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 h-auto"
+            >
+              Click to know more
+              <svg
+                class="w-3.5 h-3.5 ml-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </a>
+          </div>
+          <div
+            class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+          >
+            <h5
+              class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+            >
+              What is the Popularity Variation between New and Old IITs?
+            </h5>
+            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
+              Unveil the intriguing popularity variation between the esteemed
+              New and Old IITs. Explore how the preferences of students have
+              shifted over time, offering valuable insights into the reputation
+              and desirability of these premier institutions. Dive into the
+              contrasting dynamics and make informed decisions based on this
+              analysis.
+            </p>
+            <a
+              href="{% url 'Moh_q1' %}"
+              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Click to know more
+              <svg
+                class="w-3.5 h-3.5 ml-2"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 14 10"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M1 5h12m0 0L9 1m4 4L9 9"
+                />
+              </svg>
+            </a>
+          </div>
 
                 <div
                     class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -195,9 +239,9 @@
 
             </div>
         </div>
-
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
-</body>
+  </body>
 </html>

@@ -9,6 +9,8 @@
 </head>
 <body style="background-color: rgb(31, 41, 55); color: white;">
   {% block content %}
+  <h1 style="padding-top: 10px;text-align:center; font-size: max(3vh,2vw); color: gray;">Popularity Variation among Old IITs?
+  </h1>
   <div id="graph-container" style="width: 80vw; height: 70vh; "></div>
 
   <script>
@@ -38,13 +40,15 @@
 });
 
     var option = {
+      textStyle:{ color: 'gray',
+      fontWeight:'600'},
       legend: {
         type:'scroll',
         height:'70',
         orient: 'vertical',
         right: 'center',
         textStyle:{
-          color:'white',
+          color:'#777',
       },      
       },
       xAxis: {
@@ -55,8 +59,6 @@
       yAxis: {
         type: 'value',
         name: 'Popularity',
-        min: 0,
-        max: 5
       },
       series: seriesData
     };
