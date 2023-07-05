@@ -38,6 +38,44 @@ def upload_csv(request):
     return render(request, 'main/upload.html')
 
 
+def filter(request):
+    alldata = data.objects.all()[:50]
+    if request.method == 'POST':
+        year = request.POST.get('year')
+        gender = request.POST.getlist('gender')
+        college = request.POST.getlist('college')
+        branch = request.POST.getlist('branch')
+        seat_type = request.POST.getlist('seat_type')
+        alldata = data.objects.filter(institute__in=college,program__in=branch,seat_type__in=seat_type,year=year,gender__in=gender)
+        context = {
+            'alldata':alldata,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
+            'years':YEARS,
+            'isCollegeNeeded':"True",
+            'isBranchNeeded':"True",
+            'isSeatTypeNeeded':"True",
+            'isGenderNeeded':"True",
+            'isYearNeeded':"True",
+        }
+        return render(request, 'main/filter.html',context)
+    context = {
+        'alldata':alldata,
+        'colleges': IITS,
+        'branches': BRANCHES,
+        'years':YEARS,
+        'seat_types': SEAT_TYPES,
+        'genders': GENDERS,
+        'isCollegeNeeded':"True",
+        'isBranchNeeded':"True",
+        'isSeatTypeNeeded':"True",
+        'isGenderNeeded':"True",
+        'isYearNeeded':"True",
+        }
+    return render(request, 'main/filter.html',context)
+
 def printdata(request):
 
     context = {
@@ -86,14 +124,14 @@ def trenddual(request):
         filter_gender = request.POST.getlist('gender', None)
         filter_institute = request.POST.getlist('college', None)
         filter_seat = request.POST.getlist('seat_type', None)
-        print(filter_institute)
+        # print(filter_institute)
         if filter_gender:
             filters['gender__in'] = filter_gender
         if filter_institute:
             filters['institute__in'] = filter_institute
         if filter_seat:
             filters['seat_type__in'] = filter_seat
-        print(filters)
+        # print(filters)
         # dualdata = data.objects.filter(program__contains='5', roundNo=6)
 
         dualdata = data.objects.filter(**filters)
@@ -151,9 +189,9 @@ def trenddual(request):
         dict['smooth'] = True
         dict['color']: colors[i]
         dict['data'] = []
-        print(v, '\n')
+        # print(v, '\n')
         for year in year_set:
-            print(year)
+            # print(year)
             if year in v:
                 dict['data'].append(int((sum(v[year]))/len(v[year])))
             else:
@@ -218,7 +256,7 @@ def trendspecial(request):
                 dataset[flag][val.year].append(
                     int(val.opening_rank+val.closing_rank)/2)
 
-    print(dataset)
+    # print(dataset)
     colors = [
         "#ae1029",
         "#0065c2",
@@ -526,9 +564,9 @@ def Moh_q1(request):
     # Convert the data to JSON format
     new_iit_json_data = json.dumps(new_iit_avg_ranks)
     old_iit_json_data = json.dumps(old_iit_avg_ranks)
-    print(years)
-    print(new_iit_json_data)
-    print(old_iit_json_data)
+    # print(years)
+    # print(new_iit_json_data)
+    # print(old_iit_json_data)
     context = {
         'years': years,
         'new_iit_data': new_iit_json_data,
