@@ -18,6 +18,8 @@
 </head>
 <body>
   {% block content %}
+  <h1 style="padding-top: 10px;text-align:center; font-size: max(3vh,2vw); color: gray;"> Popularity Variation among New IITs?
+  </h1>
   <div id="graph-container" style="position: relative;height: 90vh;width: 80%;
   overflow: hidden;"></div>
 
@@ -50,7 +52,7 @@
 });
     
     var option = {
-      textStyle:{ color: '#fff',
+      textStyle:{ color: 'gray',
       fontWeight:'600'},
       legend: {
         data: instituteData.map(function(institute) {
@@ -61,7 +63,7 @@
         orient: 'vertical',
         right: 'center',
         textStyle:{
-          color:'white',
+          color:'gray',
       },
       grid: {
         top:'100',
@@ -71,11 +73,11 @@
       xAxis: {
         type: 'category',
         data: years,
-        name: 'Years'
+        name: 'Years',  
       },
       yAxis: {
         type: 'value',
-        name: 'Popularity'
+        name: 'Popularity',
       },
       series: seriesData
     };

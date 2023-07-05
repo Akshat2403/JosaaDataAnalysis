@@ -353,7 +353,7 @@
       }
       div.dataTables_wrapper div.dataTables_filter{
             color: gray;
-            overflow-x: scroll;
+            float: left;
 
         }
         div.dataTables_wrapper{
@@ -363,9 +363,15 @@
             justify-content: center;
             padding-top: 2%;
             padding-bottom: 2%;
-            width: 90%;
+            width: 70vw;
             padding-left: 10%;
+            overflow-x: scroll;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
         }
+        div.dataTables_wrapper::-webkit-scrollbar {
+  display: none;
+}
         div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
             color: #777 !important;
         }
