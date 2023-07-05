@@ -144,13 +144,10 @@
 <body>
     {% block content %}
 
-    <div class="load"></div>
-    <div id="fade">
         <h2> What is the trend in the opening and closing ranks for popular branches?</h2>
     <div class="form-check form-switch">
     <input class="form-check-input" type="checkbox" role="switch" onchange=changeData() id="flexSwitchCheckDefault">
     <label class="form-check-label" for="flexSwitchCheckDefault">Closing Rank </label>
-    </div>
     <div id="chart-container"></div>
       
 
@@ -158,16 +155,55 @@
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js" async></script>
       
     <script>
-        window.addEventListener('load', function() {
-            var loadingScreen = document.getElementsByClassName('load')[0];
-            loadingScreen.style.display = 'none';
-            document.getElementById('fade').style.filter='none';    
-            var dom = document.getElementById("chart-container");
-        var myChart = echarts.init(dom, null, {
-            renderer: "canvas",
-            useDirtyRect: false,
-        });
+        var dataString = '{{ jsdata|safe }}';
+        var data = JSON.parse(dataString);
+        years = [];
+        colleges = [];
+        opening_ranks = [];
+        closing_ranks =[];
+        branches =[];
 
+        function removeDuplicates(arr) {
+            return [...new Set(arr)];
+        }
+
+        for(var i = 0;i<data.length;i++){
+            years.push(data[i].year);
+            colleges.push(data[i].institute);
+            branches.push(data[i].program);
+        }
+        colleges = removeDuplicates(colleges);
+        years = removeDuplicates(years);
+        branches = removeDuplicates(branches);
+
+        // console.log(colleges);
+        for(var k = 0 ;k<branches.length ;k++) {
+            temp1 = [];
+            temp2 = [];
+            for(var i = 0; i < years.length; i++){
+                var sum1 = 0;
+                var sum2 = 0;
+                for(var j = 0;j<data.length;j++){
+                    if(data[j].program == branches[k]){
+                        if(data[j].year == years[i]){
+                            sum1 += parseInt( data[j].opening_rank, 10); //don't forget to add the base
+                            sum2 += parseInt( data[j].closing_rank, 10); //don't forget to add the base
+                        }
+                    }
+                }
+                var avg1 = sum1/colleges.length;
+                avg1 = Math.round(avg1);
+                var avg2 = sum2/colleges.length;
+                avg2 = Math.round(avg2);
+                temp1.push(avg1);
+                temp2.push(avg2);
+            }
+            opening_ranks.push(temp1);
+            closing_ranks.push(temp2);
+        }
+        console.log(opening_ranks);
+
+        
 
         var series1 = [];
         colors = ['#ae1029','#0065c2','#26c238', '#9876aa', '#fb8649', 
@@ -199,7 +235,12 @@
             },
             );
         }
+        var dom = document.getElementById("chart-container");
+        var myChart = echarts.init(dom, null, {
+            renderer: "canvas",
+            useDirtyRect: false,
 
+        })
         // console.log(series);
         var isClosing = 0;
         var text = '';
@@ -283,62 +324,11 @@
             }
             window.addEventListener("resize", myChart.resize);
         
-        })
         var dataString = '{{ jsdata|safe }}';
         var data = JSON.parse(dataString);
     
         // console.log(data);
 
-        years = [];
-        colleges = [];
-        opening_ranks = [];
-        closing_ranks =[];
-        branches =[];
-
-        function removeDuplicates(arr) {
-            return [...new Set(arr)];
-        }
-
-        for(var i = 0;i<data.length;i++){
-            years.push(data[i].year);
-            colleges.push(data[i].institute);
-            branches.push(data[i].program);
-        }
-        colleges = removeDuplicates(colleges);
-        years = removeDuplicates(years);
-        branches = removeDuplicates(branches);
-
-        // console.log(colleges);
-        for(var k = 0 ;k<branches.length ;k++) {
-            temp1 = [];
-            temp2 = [];
-            for(var i = 0; i < years.length; i++){
-                var sum1 = 0;
-                var sum2 = 0;
-                for(var j = 0;j<data.length;j++){
-                    if(data[j].program == branches[k]){
-                        if(data[j].year == years[i]){
-                            sum1 += parseInt( data[j].opening_rank, 10); //don't forget to add the base
-                            sum2 += parseInt( data[j].closing_rank, 10); //don't forget to add the base
-                        }
-                    }
-                }
-                var avg1 = sum1/colleges.length;
-                avg1 = Math.round(avg1);
-                var avg2 = sum2/colleges.length;
-                avg2 = Math.round(avg2);
-                temp1.push(avg1);
-                temp2.push(avg2);
-            }
-            opening_ranks.push(temp1);
-            closing_ranks.push(temp2);
-        }
-        console.log(opening_ranks);
-
-
-
-        
-        
 
     </script>
     {% endblock %}
