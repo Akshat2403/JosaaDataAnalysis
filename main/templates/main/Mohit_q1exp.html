@@ -6,12 +6,20 @@
     {% block additional_content %}
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
     {% endblock %}
+    <style>
+      #graph-container{
+          position: relative;
+                    height: 90vh;
+                    width: 80%;
+                    overflow: hidden;
+        }
+
+    </style>
 </head>
-<body style="background-color: rgb(31, 41, 55); color: white;">
+<body>
   {% block content %}
-  <h1 style="padding-top: 10px;text-align:center; font-size: 5vh; color: gray;">What is the Popularity Variation Among New IITs?
-  </h1>
-  <div id="graph-container" style="width: 80vw; height: 70vh;"></div>
+  <div id="graph-container" style="position: relative;height: 90vh;width: 80%;
+  overflow: hidden;"></div>
 
   <script>
     // Create an ECharts instance
@@ -54,15 +62,12 @@
         right: 'center',
         textStyle:{
           color:'white',
-      },      textStyle:{
-        color:'white',
-    },
-
       },
       grid: {
         top:'100',
         containLabel: true,
       },
+    },
       xAxis: {
         type: 'category',
         data: years,

@@ -367,17 +367,21 @@
       }
       div.dataTables_wrapper div.dataTables_filter{
             color: gray;
+            overflow-x: scroll;
 
         }
         div.dataTables_wrapper{
+          position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding-top: 2%;
             padding-bottom: 2%;
-            width: 90%;
+            width: 70vw;
             padding-left: 10%;
+            overflow-x: scroll;
+            overflow-y: scroll;
         }
         div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
             color: #777 !important;
@@ -422,6 +426,7 @@
                     position: relative;
                     text-align: center;
                     justify-content: center;
+                    overflow-x: scroll;
                 }
 
                 .dark-table th,
@@ -679,7 +684,8 @@
             info: "",
             infoEmpty: "",
             infoFiltered: ""
-          }
+          },
+          responsive: true
         });
   
         // Clear button click event

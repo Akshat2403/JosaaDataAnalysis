@@ -9,10 +9,12 @@
   .custom-button {
   background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
+  padding: 8px 10px;
   border: none;
   cursor: pointer;
   margin: 5px;
+  font-size: min(3vw,2vh);
+  display: flex;
 }
 
 .custom-button:hover {
@@ -21,6 +23,16 @@
 
 .button-container {
   text-align: center;
+  width: 70vw;
+  display: flex;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+#graph-container{
+  position: relative;
+            height: 90vh;
+            width: 80%;
+            overflow: hidden;
 }
 
 </style>
@@ -28,9 +40,7 @@
 </head>
 <body>
   {% block content %}
-  <h1 style="padding-top: 10px;text-align:center; font-size: 5vh; color: gray;">What is the Popularity Variation between New and Old IITs?
-  </h1>
-  <div id="graph-container" style="width:80vw; height: 70vh;"></div>
+  <div id="graph-container"></div>
   <div class="button-container">
     <button id="redirectButton" class="custom-button" onclick="redirectToMohitQ1()">Check variations among New IITS</button>
     <button id="redirectButton" class="custom-button" onclick="redirectToMohitQ2()">Check variations among Old IITS</button>
@@ -67,7 +77,7 @@
     });
 
     var option = {
-        legend: {
+      legend: {
         data: ['New IIT', 'Old IIT'],
         orient: 'vertical',
         right: 10,

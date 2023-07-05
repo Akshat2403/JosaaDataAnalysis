@@ -12,6 +12,7 @@
     margin-top: 10px;
     font-family: Arial, sans-serif;
     font-size: large;
+    width: 70vw;
   }
 
   .pagination li {
@@ -122,8 +123,9 @@
 
 <body>
   {% block content %}
+  <div>
     <div id="graph-container" style="width: 80vw; height: 70vh; padding-top: 30px;"></div>
-
+  </div>
     <div class="pagination">
       {% if branches.has_previous %}
       <a href="?page={{ branches.previous_page_number }}">
@@ -140,12 +142,10 @@
       </a>
       {% endif %}
     </div>
-
-  </div>
   <script>
     // Create an ECharts instance
     window.addEventListener('load', function () {
-      var myChart = echarts.init(document.getElementById('graph-container'),null,{height:750});
+      var myChart = echarts.init(document.getElementById('graph-container'));
 
       var seriesData = branchData.map(function (branch) {
         var popularityData = branch.data.map(function (item) {
