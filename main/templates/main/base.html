@@ -1,67 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css"
+      rel="stylesheet"
+    />
     <title>{% block title %}Base{% endblock %}</title>
-    {% block additional_content %}
-    {% endblock %}
+    {% block additional_content %} {% endblock %}
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-        }
+      body {
+        margin: 0;
+        padding: 0;
+      }
 
-        .main-container {
-            color: white;
-            display: flex;
-        }
+      .main-container {
+        color: white;
+        display: flex;
+      }
 
-        .side-bar {
-            flex: 0.5;
-            /* width: 20%; */
-            border-right: solid rgb(38, 44, 55);
-            height: 100vh;
-            /* background-color: rgb(55, 65, 81); */
-            padding: 1vw;
-        }
+      .side-bar {
+        flex: 0.5;
+        /* width: 20%; */
+        border-right: solid rgb(38, 44, 55);
+        /* background-color: rgb(55, 65, 81); */
+        padding: 1%;
+      }
 
-        .chart-container {
-            flex: 2;
-            padding-left: 27vw;
-            padding-top: 6vw;
-            /* background-color: rgb(31, 41, 55); */
-        }
+      .chart-container {
+        padding: 1%;
+        flex: 2;
+        /* background-color: rgb(31, 41, 55); */
+      }
 
-        .go-back-btn {
-            display: flex;
-            font-size: 1.3vw;
-            align-items: center;
-        }
+      .go-back-btn {
+        display: flex;
+        font-size: 1.3vw;
+        align-items: center;
+      }
 
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+      .container {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
 
-        .box {
-            width: calc(33.33% - 20px);
-            background-color: rgb(55, 65, 81);
-            padding: 20px;
-            margin-bottom: 20px;
-            box-sizing: border-box;
-        }
+      .box {
+        width: calc(33.33% - 20px);
+        background-color: rgb(55, 65, 81);
+        padding: 20px;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+      }
 
-        /* multiselect css starts*/
-        @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext');
+      /* multiselect css starts*/
+      @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext");
 
-        /* body {
+      /* body {
             
             min-height: 100vh;
             color: #ADAFB6;
@@ -72,501 +71,592 @@
             transition: all .2s ease;
         } */
 
-        .multiSelect {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 450;
-            width: 300px;
-            position: relative;
-        }
-        .year_dropdown {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 450;
-            width: 300px;
-            color: #b8bcbf;
-            height: 3vw;
-            border-radius: 4px;
-        }
-        .year_dropdown option {
-            font-family: 'Quicksand', sans-serif;
-            font-weight: 450;
-            height: 100px;
-            width: 300px;
-            color: #444f5b;
-            padding: 30px;
-        }
+      .multiSelect {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 450;
+        width: 100%;
+        position: relative;
+      }
+      .year_dropdown {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 450;
+        width: 100%;
+        color: #b8bcbf;
+        height: 3vw;
+        border-radius: 4px;
+      }
+      .year_dropdown option {
+        font-family: "Quicksand", sans-serif;
+        font-weight: 450;
+        height: 100px;
+        width: 100%;
+        color: #444f5b;
+        padding: 30px;
+      }
 
-        .multiSelect *,
-        .multiSelect *::before,
-        .multiSelect *::after {
-            box-sizing: border-box;
+      .multiSelect *,
+      .multiSelect *::before,
+      .multiSelect *::after {
+        box-sizing: border-box;
+      }
+
+      .multiSelect_dropdown {
+        font-size: 14px;
+        min-height: 35px;
+        line-height: 35px;
+        border-radius: 4px;
+        box-shadow: none;
+        outline: none;
+        background-color: #fff;
+        color: #444f5b;
+        border: 1px solid #d9dbde;
+        font-weight: 400;
+        padding: 0.5px 13px;
+        margin: 0;
+        transition: 0.1s border-color ease-in-out;
+        cursor: pointer;
+      }
+
+      .multiSelect_dropdown.-hasValue {
+        padding: 5px 30px 5px 5px;
+        cursor: default;
+      }
+
+      .multiSelect_dropdown.-open {
+        box-shadow: none;
+        outline: none;
+        padding: 4.5px 29.5px 4.5px 4.5px;
+        border: 1.5px solid #4073ff;
+      }
+
+      .multiSelect_arrow::before,
+      .multiSelect_arrow::after {
+        content: "";
+        position: absolute;
+        display: block;
+        width: 2px;
+        height: 8px;
+        border-radius: 20px;
+        border-bottom: 8px solid #99a3ba;
+        top: 40%;
+        transition: all 0.15s ease;
+      }
+
+      .multiSelect_arrow::before {
+        right: 18px;
+        -webkit-transform: rotate(-50deg);
+        transform: rotate(-50deg);
+      }
+
+      .multiSelect_arrow::after {
+        right: 13px;
+        -webkit-transform: rotate(50deg);
+        transform: rotate(50deg);
+      }
+
+      .multiSelect_list {
+        margin: 0;
+        margin-bottom: 25px;
+        padding: 0;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        position: absolute;
+        max-height: calc(10 * 31px);
+        top: 28px;
+        left: 0;
+        z-index: 9999;
+        right: 0;
+        background: #fff;
+        border-radius: 4px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-transform-origin: 0 0;
+        transform-origin: 0 0;
+        transition: opacity 0.1s ease, visibility 0.1s ease,
+          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+        transition: opacity 0.1s ease, visibility 0.1s ease,
+          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+        transition: opacity 0.1s ease, visibility 0.1s ease,
+          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
+          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+        -webkit-transform: scale(0.8) translate(0, 4px);
+        transform: scale(0.8) translate(0, 4px);
+        border: 1px solid #d9dbde;
+        box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
+      }
+
+      .multiSelect_option {
+        margin: 0;
+        padding: 0;
+        opacity: 0;
+        -webkit-transform: translate(6px, 0);
+        transform: translate(6px, 0);
+        transition: all 0.15s ease;
+      }
+
+      .multiSelect_option.-selected {
+        display: none;
+      }
+
+      .multiSelect_option:hover .multiSelect_text {
+        color: #fff;
+        background: #4d84fe;
+      }
+
+      .multiSelect_text {
+        cursor: pointer;
+        display: block;
+        padding: 5px 13px;
+        color: #525c67;
+        font-size: 14px;
+        text-decoration: none;
+        outline: none;
+        position: relative;
+        transition: all 0.15s ease;
+      }
+
+      .multiSelect_list.-open {
+        opacity: 1;
+        visibility: visible;
+        -webkit-transform: scale(1) translate(0, 12px);
+        transform: scale(1) translate(0, 12px);
+        transition: opacity 0.15s ease, visibility 0.15s ease,
+          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+        transition: opacity 0.15s ease, visibility 0.15s ease,
+          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+        transition: opacity 0.15s ease, visibility 0.15s ease,
+          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
+          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      }
+
+      .multiSelect_list.-open + .multiSelect_arrow::before {
+        -webkit-transform: rotate(-130deg);
+        transform: rotate(-130deg);
+      }
+
+      .multiSelect_list.-open + .multiSelect_arrow::after {
+        -webkit-transform: rotate(130deg);
+        transform: rotate(130deg);
+      }
+
+      .multiSelect_list.-open .multiSelect_option {
+        opacity: 1;
+        -webkit-transform: translate(0, 0);
+        transform: translate(0, 0);
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(1) {
+        transition-delay: 10ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(2) {
+        transition-delay: 20ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(3) {
+        transition-delay: 30ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(4) {
+        transition-delay: 40ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(5) {
+        transition-delay: 50ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(6) {
+        transition-delay: 60ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(7) {
+        transition-delay: 70ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(8) {
+        transition-delay: 80ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(9) {
+        transition-delay: 90ms;
+      }
+
+      .multiSelect_list.-open .multiSelect_option:nth-child(10) {
+        transition-delay: 100ms;
+      }
+
+      .multiSelect_choice {
+        background: rgba(77, 132, 254, 0.1);
+        color: #444f5b;
+        padding: 4px 8px;
+        line-height: 17px;
+        margin: 5px;
+        display: inline-block;
+        font-size: 8px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .multiSelect_deselect {
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        stroke: #b2bac3;
+        stroke-width: 4px;
+        margin-top: -1px;
+        margin-left: 2px;
+        vertical-align: middle;
+      }
+
+      .multiSelect_choice:hover .multiSelect_deselect {
+        stroke: #a1a8b1;
+      }
+
+      .multiSelect_noselections {
+        text-align: center;
+        padding: 7px;
+        color: #b2bac3;
+        font-weight: 450;
+        margin: 0;
+      }
+
+      .multiSelect_placeholder {
+        position: absolute;
+        left: 20px;
+        font-size: 14px;
+        top: 8px;
+        padding: 0 4px;
+        background-color: #fff;
+        color: #b8bcbf;
+        pointer-events: none;
+        transition: all 0.1s ease;
+      }
+
+      .multiSelect_dropdown.-open + .multiSelect_placeholder,
+      .multiSelect_dropdown.-open.-hasValue + .multiSelect_placeholder {
+        top: -11px;
+        left: 17px;
+        color: #4073ff;
+        font-size: 13px;
+      }
+
+      .multiSelect_dropdown.-hasValue + .multiSelect_placeholder {
+        top: -11px;
+        left: 17px;
+        color: #6e7277;
+        font-size: 13px;
+      }
+
+      /* multiselect css ends*/
+
+      /* Adjust the box width for smaller screens */
+      @media (max-width: 767px) {
+        .box {
+          width: calc(50% - 20px);
         }
+      }
 
-        .multiSelect_dropdown {
-            font-size: 14px;
-            min-height: 35px;
-            line-height: 35px;
-            border-radius: 4px;
-            box-shadow: none;
-            outline: none;
-            background-color: #fff;
-            color: #444f5b;
-            border: 1px solid #d9dbde;
-            font-weight: 400;
-            padding: 0.5px 13px;
-            margin: 0;
-            transition: .1s border-color ease-in-out;
-            cursor: pointer;
+      /* Adjust the box width for mobile screens */
+      @media (max-width: 479px) {
+        .box {
+          width: 100%;
         }
-
-        .multiSelect_dropdown.-hasValue {
-            padding: 5px 30px 5px 5px;
-            cursor: default;
-        }
-
-        .multiSelect_dropdown.-open {
-            box-shadow: none;
-            outline: none;
-            padding: 4.5px 29.5px 4.5px 4.5px;
-            border: 1.5px solid #4073FF;
-        }
-
-        .multiSelect_arrow::before,
-        .multiSelect_arrow::after {
-            content: '';
-            position: absolute;
-            display: block;
-            width: 2px;
-            height: 8px;
-            border-radius: 20px;
-            border-bottom: 8px solid #99A3BA;
-            top: 40%;
-            transition: all .15s ease;
-        }
-
-        .multiSelect_arrow::before {
-            right: 18px;
-            -webkit-transform: rotate(-50deg);
-            transform: rotate(-50deg);
-        }
-
-        .multiSelect_arrow::after {
-            right: 13px;
-            -webkit-transform: rotate(50deg);
-            transform: rotate(50deg);
-        }
-
-        .multiSelect_list {
-            margin: 0;
-            margin-bottom: 25px;
-            padding: 0;
-            list-style: none;
-            opacity: 0;
-            visibility: hidden;
-            position: absolute;
-            max-height: calc(10 * 31px);
-            top: 28px;
-            left: 0;
-            z-index: 9999;
-            right: 0;
-            background: #fff;
-            border-radius: 4px;
-            overflow-x: hidden;
-            overflow-y: auto;
-            -webkit-transform-origin: 0 0;
-            transform-origin: 0 0;
-            transition: opacity 0.1s ease, visibility 0.1s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-            transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-            transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-            -webkit-transform: scale(0.8) translate(0, 4px);
-            transform: scale(0.8) translate(0, 4px);
-            border: 1px solid #d9dbde;
-            box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
-        }
-
-        .multiSelect_option {
-            margin: 0;
-            padding: 0;
-            opacity: 0;
-            -webkit-transform: translate(6px, 0);
-            transform: translate(6px, 0);
-            transition: all .15s ease;
-        }
-
-        .multiSelect_option.-selected {
-            display: none;
-        }
-
-        .multiSelect_option:hover .multiSelect_text {
-            color: #fff;
-            background: #4d84fe;
-        }
-
-        .multiSelect_text {
-            cursor: pointer;
-            display: block;
-            padding: 5px 13px;
-            color: #525c67;
-            font-size: 14px;
-            text-decoration: none;
-            outline: none;
-            position: relative;
-            transition: all .15s ease;
-        }
-
-        .multiSelect_list.-open {
-            opacity: 1;
-            visibility: visible;
-            -webkit-transform: scale(1) translate(0, 12px);
-            transform: scale(1) translate(0, 12px);
-            transition: opacity 0.15s ease, visibility 0.15s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-            transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-            transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        }
-
-        .multiSelect_list.-open+.multiSelect_arrow::before {
-            -webkit-transform: rotate(-130deg);
-            transform: rotate(-130deg);
-        }
-
-        .multiSelect_list.-open+.multiSelect_arrow::after {
-            -webkit-transform: rotate(130deg);
-            transform: rotate(130deg);
-        }
-
-        .multiSelect_list.-open .multiSelect_option {
-            opacity: 1;
-            -webkit-transform: translate(0, 0);
-            transform: translate(0, 0);
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(1) {
-            transition-delay: 10ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(2) {
-            transition-delay: 20ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(3) {
-            transition-delay: 30ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(4) {
-            transition-delay: 40ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(5) {
-            transition-delay: 50ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(6) {
-            transition-delay: 60ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(7) {
-            transition-delay: 70ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(8) {
-            transition-delay: 80ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(9) {
-            transition-delay: 90ms;
-        }
-
-        .multiSelect_list.-open .multiSelect_option:nth-child(10) {
-            transition-delay: 100ms;
-        }
-
-        .multiSelect_choice {
-            background: rgba(77, 132, 254, 0.1);
-            color: #444f5b;
-            padding: 4px 8px;
-            line-height: 17px;
-            margin: 5px;
-            display: inline-block;
-            font-size: 8px;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 500;
-        }
-
-        .multiSelect_deselect {
-            width: 12px;
-            height: 12px;
-            display: inline-block;
-            stroke: #b2bac3;
-            stroke-width: 4px;
-            margin-top: -1px;
-            margin-left: 2px;
-            vertical-align: middle;
-        }
-
-        .multiSelect_choice:hover .multiSelect_deselect {
-            stroke: #a1a8b1;
-        }
-
-        .multiSelect_noselections {
-            text-align: center;
-            padding: 7px;
-            color: #b2bac3;
-            font-weight: 450;
-            margin: 0;
-        }
-
-        .multiSelect_placeholder {
-            position: absolute;
-            left: 20px;
-            font-size: 14px;
-            top: 8px;
-            padding: 0 4px;
-            background-color: #fff;
-            color: #b8bcbf;
-            pointer-events: none;
-            transition: all .1s ease;
-        }
-
-        .multiSelect_dropdown.-open+.multiSelect_placeholder,
-        .multiSelect_dropdown.-open.-hasValue+.multiSelect_placeholder {
-            top: -11px;
-            left: 17px;
-            color: #4073FF;
-            font-size: 13px;
-        }
-
-        .multiSelect_dropdown.-hasValue+.multiSelect_placeholder {
-            top: -11px;
-            left: 17px;
-            color: #6e7277;
-            font-size: 13px;
-        }
-
-        /* multiselect css ends*/
-
-
-        /* Adjust the box width for smaller screens */
-        @media (max-width: 767px) {
-            .box {
-                width: calc(50% - 20px);
-            }
-        }
-
-        /* Adjust the box width for mobile screens */
-        @media (max-width: 479px) {
-            .box {
-                width: 100%;
-            }
-        }
+      }
     </style>
+  </head>
 
-</head>
-
-<body class="bg-white dark:bg-gray-900">
+  <body class="bg-white dark:bg-gray-900">
     {% include 'main/navbar.html' %}
     <div class="main-container bg-white dark:bg-gray-900">
-        <div class="side-bar bg-white fixed top-60 dark:bg-gray-800 border border-gray-200 dark:border-gray-600">
-            <div class="go-back-btn">
-                <svg height="2.5vw" id="Layer_1" style="enable-background: new 0 0 512 512; color: white" version="1.1"
-                    viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <polygon fill="white"
-                        points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
-                </svg>
-                Go Back
-            </div>
-            <form method="post">
-                {% csrf_token %}
-                <div class="relative">
-                    <!-- Dropdown menu -->
-                    <div id="dropdown" class="inset-0 mx-auto mt-2  p-4 bg-dark shadow-lg rounded-lg z-10">
-                        <div class="mb-4">
-                            <h6 class="text-lg font-bold mb-2 text-gray-900 dark:text-white">Filters</h6>
-                            <div class="flex space-x-4">    
-                                <button type="submit" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Apply Filter</button>
-                                <button id="clearButton" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Clear Selections</button>
-                            </div>
-                        </div>
-                        <div id="accordion-flush">
-                            {% if isCollegeNeeded == "True" %}
-                            <h2 id="category-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
-                                    <span>College</span>
-                            </h2>
-
-                            <!-- College -->
-                            <div class="multiSelect">
-                                <select class="multiSelect_field" data-placeholder="Select College" name="college" multiple>
-                                    {% for clg in colleges %}
-                                    <option value="{{clg.0}}">{{clg.1}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            {% endif %}
-                            <!-- Branch -->
-                            {% if isBranchNeeded == "True" %}
-                            <h2 id="price-heading" class=" flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
-                                    <span>Branch</span>
-                            </h2>
-
-                            <div class="multiSelect">
-                                <select class="multiSelect_field" data-placeholder="Select Branch" name="branch" multiple>
-                                    {% for branch in branches %}
-                                    <option value="{{branch.0}}">{{branch.1}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            {% endif %}
-                            <!-- Seat  Type-->
-                            {% if isSeatTypeNeeded == "True" %}
-
-                            <h2 id="worldwide-shipping-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
-                                    <span>Seat Type</span></h2>
-                            <div class="multiSelect">
-                                <select class="multiSelect_field" data-placeholder="Select Seat Type" name="seat_type" multiple>
-                                    {% for seat_type in seat_types %}
-                                    <option value="{{seat_type.0}}">{{seat_type.1}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            {% endif %}
-                            <!-- Year -->
-                            {% if isYearNeeded == "True" %}
-                            <h2 id="year-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
-                                    <span> Year</span>
-                            </h2>
-
-
-                            <div>
-                                <select data-placeholder="Select Year" class="year_dropdown" name="year">
-                                    <option value='0' selected disabled >Select Year</option>
-                                    {% for yr in years %}
-                                    <option value="{{yr.0}}">{{yr.1}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            {% endif %}
-
-                            <!-- gender -->
-                            {% if isGenderNeeded == "True" %}
-                            <h2 id="gender-heading" class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2 ">
-                                    <span class="">Gender</span>
-                            </h2>
-                            <div class="multiSelect">
-                                <select class="multiSelect_field" data-placeholder="Select Gender" name="gender" multiple>
-                                    {% for gender in genders %}
-                                    <option value="{{gender.0}}">{{gender.1}}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-
+      <div
+        class="side-bar bg-white top-60 dark:bg-gray-800 border border-gray-200 dark:border-gray-600"
+      >
+        <div class="go-back-btn">
+          <svg
+            height="2.5vw"
+            id="Layer_1"
+            style="enable-background: new 0 0 512 512; color: white"
+            version="1.1"
+            viewBox="0 0 512 512"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <polygon
+              fill="white"
+              points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "
+            />
+          </svg>
+          Go Back
+        </div>
+        <form method="post">
+          {% csrf_token %}
+          <div class="relative">
+            <!-- Dropdown menu -->
+            <div
+              id="dropdown"
+              class="inset-0 mx-auto mt-2 p-4 bg-dark shadow-lg rounded-lg z-10"
+            >
+              <div class="mb-4">
+                <h6
+                  class="text-lg font-bold mb-2 text-gray-900 dark:text-white"
+                >
+                  Filters
+                </h6>
+                <div class="flex space-x-4">
+                  <button
+                    type="submit"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Apply Filter
+                  </button>
+                  <button
+                    id="clearButton"
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                  >
+                    Clear Selections
+                  </button>
                 </div>
-            </form>
-        </div>
+              </div>
+              <div id="accordion-flush">
+                {% if isCollegeNeeded == "True" %}
+                <h2
+                  id="category-heading"
+                  class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                >
+                  <span>College</span>
+                </h2>
 
+                <!-- College -->
+                <div class="multiSelect">
+                  <select
+                    class="multiSelect_field"
+                    data-placeholder="Select College"
+                    name="college"
+                    multiple
+                  >
+                    {% for clg in colleges %}
+                    <option value="{{clg.0}}">{{clg.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                <!-- Branch -->
+                {% if isBranchNeeded == "True" %}
+                <h2
+                  id="price-heading"
+                  class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                >
+                  <span>Branch</span>
+                </h2>
 
-        <div class="chart-container">
-            {% block content %}
-            {% endblock %}
-        </div>
+                <div class="multiSelect">
+                  <select
+                    class="multiSelect_field"
+                    data-placeholder="Select Branch"
+                    name="branch"
+                    multiple
+                  >
+                    {% for branch in branches %}
+                    <option value="{{branch.0}}">{{branch.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                <!-- Seat  Type-->
+                {% if isSeatTypeNeeded == "True" %}
 
+                <h2
+                  id="worldwide-shipping-heading"
+                  class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                >
+                  <span>Seat Type</span>
+                </h2>
+                <div class="multiSelect">
+                  <select
+                    class="multiSelect_field"
+                    data-placeholder="Select Seat Type"
+                    name="seat_type"
+                    multiple
+                  >
+                    {% for seat_type in seat_types %}
+                    <option value="{{seat_type.0}}">{{seat_type.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+                <!-- Year -->
+                {% if isYearNeeded == "True" %}
+                <h2
+                  id="year-heading"
+                  class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                >
+                  <span> Year</span>
+                </h2>
 
+                <div>
+                  <select
+                    data-placeholder="Select Year"
+                    class="year_dropdown"
+                    name="year"
+                  >
+                    <option value="0" selected disabled>Select Year</option>
+                    {% for yr in years %}
+                    <option value="{{yr.0}}">{{yr.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
 
+                <!-- gender -->
+                {% if isGenderNeeded == "True" %}
+                <h2
+                  id="gender-heading"
+                  class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                >
+                  <span class="">Gender</span>
+                </h2>
+                <div class="multiSelect">
+                  <select
+                    class="multiSelect_field"
+                    data-placeholder="Select Gender"
+                    name="gender"
+                    multiple
+                  >
+                    {% for gender in genders %}
+                    <option value="{{gender.0}}">{{gender.1}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="chart-container"><div><div>{% block question%}{%endblock%}</div>{% block content %} {% endblock %}{% block desc%}{%endblock%}</div>
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="iconX">
-          <g stroke-linecap="round" stroke-linejoin="round">
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-          </g>
-        </symbol>
-      </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="iconX">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </g>
+      </symbol>
+    </svg>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
     <script>
-         $('#clearButton').click(function() {
-    // Clear form elements
-            $('form')[0].reset();
+      $("#clearButton").click(function () {
+        // Clear form elements
+        $("form")[0].reset();
 
-            // Reset selected options in multiselect dropdowns
-            $('.multiSelect_choice').remove();
-            $('.multiSelect_option').removeClass('-selected');
-            $('.multiSelect_dropdown').removeClass('-hasValue');
-            $('.multiSelect_noselections').remove();
-        });
+        // Reset selected options in multiselect dropdowns
+        $(".multiSelect_choice").remove();
+        $(".multiSelect_option").removeClass("-selected");
+        $(".multiSelect_dropdown").removeClass("-hasValue");
+        $(".multiSelect_noselections").remove();
+      });
     </script>
     <script>
-        jQuery(function () {
-            jQuery('.multiSelect').each(function (index) {
-                var self = jQuery(this);
-                var field = self.find('.multiSelect_field');
-                var fieldOption = field.find('option');
-                var placeholder = field.attr('data-placeholder');
-    
-                field.hide().after(`<div class="multiSelect_dropdown"></div>
-                        <span class="multiSelect_placeholder">` + placeholder + `</span>
+      jQuery(function () {
+        jQuery(".multiSelect").each(function (index) {
+          var self = jQuery(this);
+          var field = self.find(".multiSelect_field");
+          var fieldOption = field.find("option");
+          var placeholder = field.attr("data-placeholder");
+
+          field.hide().after(
+            `<div class="multiSelect_dropdown"></div>
+                        <span class="multiSelect_placeholder">` +
+              placeholder +
+              `</span>
                         <ul class="multiSelect_list"></ul>
-                        <span class="multiSelect_arrow"></span>`);
-    
-                fieldOption.each(function () {
-                    self.find('.multiSelect_list').append(`<li class="multiSelect_option" data-value="` + jQuery(this).val() + `">
-                                            <a class="multiSelect_text">`+ jQuery(this).text() + `</a>
-                                          </li>`);
+                        <span class="multiSelect_arrow"></span>`
+          );
+
+          fieldOption.each(function () {
+            self.find(".multiSelect_list").append(
+              `<li class="multiSelect_option" data-value="` +
+                jQuery(this).val() +
+                `">
+                                            <a class="multiSelect_text">` +
+                jQuery(this).text() +
+                `</a>
+                                          </li>`
+            );
+          });
+
+          var dropdown = self.find(".multiSelect_dropdown");
+          var list = self.find(".multiSelect_list");
+          var option = self.find(".multiSelect_option");
+          var optionText = self.find(".multiSelect_text");
+
+          dropdown.attr("data-multiple", "true");
+          list.css("top", dropdown.height() + 5);
+
+          option.click(function (e) {
+            var self = jQuery(this);
+            e.stopPropagation();
+            self.addClass("-selected");
+            field
+              .find("option:contains(" + self.children().text() + ")")
+              .prop("selected", true);
+            dropdown
+              .append(function () {
+                return jQuery(
+                  '<span class="multiSelect_choice">' +
+                    self.children().text() +
+                    '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>'
+                ).click(function (e) {
+                  var self = jQuery(this);
+                  e.stopPropagation();
+                  self.remove();
+                  list
+                    .find(".multiSelect_option:contains(" + self.text() + ")")
+                    .removeClass("-selected");
+                  list
+                    .css("top", dropdown.height() + 5)
+                    .find(".multiSelect_noselections")
+                    .remove();
+                  field
+                    .find("option:contains(" + self.text() + ")")
+                    .prop("selected", false);
+                  if (dropdown.children(":visible").length === 0) {
+                    dropdown.removeClass("-hasValue");
+                  }
                 });
-    
-                var dropdown = self.find('.multiSelect_dropdown');
-                var list = self.find('.multiSelect_list');
-                var option = self.find('.multiSelect_option');
-                var optionText = self.find('.multiSelect_text');
-    
-                dropdown.attr('data-multiple', 'true');
-                list.css('top', dropdown.height() + 5);
-    
-                option.click(function (e) {
-                    var self = jQuery(this);
-                    e.stopPropagation();
-                    self.addClass('-selected');
-                    field.find('option:contains(' + self.children().text() + ')').prop('selected', true);
-                    dropdown.append(function () {
-                        return jQuery('<span class="multiSelect_choice">' + self.children().text() + '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>').click(function (e) {
-                            var self = jQuery(this);
-                            e.stopPropagation();
-                            self.remove();
-                            list.find('.multiSelect_option:contains(' + self.text() + ')').removeClass('-selected');
-                            list.css('top', dropdown.height() + 5).find('.multiSelect_noselections').remove();
-                            field.find('option:contains(' + self.text() + ')').prop('selected', false);
-                            if (dropdown.children(':visible').length === 0) {
-                                dropdown.removeClass('-hasValue');
-                            }
-                        });
-                    }).addClass('-hasValue');
-                    list.css('top', dropdown.height() + 5);
-                    if (!option.not('.-selected').length) {
-                        list.append('<h5 class="multiSelect_noselections">No Selections</h5>');
-                    }
-                });
-    
-                dropdown.click(function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    dropdown.toggleClass('-open');
-                    list.toggleClass('-open').scrollTop(0).css('top', dropdown.height() + 5);
-                });
-    
-                jQuery(document).on('click touch', function (e) {
-                    if (dropdown.hasClass('-open')) {
-                        dropdown.toggleClass('-open');
-                        list.removeClass('-open');
-                    }
-                });
-            });
+              })
+              .addClass("-hasValue");
+            list.css("top", dropdown.height() + 5);
+            if (!option.not(".-selected").length) {
+              list.append(
+                '<h5 class="multiSelect_noselections">No Selections</h5>'
+              );
+            }
+          });
+
+          dropdown.click(function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            dropdown.toggleClass("-open");
+            list
+              .toggleClass("-open")
+              .scrollTop(0)
+              .css("top", dropdown.height() + 5);
+          });
+
+          jQuery(document).on("click touch", function (e) {
+            if (dropdown.hasClass("-open")) {
+              dropdown.toggleClass("-open");
+              list.removeClass("-open");
+            }
+          });
         });
+      });
     </script>
-    
-
-</body>
-
+  </body>
 </html>

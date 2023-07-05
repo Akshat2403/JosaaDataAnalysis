@@ -3,22 +3,25 @@ from .models import data
 import json
 from django.core.serializers import serialize
 from django.db.models import Max
-from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS,YEARS
+from .choices import IITS, BRANCHES, SEAT_TYPES, GENDERS, YEARS
 # Create your views here.
 from django.db.models import Avg
 from django.core.paginator import Paginator
 
+
 def dashboard(request):
     return render(request, 'main/dashboard.html')
 
+
 def base(request):
-    context={
-        'colleges':IITS,
-        'branches':BRANCHES,
-        'seat_types':SEAT_TYPES,
-        'genders':GENDERS,
+    context = {
+        'colleges': IITS,
+        'branches': BRANCHES,
+        'seat_types': SEAT_TYPES,
+        'genders': GENDERS,
     }
-    return render(request,'main/base.html',context)
+    return render(request, 'main/base.html', context)
+
 
 def upload_csv(request):
     if request.method == 'POST':
@@ -73,15 +76,19 @@ def printdata(request):
 def trenddual(request):
     if request.method == 'POST':
         filters = {'roundNo': 6, 'program__contains': 5}
-        filter_gender = request.POST.get('gender', None)
-        filter_institute = request.POST.get('college_name', None)
-        filter_seat = request.POST.get('seat_type', None)
-        if filter_gender is not None:
-            filters['gender'] = filter_gender
-        if filter_institute is not None:
-            filters['institute'] = filter_institute
-        if filter_seat is not None:
-            filters['seat_type'] = filter_seat
+        filter_gender = request.POST.getlist('gender', None)
+        filter_institute = request.POST.getlist('college', None)
+        filter_seat = request.POST.getlist('seat_type', None)
+        print(filter_institute)
+        if filter_gender:
+            filters['gender__in'] = filter_gender
+        if filter_institute:
+            filters['institute__in'] = filter_institute
+        if filter_seat:
+            filters['seat_type__in'] = filter_seat
+        print(filters)
+        # dualdata = data.objects.filter(program__contains='5', roundNo=6)
+
         dualdata = data.objects.filter(**filters)
     else:
         dualdata = data.objects.filter(program__contains='5', roundNo=6)
@@ -148,10 +155,15 @@ def trenddual(request):
         i += 1
 
     context = {
-        'data': json.dumps(final), 'year': json.dumps(list(year_set)), 'branches': branches, 'seat_type': SEAT_TYPES, 'colleges': IITS, 'gender': GENDERS
+        'data': json.dumps(final), 'year': json.dumps(list(year_set)), 'branches': branches, 'seat_types': SEAT_TYPES, 'colleges': IITS, 'genders': GENDERS, 'isCollegeNeeded': "False",
+        'isBranchNeeded': "False",
+        'isSeatTypeNeeded': "True",
+        'isGenderNeeded': "True",
+        'isYearNeeded': "False",
+        'isCollegeNeeded': 'True'
     }
     # if request.method == 'POST':
-    return render(request, 'main/dualtrends.html', context)
+    return render(request, 'main/akshat_q1.html', context)
 
 
 def trendspecial(request):
@@ -227,11 +239,21 @@ def trendspecial(request):
         final.append(dict)
         i += 1
     context = {
-        'data': json.dumps(final), 'year': json.dumps(list(year_set)), 'seat_type': SEAT_TYPES, 'colleges': IITS, 'gender': GENDERS
+        'data': json.dumps(final),
+        'year': json.dumps(list(year_set)),
+        'seat_type': SEAT_TYPES,
+        'colleges': IITS,
+        'gender': GENDERS,
+        'question': "How has the preference for specialized branches (such as Aerospace, Biotechnology, Computer Science, etc.) evolved over time?",
+        'isBranchNeeded': "False",
+        'isSeatTypeNeeded': "True",
+        'isGenderNeeded': "True",
+        'isYearNeeded': "False",
+        'isCollegeNeeded': 'True',
 
     }
     # if request.method == 'POST':
-    return render(request, 'main/trendspecial.html', context)
+    return render(request, 'main/akshat_q1.html', context)
 
 
 def dig_q1(request):
@@ -243,10 +265,14 @@ def dig_q1(request):
         'Mathematics and Computing (4 Years Bachelor of Technology)',
     ]
 
-    filtered_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
-    filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-    jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-    jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
+    filtered_data = data.objects.filter(
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
+    filtered_data = filtered_data.order_by(
+        '-year', 'institute', 'program', 'opening_rank', )
+    jsdata = filtered_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    jsdata = list(jsdata.order_by(
+        'institute', 'opening_rank', 'program', '-year', ))
     jsdata = json.dumps(jsdata)
 
     context = {
@@ -257,31 +283,40 @@ def dig_q1(request):
     return render(request, 'main/digvijay_q1.html', context)
 
 
-
 def sid_q1(request):
-    
-    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral') 
-    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+
+    all_data = data.objects.filter(
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral')
+    jsdata = all_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
     jsdata = json.dumps(list(jsdata))
     context = {
-        'alldata':all_data,
-        'jsdata':jsdata,
+        'alldata': all_data,
+        'jsdata': jsdata,
     }
-    return render(request,'main/siddhant_q1.html',context)
+    return render(request, 'main/siddhant_q1.html', context)
+
+
 def sid_q2(request):
-    colleges = [i[0] for i in IITS]  
-    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges) 
-    jsdata = all_data.values('institute','year','program','opening_rank','closing_rank')
+    colleges = [i[0] for i in IITS]
+    all_data = data.objects.filter(
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
+    jsdata = all_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
     jsdata = json.dumps(list(jsdata))
     context = {
-        'alldata':all_data,
-        'jsdata':jsdata,
+        'alldata': all_data,
+        'jsdata': jsdata,
     }
-    return render(request,'main/siddhant_q2.html',context)
+    return render(request, 'main/siddhant_q2.html', context)
+
+
 def sid_q3(request):
-    colleges = [i[0] for i in IITS]  
-    all_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
-    jsdata = all_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    colleges = [i[0] for i in IITS]
+    all_data = data.objects.filter(
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
+    jsdata = all_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
     jsdata = json.dumps(list(jsdata))
     context = {
         'alldata': all_data,
@@ -289,31 +324,35 @@ def sid_q3(request):
     }
     return render(request, 'main/siddhant_q3.html', context)
 
+
 def dev_q3(request):
     filtered_data = data.objects.filter(roundNo='6')
 
-    seat_types = ['OPEN','EWS','SC','ST','OBC-NCL']
+    seat_types = ['OPEN', 'EWS', 'SC', 'ST', 'OBC-NCL']
     result = []
 
     for seat_type in seat_types:
         for year in range(2000, 2024):  # Assuming the range of years you want to consider
-            max_closing_rank = filtered_data.filter(seat_type=seat_type, year=year).aggregate(Max('closing_rank'))
+            max_closing_rank = filtered_data.filter(
+                seat_type=seat_type, year=year).aggregate(Max('closing_rank'))
             if max_closing_rank['closing_rank__max']:
-                obj = filtered_data.filter(seat_type=seat_type, year=year, closing_rank=max_closing_rank['closing_rank__max']).first()
+                obj = filtered_data.filter(
+                    seat_type=seat_type, year=year, closing_rank=max_closing_rank['closing_rank__max']).first()
                 result.append({
                     'seat_type': obj.seat_type,
                     'year': obj.year,
                     'closing_rank': obj.closing_rank,
-                    'institute':obj.institute,
+                    'institute': obj.institute,
                     # Add more fields if necessary
                 })
 
     jsdata = json.dumps(result)
     context = {
-        'alldata':result,
-        'jsdata':jsdata,
+        'alldata': result,
+        'jsdata': jsdata,
     }
-    return render(request, 'main/dev_q3.html',context)
+    return render(request, 'main/dev_q3.html', context)
+
 
 def dig_q2(request):
     if request.method == 'POST':
@@ -322,82 +361,86 @@ def dig_q2(request):
         college = request.POST.getlist('college')
         branch = request.POST.getlist('branch')
         seat_type = request.POST.getlist('seat_types')
-        if(year == None):
+        if (year == None):
             year = 2016
-        
+
         print(year)
 
         # for option in college:
         #     print(option)
         # print(college)
-        filtered_data = data.objects.filter(year=(year),roundNo='6',seat_type='OPEN',gender='Gender-Neutral',closing_rank__lt = '1000',program__contains='4').filter(program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
-        jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
+        filtered_data = data.objects.filter(year=(year), roundNo='6', seat_type='OPEN', gender='Gender-Neutral', closing_rank__lt='1000', program__contains='4').filter(
+            program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
+        jsdata = filtered_data.values(
+            'institute', 'year', 'program', 'opening_rank', 'closing_rank')
         jsdata = json.dumps(list(jsdata))
         context = {
-            'alldata':filtered_data,
-            'jsdata':jsdata,
-            'years':YEARS,
-            'colleges':IITS,
-            'branches':BRANCHES,
-            'seat_types':SEAT_TYPES,
-            'genders':GENDERS,
-            'isCollegeNeeded':"False",
-            'isBranchNeeded':"False",
-            'isSeatTypeNeeded':"False",
-            'isGenderNeeded':"False",
-            'isYearNeeded':"True",
+            'alldata': filtered_data,
+            'jsdata': jsdata,
+            'years': YEARS,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
+            'isCollegeNeeded': "False",
+            'isBranchNeeded': "False",
+            'isSeatTypeNeeded': "False",
+            'isGenderNeeded': "False",
+            'isYearNeeded': "True",
 
         }
-        return render(request, 'main/digvijay_q2.html',context)
+        return render(request, 'main/digvijay_q2.html', context)
 
     year = 2016
-    filtered_data = data.objects.filter(year=year,roundNo='6',seat_type='OPEN',gender='Gender-Neutral',closing_rank__lt = '1000',program__contains='4').filter(program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
+    filtered_data = data.objects.filter(year=year, roundNo='6', seat_type='OPEN', gender='Gender-Neutral', closing_rank__lt='1000', program__contains='4').filter(
+        program__contains='Technology').exclude(program__contains='Mechanical').exclude(program__contains='Power').exclude(program__contains='Physics')
 
-    jsdata = filtered_data.values('institute','year','program','opening_rank','closing_rank')
+    jsdata = filtered_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
     jsdata = json.dumps(list(jsdata))
     context = {
-        'alldata':filtered_data,
-        'jsdata':jsdata,
+        'alldata': filtered_data,
+        'jsdata': jsdata,
         'years': YEARS,
-        'colleges':IITS,
-        'branches':BRANCHES,
-        'seat_types':SEAT_TYPES,
-        'genders':GENDERS,
-        'isCollegeNeeded':"False",
-        'isBranchNeeded':"False",
-        'isSeatTypeNeeded':"False",
-        'isGenderNeeded':"False",
-        'isYearNeeded':"True",
+        'colleges': IITS,
+        'branches': BRANCHES,
+        'seat_types': SEAT_TYPES,
+        'genders': GENDERS,
+        'isCollegeNeeded': "False",
+        'isBranchNeeded': "False",
+        'isSeatTypeNeeded': "False",
+        'isGenderNeeded': "False",
+        'isYearNeeded': "True",
     }
 
-    return render(request, 'main/digvijay_q2.html',context)
+    return render(request, 'main/digvijay_q2.html', context)
 
 
 def Moh_q1(request):
     new_iits = [
         # Add more New IITs as needed
-    'Indian Institute of Technology Gandhinagar', 
-    'Indian Institute of Technology Jodhpur',
-    'Indian Institute of Technology Patna',
-    'Indian Institute of Technology Mandi',
-    'Indian Institute of Technology Palakkad',
-    'Indian Institute of Technology Ropar',
-    'Indian Institute of Technology Jammu',
-    'Indian Institute of Technology Goa',
-    'Indian Institute of Technology Bhilai',
-    'Indian Institute of Technology (ISM) Dhanbad',
-    'Indian Institute of Technology Tirupati',
+        'Indian Institute of Technology Gandhinagar',
+        'Indian Institute of Technology Jodhpur',
+        'Indian Institute of Technology Patna',
+        'Indian Institute of Technology Mandi',
+        'Indian Institute of Technology Palakkad',
+        'Indian Institute of Technology Ropar',
+        'Indian Institute of Technology Jammu',
+        'Indian Institute of Technology Goa',
+        'Indian Institute of Technology Bhilai',
+        'Indian Institute of Technology (ISM) Dhanbad',
+        'Indian Institute of Technology Tirupati',
     ]
 
     old_iits = [
-    'Indian Institute of Technology Bombay',
+        'Indian Institute of Technology Bombay',
         # Add more Old IITs as needed
-    'Indian Institute of Technology Delhi',
-    'Indian Institute of Technology Kanpur',
-    'Indian Institute of Technology Madras',
-    'Indian Institute of Technology Kharagpur',
-    'Indian Institute of Technology Roorkee',
-    'Indian Institute of Technology Guwahati',
+        'Indian Institute of Technology Delhi',
+        'Indian Institute of Technology Kanpur',
+        'Indian Institute of Technology Madras',
+        'Indian Institute of Technology Kharagpur',
+        'Indian Institute of Technology Roorkee',
+        'Indian Institute of Technology Guwahati',
     ]
 
     # Retrieve the unique years from the data
@@ -449,21 +492,22 @@ def Moh_q1(request):
 
     return render(request, 'main/Mohit_q1.html', context)
 
+
 def Moh_q1exp(request):
     new_iits = [
         'Indian Institute of Technology Dharwad',
         # Add more New IITs as needed
-        'Indian Institute of Technology Gandhinagar', 
-    'Indian Institute of Technology Jodhpur',
-    'Indian Institute of Technology Patna',
-    'Indian Institute of Technology Mandi',
-    'Indian Institute of Technology Palakkad',
-    'Indian Institute of Technology Ropar',
-    'Indian Institute of Technology Jammu',
-    'Indian Institute of Technology Goa',
-    'Indian Institute of Technology Bhilai',
-    'Indian Institute of Technology (ISM) Dhanbad',
-    'Indian Institute of Technology Tirupati',
+        'Indian Institute of Technology Gandhinagar',
+        'Indian Institute of Technology Jodhpur',
+        'Indian Institute of Technology Patna',
+        'Indian Institute of Technology Mandi',
+        'Indian Institute of Technology Palakkad',
+        'Indian Institute of Technology Ropar',
+        'Indian Institute of Technology Jammu',
+        'Indian Institute of Technology Goa',
+        'Indian Institute of Technology Bhilai',
+        'Indian Institute of Technology (ISM) Dhanbad',
+        'Indian Institute of Technology Tirupati',
     ]
 
     # Initialize an empty list to store the institute data
@@ -510,14 +554,14 @@ def Moh_q1exp(request):
 
 def Moh_q1exp2(request):
     old_iits = [
-          'Indian Institute of Technology Bombay',
+        'Indian Institute of Technology Bombay',
         # Add more Old IITs as needed
-    'Indian Institute of Technology Delhi',
-    'Indian Institute of Technology Kanpur',
-    'Indian Institute of Technology Madras',
-    'Indian Institute of Technology Kharagpur',
-    'Indian Institute of Technology Roorkee',
-    'Indian Institute of Technology Guwahati',
+        'Indian Institute of Technology Delhi',
+        'Indian Institute of Technology Kanpur',
+        'Indian Institute of Technology Madras',
+        'Indian Institute of Technology Kharagpur',
+        'Indian Institute of Technology Roorkee',
+        'Indian Institute of Technology Guwahati',
     ]
 
     # Initialize an empty list to store the institute data
@@ -562,10 +606,10 @@ def Moh_q1exp2(request):
     return render(request, 'main/Mohit_q1exp2.html', context)
 
 
-
 def branch_popularity(request):
     # Retrieve the unique years in the data
-    years = data.objects.values_list('year', flat=True).distinct().order_by('year')
+    years = data.objects.values_list(
+        'year', flat=True).distinct().order_by('year')
 
     # Retrieve all branch data
     all_branches = data.objects.values('program').distinct()
@@ -575,7 +619,7 @@ def branch_popularity(request):
 
     # Get the current page number from the request query parameters
     page_number = request.GET.get('page')
-    
+
     # Get the branches for the current page
     branches = paginator.get_page(page_number)
 
@@ -585,7 +629,8 @@ def branch_popularity(request):
     # Iterate over each branch
     for branch in branches:
         # Filter data for the current branch
-        branch_data_queryset = data.objects.filter(program=branch['program']).values('year').annotate(avg_closing_rank=Avg('closing_rank')).order_by('year')
+        branch_data_queryset = data.objects.filter(program=branch['program']).values(
+            'year').annotate(avg_closing_rank=Avg('closing_rank')).order_by('year')
 
         # Convert the queryset to a list of dictionaries
         branch_data_list = list(branch_data_queryset)
