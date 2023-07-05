@@ -1,43 +1,47 @@
 {% extends "main/base.html" %}
 
-
 <head>
-    {% block title %}siddhant q3{% endblock %}
-    {% block additional_content %}
-    <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
-    <style>
-        body{
-            background-color:rgb(31, 41, 55);
-        }
-      
-        #chart-container {
-            position: relative;
-            height: 90vh;
-            width: 100%;
-            overflow: hidden;
-            }
-    </style>
-    {% endblock %}
+  {% block title %}siddhant q3{% endblock %} {% block additional_content %}
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"></script>
+  <style>
+    body {
+      background-color: rgb(31, 41, 55);
+    }
+
+    #chart-container {
+      position: relative;
+      height: 90vh;
+      width: 100%;
+      overflow: hidden;
+    }
+  </style>
+  {% endblock %}
 </head>
-   
 
 <body>
-    {% block content %}
+  {% block content %}
 
-    <h2> How does the popularity of non-engineering courses (such as B.Arch, B.Sc, etc.) compare to traditional engineering branches?</h2>
-    <div class="form-check form-switch">
-    <input class="form-check-input" type="checkbox" role="switch" onchange=changeData() id="flexSwitchCheckDefault">
-    <label class="form-check-label" for="flexSwitchCheckDefault">Closing Rank </label>
-    </div>
-    <div id="chart-container"></div>
-    
+  <h2>
+    How does the popularity of non-engineering courses (such as B.Arch, B.Sc,
+    etc.) compare to traditional engineering branches?
+  </h2>
+  <div class="form-check form-switch">
+    <input
+      class="form-check-input"
+      type="checkbox"
+      role="switch"
+      onchange="changeData()"
+      id="flexSwitchCheckDefault"
+    />
+    <label class="form-check-label" for="flexSwitchCheckDefault"
+      >Closing Rank
+    </label>
+  </div>
+  <div id="chart-container"></div>
 
-    
+  <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
 
-
-    <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
-
-    <script>
+  <script>
         var dataString = '{{ jsdata|safe }}';
         var data = JSON.parse(dataString);
         // console.log(data);
@@ -169,7 +173,7 @@
         });
     }
 
- 
+
 
     var series2 = [];
     var nonseries2 = [];
@@ -196,7 +200,7 @@
 
     var isClosing = 0;
     var text = isClosing ? 'Trend of Closing ranks over different years.' : 'Trend of Opening ranks over different years.';
-    
+
     option = {
         title: {
             text: text,
@@ -213,12 +217,14 @@
         legend: {
             zLevel: 1,
             orient: 'vertical',
-            type: 'scroll',
-            top: 25,
+            type:'scroll',
+            height:'70',
+            right:'0%',
+            top: '0%',
             textStyle: {
             color: 'white'
         }
-            
+
         },
         series: mergedSeries,
         grid: {
@@ -236,7 +242,7 @@
             textStyle:{
                 color:'white',
             }
-            
+
         },
         yAxis: [{
             type: "value",
@@ -270,9 +276,6 @@
                 }
             }
             window.addEventListener("resize", myChart.resize);
-        
-
-    </script>
-    {% endblock %}
+  </script>
+  {% endblock %}
 </body>
-

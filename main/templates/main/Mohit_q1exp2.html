@@ -42,15 +42,13 @@
 
     var option = {
       legend: {
-        data: instituteData.map(function(institute) {
-          return institute.name;
-        }),
+        type:'scroll',
+        height:'70',
         orient: 'vertical',
-        right: 10,
-        top: 'center',
+        right: 'center',
         textStyle:{
-          color:'#777'
-        }
+          color:'white',
+      },      
       },
       xAxis: {
         type: 'category',

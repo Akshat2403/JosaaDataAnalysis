@@ -122,13 +122,6 @@
 
 <body>
   {% block content %}
-
-  <div class="load"></div>
-  <div id="fade">
-    <div>
-      <h1 style="padding-top: 10px; text-align:center; font-size: 5vh; color:gray;">What is the Popularity Variation Among Different Branches?
-      </h1>
-    </div>
     <div id="graph-container" style="width: 80vw; height: 70vh; padding-top: 30px;"></div>
 
     <div class="pagination">
@@ -152,10 +145,7 @@
   <script>
     // Create an ECharts instance
     window.addEventListener('load', function () {
-      var loadingScreen = document.getElementsByClassName('load')[0];
-      loadingScreen.style.display = 'none';
-      document.getElementById('fade').style.filter = 'none';
-      var myChart = echarts.init(document.getElementById('graph-container'));
+      var myChart = echarts.init(document.getElementById('graph-container'),null,{height:750});
 
       var seriesData = branchData.map(function (branch) {
         var popularityData = branch.data.map(function (item) {
@@ -201,11 +191,16 @@
         },
         legend: {
           orient: 'vertical',
-          right: '-100vw',
-          textStyle:{
-          color:'#777'
-        }
+          type:'scroll',
+          height:'115',
         },
+        grid: {
+          top:'200',
+          right: "25%",
+            bottom: "8%",
+          containLabel: true,
+        },
+        
         xAxis: {
           type: 'category',
           data: years,

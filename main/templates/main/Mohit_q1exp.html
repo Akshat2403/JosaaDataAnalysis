@@ -42,16 +42,26 @@
 });
     
     var option = {
+      textStyle:{ color: '#fff',
+      fontWeight:'600'},
       legend: {
         data: instituteData.map(function(institute) {
           return institute.name;
-        }),
+        }), 
+        type:'scroll',
+        height:'70',
         orient: 'vertical',
-        right: 0,
-        top: 'center',
+        right: 'center',
         textStyle:{
-          color:'#777'
-        }
+          color:'white',
+      },      textStyle:{
+        color:'white',
+    },
+
+      },
+      grid: {
+        top:'100',
+        containLabel: true,
       },
       xAxis: {
         type: 'category',

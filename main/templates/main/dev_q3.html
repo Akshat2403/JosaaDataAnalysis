@@ -165,6 +165,8 @@
                 text = 'Trend of Opening ranks over different years.'
             }
             option = {
+                textStyle:{ color: '#fff',
+      fontWeight:'600'},
                     title: {
                         text: text,
                         bottom:0,
@@ -181,7 +183,10 @@
                         zLevel: 1,
                         orient:'vertical',
                         type:'scroll',
-                        top:25,
+                        top:'center',
+                        right:0,
+                        textStyle:{ color: '#fff',
+      fontWeight:'600'},
                         // itemHeight:2,
                     }, 
                     series: series1,
