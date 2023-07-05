@@ -616,6 +616,14 @@
                         </button>
                       </div>
                     </div>
+                    <button
+                    type="button"
+                    id="tableButton"
+                    onclick=showTable()
+                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Show table
+                  </button>
                     <div id="accordion-flush">
                       {% if isCollegeNeeded == "True" %}
                       <h2
@@ -789,8 +797,24 @@
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
+          var flag=true;
+          var table;
+          var tb;
+          function showTable(){
+            if(flag){
+              table.style.display='flex';
+              tb.innerHTML='Hide Table';
+            }else{
+              table.style.display='none';
+              tb.innerHTML='Show Table';
+            }
+            flag=!flag;
+          }
         window.addEventListener('load', function () {
           setTimeout(()=>{
+            tb=document.getElementById('tableButton')
+            table=document.getElementById('data_table_wrapper')
+            table.style.display='none';
             var loadingScreen = document.getElementsByClassName('load')[0];
             loadingScreen.style.display = 'none';
             document.getElementById('fade').style.filter = 'none';
