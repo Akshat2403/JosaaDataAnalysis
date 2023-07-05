@@ -46,35 +46,37 @@ def filter(request):
         college = request.POST.getlist('college')
         branch = request.POST.getlist('branch')
         seat_type = request.POST.getlist('seat_type')
-        alldata = data.objects.filter(institute__in=college,program__in=branch,seat_type__in=seat_type,year=year,gender__in=gender)
+        alldata = data.objects.filter(
+            institute__in=college, program__in=branch, seat_type__in=seat_type, year=year, gender__in=gender)
         context = {
-            'alldata':alldata,
+            'alldata': alldata,
             'colleges': IITS,
             'branches': BRANCHES,
             'seat_types': SEAT_TYPES,
             'genders': GENDERS,
-            'years':YEARS,
-            'isCollegeNeeded':"True",
-            'isBranchNeeded':"True",
-            'isSeatTypeNeeded':"True",
-            'isGenderNeeded':"True",
-            'isYearNeeded':"True",
+            'years': YEARS,
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "True",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "True",
         }
-        return render(request, 'main/filter.html',context)
+        return render(request, 'main/filter.html', context)
     context = {
-        'alldata':alldata,
+        'alldata': alldata,
         'colleges': IITS,
         'branches': BRANCHES,
-        'years':YEARS,
+        'years': YEARS,
         'seat_types': SEAT_TYPES,
         'genders': GENDERS,
-        'isCollegeNeeded':"True",
-        'isBranchNeeded':"True",
-        'isSeatTypeNeeded':"True",
-        'isGenderNeeded':"True",
-        'isYearNeeded':"True",
-        }
-    return render(request, 'main/filter.html',context)
+        'isCollegeNeeded': "True",
+        'isBranchNeeded': "True",
+        'isSeatTypeNeeded': "True",
+        'isGenderNeeded': "True",
+        'isYearNeeded': "True",
+    }
+    return render(request, 'main/filter.html', context)
+
 
 def printdata(request):
 
@@ -83,11 +85,11 @@ def printdata(request):
         'branches': BRANCHES,
         'seat_types': SEAT_TYPES,
         'genders': GENDERS,
-        'isCollegeNeeded':"True",
-        'isBranchNeeded':"True",
-        'isSeatTypeNeeded':"True",
-        'isGenderNeeded':"True",
-        'isYearNeeded':"False",
+        'isCollegeNeeded': "True",
+        'isBranchNeeded': "True",
+        'isSeatTypeNeeded': "True",
+        'isGenderNeeded': "True",
+        'isYearNeeded': "False",
     }
     if request.method == 'POST':
         seat_type = request.POST.get('seat_type')
@@ -107,11 +109,11 @@ def printdata(request):
             'genders': GENDERS,
             'alldata': alldata,
             'jsdata': jsdata,
-            'isCollegeNeeded':"True",
-            'isBranchNeeded':"True",
-            'isSeatTypeNeeded':"True",
-            'isGenderNeeded':"True",
-            'isYearNeeded':"False",
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "True",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "False",
         }
         return render(request, 'main/index.html', context1)
 
@@ -200,7 +202,9 @@ def trenddual(request):
         i += 1
 
     context = {
+        'alldata': dualdata,
         'data': json.dumps(final), 'year': json.dumps(list(year_set)), 'branches': branches, 'seat_types': SEAT_TYPES, 'colleges': IITS, 'genders': GENDERS, 'isCollegeNeeded': "False",
+        'question': 'How has the trend of students opting for dual degree programs (B.Tech + M.Tech) changed over the years? ',
         'isBranchNeeded': "False",
         'isSeatTypeNeeded': "True",
         'isGenderNeeded': "True",
@@ -285,6 +289,7 @@ def trendspecial(request):
         i += 1
     context = {
         'data': json.dumps(final),
+        # 'alldata':dualdata,
         'year': json.dumps(list(year_set)),
         'seat_type': SEAT_TYPES,
         'colleges': IITS,
@@ -314,51 +319,56 @@ def dig_q1(request):
         college = request.POST.getlist('college')
         # branch = request.POST.getlist('branch')
         seat_type = request.POST.getlist('seat_type')
-        filtered_data = data.objects.filter(roundNo='6', seat_type__in=seat_type, gender__in=gender, program__in=popular_branches,institute__in= college)
-        filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-        jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-        jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
+        filtered_data = data.objects.filter(
+            roundNo='6', seat_type__in=seat_type, gender__in=gender, program__in=popular_branches, institute__in=college)
+        filtered_data = filtered_data.order_by(
+            '-year', 'institute', 'program', 'opening_rank', )
+        jsdata = filtered_data.values(
+            'institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = list(jsdata.order_by(
+            'institute', 'opening_rank', 'program', '-year', ))
         jsdata = json.dumps(jsdata)
 
         context = {
             'alldata': filtered_data,
             'jsdata': jsdata,
-            'isCollegeNeeded':"True",
-            'isBranchNeeded':"True",
-            'isSeatTypeNeeded':"True",
-            'isGenderNeeded':"True",
-            'isYearNeeded':"False",
-            'years':YEARS,
-            'colleges':IITS,
-            'branches':BRANCHES,
-            'seat_types':SEAT_TYPES,
-            'genders':GENDERS,
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "True",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "False",
+            'years': YEARS,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
         }
-
 
         return render(request, 'main/digvijay_q1.html', context)
 
-
-
-    filtered_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
-    filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-    jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-    jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
+    filtered_data = data.objects.filter(
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
+    filtered_data = filtered_data.order_by(
+        '-year', 'institute', 'program', 'opening_rank', )
+    jsdata = filtered_data.values(
+        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
+    jsdata = list(jsdata.order_by(
+        'institute', 'opening_rank', 'program', '-year', ))
     jsdata = json.dumps(jsdata)
 
     context = {
         'alldata': filtered_data,
         'jsdata': jsdata,
-        'isCollegeNeeded':"True",
-        'isBranchNeeded':"True",
-        'isSeatTypeNeeded':"True",
-        'isGenderNeeded':"True",
-        'isYearNeeded':"False",
-        'years':YEARS,
-        'colleges':IITS,
-        'branches':BRANCHES,
-        'seat_types':SEAT_TYPES,
-        'genders':GENDERS,
+        'isCollegeNeeded': "True",
+        'isBranchNeeded': "True",
+        'isSeatTypeNeeded': "True",
+        'isGenderNeeded': "True",
+        'isYearNeeded': "False",
+        'years': YEARS,
+        'colleges': IITS,
+        'branches': BRANCHES,
+        'seat_types': SEAT_TYPES,
+        'genders': GENDERS,
     }
 
     return render(request, 'main/digvijay_q1.html', context)
@@ -459,7 +469,7 @@ def dig_q2(request):
             'alldata': filtered_data,
             'jsdata': jsdata,
             'years': YEARS,
-            'year':year,
+            'year': year,
             'colleges': IITS,
             'branches': BRANCHES,
             'seat_types': SEAT_TYPES,
@@ -484,7 +494,7 @@ def dig_q2(request):
         'alldata': filtered_data,
         'jsdata': jsdata,
         'years': YEARS,
-        'year':year,
+        'year': year,
         'colleges': IITS,
         'branches': BRANCHES,
         'seat_types': SEAT_TYPES,
@@ -568,6 +578,7 @@ def Moh_q1(request):
     # print(new_iit_json_data)
     # print(old_iit_json_data)
     context = {
+        'question': 'What is the Popularity Variation between New and Old IITs? ',
         'years': years,
         'new_iit_data': new_iit_json_data,
         'old_iit_data': old_iit_json_data,
