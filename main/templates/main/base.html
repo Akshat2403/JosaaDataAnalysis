@@ -345,47 +345,41 @@
       }
     }
 
-    /* Adjust the box width for mobile screens */
-    @media (max-width: 479px) {
-      .box {
-        width: 100%;
+      /* Adjust the box width for mobile screens */
+      @media (max-width: 479px) {
+        .box {
+          width: 100%;
+        }
       }
-    }
+      div.dataTables_wrapper div.dataTables_filter{
+            color: gray;
+            overflow-x: scroll;
 
-    div.dataTables_wrapper div.dataTables_filter {
-      color: gray;
-
-    }
-
-    div.dataTables_wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-top: 2%;
-      padding-bottom: 2%;
-      width: 90%;
-      padding-left: 10%;
-    }
-
-    div.dataTables_wrapper div.dataTables_paginate span .ellipsis {
-      color: #777 !important;
-    }
-
-    div.dataTables_wrapper div.dataTables_paginate span .paginate_button,
-    .dataTables_wrapper .dataTables_paginate .paginate_button {
-
-      color: gray !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled,
-    .dataTables_wrapper .dataTables_paginate {
-      color: gray !important;
-    }
-
-    .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover {
-      color: black !important;
-    }
+        }
+        div.dataTables_wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            width: 90%;
+            padding-left: 10%;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
+            color: #777 !important;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .paginate_button,.dataTables_wrapper .dataTables_paginate .paginate_button{
+            
+            color: gray !important;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate{
+            color: gray !important;
+        }
+         .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover{
+            color: black !important;
+        }
 
     .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
       border: 1px solid gray !important;
@@ -409,15 +403,16 @@
       /* Add any other CSS styles as needed */
     }
 
-    /* Customize pagination buttons */
-    .dark-table {
-      background-color: #333;
-      color: white;
-      width: 70%;
-      position: relative;
-      text-align: center;
-      justify-content: center;
-    }
+        /* Customize pagination buttons */
+         .dark-table {
+                    background-color: #333;
+                    color: white;
+                    width: 70%;
+                    position: relative;
+                    text-align: center;
+                    justify-content: center;
+                    overflow-x: scroll;
+                }
 
     .dark-table th,
     .dark-table td {
@@ -571,222 +566,266 @@
                      </a>
                   </li>
                </ul> -->
-
-          <a href="/" class="hidden lg:block">
-            <div class="go-back-btn">
-              <svg height="2.5vw" id="Layer_1" style="enable-background: new 0 0 512 512; color: white" version="1.1"
-                viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink">
-                <polygon fill="white"
-                  points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 " />
-              </svg>
-              Go Back
+            
+               <a href="/" class="hidden lg:block">
+                <div class="go-back-btn">
+                      <svg
+                    height="2.5vw"
+                    id="Layer_1"
+                    style="enable-background: new 0 0 512 512; color: white"
+                    version="1.1"
+                    viewBox="0 0 512 512"
+                    xml:space="preserve"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                  >
+                    <polygon
+                      fill="white"
+                      points="352,128.4 319.7,96 160,256 160,256 160,256 319.7,416 352,383.6 224.7,256 "
+                    />
+                  </svg>
+                  Go Back
+                </div>
+            </a>
+               <form method="post">
+                {% csrf_token %}
+                <div class="relative">
+                  <!-- Dropdown menu -->
+                  <div
+                    id="dropdown"
+                    class="inset-0 mx-auto mt-2 p-4 bg-dark shadow-lg rounded-lg z-10"
+                  >
+                    <div class="mb-4">
+                      <h6
+                        class="text-lg font-bold mb-2 text-gray-900 dark:text-white"
+                      >
+                        Filters
+                      </h6>
+                      <div class="flex space-x-4">
+                        <button
+                          type="submit"
+                          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                          Apply Filter
+                        </button>
+                        <button
+                          id="clearButton"
+                          class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                        >
+                          Clear Selections
+                        </button>
+                      </div>
+                    </div>
+                    <div id="accordion-flush">
+                      {% if isCollegeNeeded == "True" %}
+                      <h2
+                        id="category-heading"
+                        class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                      >
+                        <span>College</span>
+                      </h2>
+      
+                      <!-- College -->
+                      <div class="multiSelect">
+                        <select
+                          class="multiSelect_field"
+                          data-placeholder="Select College"
+                          name="college"
+                          multiple
+                        >
+                          {% for clg in colleges %}
+                          <option value="{{clg.0}}">{{clg.1}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      {% endif %}
+                      <!-- Branch -->
+                      {% if isBranchNeeded == "True" %}
+                      <h2
+                        id="price-heading"
+                        class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                      >
+                        <span>Branch</span>
+                      </h2>
+      
+                      <div class="multiSelect">
+                        <select
+                          class="multiSelect_field"
+                          data-placeholder="Select Branch"
+                          name="branch"
+                          multiple
+                        >
+                          {% for branch in branches %}
+                          <option value="{{branch.0}}">{{branch.1}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      {% endif %}
+                      <!-- Seat  Type-->
+                      {% if isSeatTypeNeeded == "True" %}
+      
+                      <h2
+                        id="worldwide-shipping-heading"
+                        class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                      >
+                        <span>Seat Type</span>
+                      </h2>
+                      <div class="multiSelect">
+                        <select
+                          class="multiSelect_field"
+                          data-placeholder="Select Seat Type"
+                          name="seat_type"
+                          multiple
+                        >
+                          {% for seat_type in seat_types %}
+                          <option value="{{seat_type.0}}">{{seat_type.1}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      {% endif %}
+                      <!-- Year -->
+                      {% if isYearNeeded == "True" %}
+                      <h2
+                        id="year-heading"
+                        class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                      >
+                        <span> Year</span>
+                      </h2>
+      
+                      <div>
+                        <select
+                          data-placeholder="Select Year"
+                          class="year_dropdown"
+                          name="year"
+                        >
+                          <option value="0" selected disabled>Select Year</option>
+                          {% for yr in years %}
+                          <option value="{{yr.0}}">{{yr.1}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      {% endif %}
+      
+                      <!-- gender -->
+                      {% if isGenderNeeded == "True" %}
+                      <h2
+                        id="gender-heading"
+                        class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2"
+                      >
+                        <span class="">Gender</span>
+                      </h2>
+                      <div class="multiSelect">
+                        <select
+                          class="multiSelect_field"
+                          data-placeholder="Select Gender"
+                          name="gender"
+                          multiple
+                        >
+                          {% for gender in genders %}
+                          <option value="{{gender.0}}">{{gender.1}}</option>
+                          {% endfor %}
+                        </select>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
-          </a>
-          <form method="post">
-            {% csrf_token %}
-            <div class="relative">
-              <!-- Dropdown menu -->
-              <div id="dropdown" class="inset-0 mx-auto mt-2 p-4 bg-dark shadow-lg rounded-lg z-10">
-                <div class="mb-4">
-                  <h6 class="text-lg font-bold mb-2 text-gray-900 dark:text-white">
-                    Filters
-                  </h6>
-                  <div class="flex space-x-4">
-                    <button type="submit"
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                      Apply Filter
-                    </button>
-                    <button id="clearButton"
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-red-700 rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                      Clear Selections
-                    </button>
+         </aside>
+         
+         <div class="p-4 sm:ml-64 pt-10">
+            <div class="p-4  rounded-lg dark:border-gray-700">
+                <div class="chart-container"><div><div>{% block question%}{%endblock%}</div>{% block content %} {% endblock %}{% block desc%}{%endblock%}</div>
+                <div>
+                  <table id="data_table" class="dark-table">
+                      <thead>
+                        <tr>
+                          <th>SI No</th>
+                          <th>Institute Name</th>
+                          <th>Institute Type</th>
+                          <th>Program</th>
+                          <th>Seat Type</th>
+                          <th>Gender</th>
+                          <th>Opening Rank</th>
+                          <th>Closing Rank</th>
+                          <th>Year</th>
+                          <th>Round No</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for data in alldata %}
+                        <tr>
+                          <td>{{forloop.counter}}</td>
+                          <td>{{data.institute}}</td>
+                          <td>{{data.institute_type}}</td>
+                          <td>{{data.program}}</td>
+                          <td>{{data.seat_type}}</td>
+                          <td>{{data.gender}}</td>
+                          <td>{{data.opening_rank}}</td>
+                          <td>{{data.closing_rank}}</td>
+                          <td>{{data.year}}</td>
+                          <td>{{data.roundNo}}</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
                   </div>
-                </div>
-                <div id="accordion-flush">
-                  {% if isCollegeNeeded == "True" %}
-                  <h2 id="category-heading"
-                    class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2">
-                    <span>College</span>
-                  </h2>
-
-                  <!-- College -->
-                  <div class="multiSelect">
-                    <select class="multiSelect_field" data-placeholder="Select College" name="college" multiple>
-                      {% for clg in colleges %}
-                      <option value="{{clg.0}}">{{clg.1}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-                  <!-- Branch -->
-                  {% if isBranchNeeded == "True" %}
-                  <h2 id="price-heading"
-                    class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2">
-                    <span>Branch</span>
-                  </h2>
-
-                  <div class="multiSelect">
-                    <select class="multiSelect_field" data-placeholder="Select Branch" name="branch" multiple>
-                      {% for branch in branches %}
-                      <option value="{{branch.0}}">{{branch.1}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-                  <!-- Seat  Type-->
-                  {% if isSeatTypeNeeded == "True" %}
-
-                  <h2 id="worldwide-shipping-heading"
-                    class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2">
-                    <span>Seat Type</span>
-                  </h2>
-                  <div class="multiSelect">
-                    <select class="multiSelect_field" data-placeholder="Select Seat Type" name="seat_type" multiple>
-                      {% for seat_type in seat_types %}
-                      <option value="{{seat_type.0}}">{{seat_type.1}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-                  <!-- Year -->
-                  {% if isYearNeeded == "True" %}
-                  <h2 id="year-heading"
-                    class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2">
-                    <span> Year</span>
-                  </h2>
-
-                  <div>
-                    <select data-placeholder="Select Year" class="year_dropdown" name="year">
-                      <option value="0" selected disabled>Select Year</option>
-                      {% for yr in years %}
-                      <option value="{{yr.0}}">{{yr.1}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-
-                  <!-- gender -->
-                  {% if isGenderNeeded == "True" %}
-                  <h2 id="gender-heading"
-                    class="flex items-center justify-between text-gray-900 dark:text-white focus:outline-none py-2">
-                    <span class="">Gender</span>
-                  </h2>
-                  <div class="multiSelect">
-                    <select class="multiSelect_field" data-placeholder="Select Gender" name="gender" multiple>
-                      {% for gender in genders %}
-                      <option value="{{gender.0}}">{{gender.1}}</option>
-                      {% endfor %}
-                    </select>
-                  </div>
-                  {% endif %}
-                </div>
               </div>
             </div>
-          </form>
-        </div>
-      </aside>
-
-      <div class="p-4 sm:ml-64 pt-10">
-        <div class="p-4  rounded-lg dark:border-gray-700">
-          <div class="chart-container">
-            <div>
-              <div>{% block question%}{%endblock%}</div>{% block content %} {% endblock %}{% block desc%}{%endblock%}
-            </div>
-            <div>
-              <table id="data_table" class="dark-table">
-                <thead>
-                  <tr>
-                    <th>SI No</th>
-                    <th>Institute Name</th>
-                    <th>Institute Type</th>
-                    <th>Program</th>
-                    <th>Seat Type</th>
-                    <th>Gender</th>
-                    <th>Opening Rank</th>
-                    <th>Closing Rank</th>
-                    <th>Year</th>
-                    <th>Round No</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for data in alldata %}
-                  <tr>
-                    <td>{{forloop.counter}}</td>
-                    <td>{{data.institute}}</td>
-                    <td>{{data.institute_type}}</td>
-                    <td>{{data.program}}</td>
-                    <td>{{data.seat_type}}</td>
-                    <td>{{data.gender}}</td>
-                    <td>{{data.opening_rank}}</td>
-                    <td>{{data.closing_rank}}</td>
-                    <td>{{data.year}}</td>
-                    <td>{{data.roundNo}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
-        <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="iconX">
-          <g stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </g>
-        </symbol>
-      </svg>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
-      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-      <!-- Include DataTables JavaScript -->
-      <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-      <script>
-        window.addEventListener('load', function () {
-          setTimeout(()=>{
-            var loadingScreen = document.getElementsByClassName('load')[0];
-            loadingScreen.style.display = 'none';
-            document.getElementById('fade').style.filter = 'none';
-          },500)});
-        jQuery(function ($) {
-          // Your DataTables initialization code here
-          $('#data_table').DataTable({
-            paging: true,
-            lengthMenu: false,
-            pageLength: 10,
-            searching: true,
-            ordering: true,
-            language: {
-              info: "",
-              infoEmpty: "",
-              infoFiltered: ""
-            }
-          });
-
-          // Clear button click event
-          $("#clearButton").click(function () {
-            // Clear form elements
-            $("form")[0].reset();
-
-            // Reset selected options in multiselect dropdowns
-            $(".multiSelect_choice").remove();
-            $(".multiSelect_option").removeClass("-selected");
-            $(".multiSelect_dropdown").removeClass("-hasValue");
-            $(".multiSelect_noselections").remove();
-          });
-
-          // MultiSelect
-          $(".multiSelect").each(function (index) {
-            var self = $(this);
-            var field = self.find(".multiSelect_field");
-            var fieldOption = field.find("option");
-            var placeholder = field.attr("data-placeholder");
-
-            field.hide().after(
-              `<div class="multiSelect_dropdown"></div>
+         </div>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+      <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="iconX">
+        <g stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </g>
+      </symbol>
+    </svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Include DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+      jQuery(function ($) {
+        // Your DataTables initialization code here
+        $('#data_table').DataTable({
+          paging: true,
+          lengthMenu: false,
+          pageLength: 10,
+          searching: true,
+          ordering: true,
+          language: {
+            info: "",
+            infoEmpty: "",
+            infoFiltered: ""
+          },
+          responsive: true
+        });
+  
+        // Clear button click event
+        $("#clearButton").click(function () {
+          // Clear form elements
+          $("form")[0].reset();
+  
+          // Reset selected options in multiselect dropdowns
+          $(".multiSelect_choice").remove();
+          $(".multiSelect_option").removeClass("-selected");
+          $(".multiSelect_dropdown").removeClass("-hasValue");
+          $(".multiSelect_noselections").remove();
+        });
+  
+        // MultiSelect
+        $(".multiSelect").each(function (index) {
+          var self = $(this);
+          var field = self.find(".multiSelect_field");
+          var fieldOption = field.find("option");
+          var placeholder = field.attr("data-placeholder");
+  
+          field.hide().after(
+            `<div class="multiSelect_dropdown"></div>
             <span class="multiSelect_placeholder">${placeholder}</span>
             <ul class="multiSelect_list"></ul>
             <span class="multiSelect_arrow"></span>`
