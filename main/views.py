@@ -36,21 +36,22 @@ def upload_csv(request):
 
 
 def printdata(request):
-    # alldata = data.objects.filter(institute='Indian Institute of Technology Guwahati').all()
 
-    # jsdata = alldata.values('year','closing_rank','roundNo','program')
-    # jsdata = list(jsdata)
-    # jsdata = json.dumps(jsdata)
     context = {
         'colleges': IITS,
         'branches': BRANCHES,
         'seat_types': SEAT_TYPES,
         'genders': GENDERS,
+        'isCollegeNeeded':"True",
+        'isBranchNeeded':"True",
+        'isSeatTypeNeeded':"True",
+        'isGenderNeeded':"True",
+        'isYearNeeded':"False",
     }
     if request.method == 'POST':
         seat_type = request.POST.get('seat_type')
-        institute = request.POST.get('college_name')
-        branch_name = request.POST.get('branch_name')
+        institute = request.POST.get('college')
+        branch_name = request.POST.get('branch')
         gender = request.POST.get('gender')
         alldata = data.objects.filter(
             seat_type=seat_type, institute=institute, gender=gender, program=branch_name).all()
@@ -64,7 +65,13 @@ def printdata(request):
             'seat_types': SEAT_TYPES,
             'genders': GENDERS,
             'alldata': alldata,
-            'jsdata': jsdata}
+            'jsdata': jsdata,
+            'isCollegeNeeded':"True",
+            'isBranchNeeded':"True",
+            'isSeatTypeNeeded':"True",
+            'isGenderNeeded':"True",
+            'isYearNeeded':"False",
+        }
         return render(request, 'main/index.html', context1)
 
     return render(request, 'main/index.html', context)
@@ -235,13 +242,43 @@ def trendspecial(request):
 
 
 def dig_q1(request):
-
     popular_branches = [
         'Computer Science and Engineering (4 Years Bachelor of Technology)',
         'Electrical Engineering (4 Years Bachelor of Technology)',
         'Mechanical Engineering (4 Years Bachelor of Technology)',
         'Mathematics and Computing (4 Years Bachelor of Technology)',
     ]
+
+    if request.method == 'POST':
+        gender = request.POST.getlist('gender')
+        college = request.POST.getlist('college')
+        # branch = request.POST.getlist('branch')
+        seat_type = request.POST.getlist('seat_type')
+        filtered_data = data.objects.filter(roundNo='6', seat_type__in=seat_type, gender__in=gender, program__in=popular_branches,institute__in= college)
+        filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
+        jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
+        jsdata = json.dumps(jsdata)
+
+        context = {
+            'alldata': filtered_data,
+            'jsdata': jsdata,
+            'isCollegeNeeded':"True",
+            'isBranchNeeded':"True",
+            'isSeatTypeNeeded':"True",
+            'isGenderNeeded':"True",
+            'isYearNeeded':"False",
+            'years':YEARS,
+            'colleges':IITS,
+            'branches':BRANCHES,
+            'seat_types':SEAT_TYPES,
+            'genders':GENDERS,
+        }
+
+
+        return render(request, 'main/digvijay_q1.html', context)
+
+
 
     filtered_data = data.objects.filter(roundNo='6', seat_type='OPEN', gender='Gender-Neutral', program__in=popular_branches)
     filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
@@ -252,6 +289,16 @@ def dig_q1(request):
     context = {
         'alldata': filtered_data,
         'jsdata': jsdata,
+        'isCollegeNeeded':"True",
+        'isBranchNeeded':"True",
+        'isSeatTypeNeeded':"True",
+        'isGenderNeeded':"True",
+        'isYearNeeded':"False",
+        'years':YEARS,
+        'colleges':IITS,
+        'branches':BRANCHES,
+        'seat_types':SEAT_TYPES,
+        'genders':GENDERS,
     }
 
     return render(request, 'main/digvijay_q1.html', context)

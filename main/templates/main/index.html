@@ -28,86 +28,16 @@
 
     </head>
     <body>
-    {% block content %}
-
-        <form method="post">
-{% csrf_token %}
-        <div style="padding: 20px;">
-            <!-- Filter -->
-            <div class="border-bottom pb-3">
-              <div class="row justify-content-md-start align-items-md-center">
-                <div class="col-md-4 mb-3 mb-md-0">
-                  <h5 class="mb-0"><span class="text-dark fw-semibold">Select</span> to get started</h5>
-                </div>
-                <!-- End Col -->
-            
-                <div class="col-md-6 text-md-end">
-                  <div class="row gx-2">
-                    <div class="col-auto mb-2">
-                      <!-- Select -->
-                      <select class="form-select form-select-sm" name="college_name">
-                        <option disabled selected value="0">Select College</option>
-                        {% for college in colleges %}
-                        <option value="{{college.0}}">{{college.1}}</option>
-                        {% endfor %}
-                      </select>
-                      <!-- End Select -->
-                    </div>
-                    <!-- End Col -->
-            
-                    <div class="col-auto mb-2">
-                      <!-- Select -->
-                      <select class="form-select form-select-sm" name="branch_name">
-                        <option disabled selected value="0">Select Branch</option>
-                        {% for branch in branches %}
-                        <option value="{{branch.0}}">{{branch.1}}</option>
-                        {% endfor %}
-                      </select>
-                      <!-- End Select -->
-                    </div>
-                    <!-- End Col -->
-            
-                    <div class="col-auto mb-2">
-                      <!-- Select -->
-                      <select class="form-select form-select-sm" name="seat_type">
-                        <option disabled selected value="0">Seat Type</option>
-                        {% for seattype in seat_types %}
-                        <option value="{{seattype.0}}">{{seattype.1}}</option>
-                        {% endfor %}
-                      </select>
-                      <!-- End Select -->
-                    </div>
-                    <!-- End Col -->
-            
-                    <div class="col-auto mb-2">
-                      <!-- Select -->
-                      <select class="form-select form-select-sm" name="gender">
-                        <option disabled selected value="0">Gender</option>
-                        {% for gen in genders %}
-                        <option value="{{gen.0}}">{{gen.1}}</option>
-                        {% endfor %}
-                      </select>
-                      <!-- End Select -->
-                      
-                    </div>
-
-                    <input type="submit" value="Search">
-                    <!-- End Col -->
-                  </div>
-                  <!-- End Row -->
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" role="switch" onchange=showTable() id="flexSwitchCheckDefault">
-                  <label class="form-check-label" for="flexSwitchCheckDefault">Show Table</label>
-                </div>
-                <!-- End Col -->
-              </div>
-              <!-- End Row -->
-            </div>
-            <!-- End Filter -->
-        </div>
-
-    </form>
+        <!-- {% block qsn %} -->
+        <!-- {% endblock %} -->
+        {% block content %}
+        <h2 class="text-gray-900 dark:text-white">
+        Filter to get trend in opening and closing rank of any college
+        </h2>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" onchange=showTable() id="flexSwitchCheckDefault">
+            <label class="form-check-label text-gray-900 dark:text-white" for="flexSwitchCheckDefault">Show Table</label>
+          </div>
 
         <div id="chart-container"></div>
 
@@ -185,11 +115,9 @@
                         temp.push(data[j].closing_rank)
                     }
                 }
-
-                console.log(temp);
                 yearwise_data.push(temp);
             }
-            console.log(yearwise_data);
+            // console.log(yearwise_data);
 
             var series = [];
             var i = 0;
@@ -201,8 +129,7 @@
                     type: "line",
                     data: tempdata,
                     smooth: true, 
-                    color:colors[i],
-                    
+                    // color:colors[i],
                     symbolSize: 3,
                 });
             }
@@ -217,7 +144,7 @@
                     trigger: "axis",
                 },
                 legend: {
-                    zlevel: 1,
+                    // zlevel: 1,
                     orient:'vertical',
                     right:0,
                 }, 
