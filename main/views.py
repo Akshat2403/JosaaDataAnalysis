@@ -434,6 +434,12 @@ def dev_q3(request):
                     'year': obj.year,
                     'closing_rank': obj.closing_rank,
                     'institute': obj.institute,
+                    'institute_type':"IIT",
+                    # 'institute_type':obj.institute_type,         ##giving error for some reason
+                    'program':obj.program,
+                    'gender':obj.gender,
+                    'opening_rank':obj.opening_rank,
+                    'roundNo':obj.roundNo,
                     # Add more fields if necessary
                 })
 
