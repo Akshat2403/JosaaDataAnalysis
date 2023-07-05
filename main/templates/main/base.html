@@ -1,52 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css"
-      rel="stylesheet"
-    /><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 
-    <title>{% block title %}Base{% endblock %}</title>
-    {% block additional_content %} {% endblock %}
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
 
-      .main-container {
-        color: white;
-      }
+  <title>{% block title %}Base{% endblock %}</title>
+  {% block additional_content %} {% endblock %}
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
 
-      .go-back-btn {
-        display: flex;
-        font-size: 1.3vw;
-        align-items: center;
-      }
+    .main-container {
+      color: white;
+    }
 
-      .container {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-      }
+    .go-back-btn {
+      display: flex;
+      font-size: 1.3vw;
+      align-items: center;
+    }
 
-      .box {
-        width: calc(33.33% - 20px);
-        background-color: rgb(55, 65, 81);
-        padding: 20px;
-        margin-bottom: 20px;
-        box-sizing: border-box;
-      }
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
 
-      /* multiselect css starts*/
-      @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext");
+    .box {
+      width: calc(33.33% - 20px);
+      background-color: rgb(55, 65, 81);
+      padding: 20px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
 
-      /* body {
+    /* multiselect css starts*/
+    @import url("https://fonts.googleapis.com/css?family=Quicksand:400,500,700&subset=latin-ext");
+
+    /* body {
             
             min-height: 100vh;
             color: #ADAFB6;
@@ -57,292 +56,294 @@
             transition: all .2s ease;
         } */
 
-      .multiSelect {
-        font-family: "Quicksand", sans-serif;
-        font-weight: 450;
-        width: 100%;
-        position: relative;
-      }
-      .year_dropdown {
-        font-family: "Quicksand", sans-serif;
-        font-weight: 450;
-        width: 100%;
-        color: #b8bcbf;
-        height: 3vw;
-        border-radius: 4px;
-      }
-      .year_dropdown option {
-        font-family: "Quicksand", sans-serif;
-        font-weight: 450;
-        height: 100px;
-        width: 100%;
-        color: #444f5b;
-        padding: 30px;
-      }
+    .multiSelect {
+      font-family: "Quicksand", sans-serif;
+      font-weight: 450;
+      width: 100%;
+      position: relative;
+    }
 
-      .multiSelect *,
-      .multiSelect *::before,
-      .multiSelect *::after {
-        box-sizing: border-box;
-      }
+    .year_dropdown {
+      font-family: "Quicksand", sans-serif;
+      font-weight: 450;
+      width: 100%;
+      color: #b8bcbf;
+      height: 3vw;
+      border-radius: 4px;
+    }
 
-      .multiSelect_dropdown {
-        font-size: 14px;
-        min-height: 35px;
-        line-height: 35px;
-        border-radius: 4px;
-        box-shadow: none;
-        outline: none;
-        background-color: #fff;
-        color: #444f5b;
-        border: 1px solid #d9dbde;
-        font-weight: 400;
-        padding: 0.5px 13px;
-        margin: 0;
-        transition: 0.1s border-color ease-in-out;
-        cursor: pointer;
-      }
+    .year_dropdown option {
+      font-family: "Quicksand", sans-serif;
+      font-weight: 450;
+      height: 100px;
+      width: 100%;
+      color: #444f5b;
+      padding: 30px;
+    }
 
-      .multiSelect_dropdown.-hasValue {
-        padding: 5px 30px 5px 5px;
-        cursor: default;
-      }
+    .multiSelect *,
+    .multiSelect *::before,
+    .multiSelect *::after {
+      box-sizing: border-box;
+    }
 
-      .multiSelect_dropdown.-open {
-        box-shadow: none;
-        outline: none;
-        padding: 4.5px 29.5px 4.5px 4.5px;
-        border: 1.5px solid #4073ff;
-      }
+    .multiSelect_dropdown {
+      font-size: 14px;
+      min-height: 35px;
+      line-height: 35px;
+      border-radius: 4px;
+      box-shadow: none;
+      outline: none;
+      background-color: #fff;
+      color: #444f5b;
+      border: 1px solid #d9dbde;
+      font-weight: 400;
+      padding: 0.5px 13px;
+      margin: 0;
+      transition: 0.1s border-color ease-in-out;
+      cursor: pointer;
+    }
 
-      .multiSelect_arrow::before,
-      .multiSelect_arrow::after {
-        content: "";
-        position: absolute;
-        display: block;
-        width: 2px;
-        height: 8px;
-        border-radius: 20px;
-        border-bottom: 8px solid #99a3ba;
-        top: 40%;
-        transition: all 0.15s ease;
-      }
+    .multiSelect_dropdown.-hasValue {
+      padding: 5px 30px 5px 5px;
+      cursor: default;
+    }
 
-      .multiSelect_arrow::before {
-        right: 18px;
-        -webkit-transform: rotate(-50deg);
-        transform: rotate(-50deg);
-      }
+    .multiSelect_dropdown.-open {
+      box-shadow: none;
+      outline: none;
+      padding: 4.5px 29.5px 4.5px 4.5px;
+      border: 1.5px solid #4073ff;
+    }
 
-      .multiSelect_arrow::after {
-        right: 13px;
-        -webkit-transform: rotate(50deg);
-        transform: rotate(50deg);
-      }
+    .multiSelect_arrow::before,
+    .multiSelect_arrow::after {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 2px;
+      height: 8px;
+      border-radius: 20px;
+      border-bottom: 8px solid #99a3ba;
+      top: 40%;
+      transition: all 0.15s ease;
+    }
 
-      .multiSelect_list {
-        margin: 0;
-        margin-bottom: 25px;
-        padding: 0;
-        list-style: none;
-        opacity: 0;
-        visibility: hidden;
-        position: absolute;
-        max-height: calc(10 * 31px);
-        top: 28px;
-        left: 0;
-        z-index: 9999;
-        right: 0;
-        background: #fff;
-        border-radius: 4px;
-        overflow-x: hidden;
-        overflow-y: auto;
-        -webkit-transform-origin: 0 0;
-        transform-origin: 0 0;
-        transition: opacity 0.1s ease, visibility 0.1s ease,
-          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        transition: opacity 0.1s ease, visibility 0.1s ease,
-          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        transition: opacity 0.1s ease, visibility 0.1s ease,
-          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
-          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        -webkit-transform: scale(0.8) translate(0, 4px);
-        transform: scale(0.8) translate(0, 4px);
-        border: 1px solid #d9dbde;
-        box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
-      }
+    .multiSelect_arrow::before {
+      right: 18px;
+      -webkit-transform: rotate(-50deg);
+      transform: rotate(-50deg);
+    }
 
-      .multiSelect_option {
-        margin: 0;
-        padding: 0;
-        opacity: 0;
-        -webkit-transform: translate(6px, 0);
-        transform: translate(6px, 0);
-        transition: all 0.15s ease;
-      }
+    .multiSelect_arrow::after {
+      right: 13px;
+      -webkit-transform: rotate(50deg);
+      transform: rotate(50deg);
+    }
 
-      .multiSelect_option.-selected {
-        display: none;
-      }
+    .multiSelect_list {
+      margin: 0;
+      margin-bottom: 25px;
+      padding: 0;
+      list-style: none;
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
+      max-height: calc(10 * 31px);
+      top: 28px;
+      left: 0;
+      z-index: 9999;
+      right: 0;
+      background: #fff;
+      border-radius: 4px;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-transform-origin: 0 0;
+      transform-origin: 0 0;
+      transition: opacity 0.1s ease, visibility 0.1s ease,
+        -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      transition: opacity 0.1s ease, visibility 0.1s ease,
+        transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      transition: opacity 0.1s ease, visibility 0.1s ease,
+        transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
+        -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      -webkit-transform: scale(0.8) translate(0, 4px);
+      transform: scale(0.8) translate(0, 4px);
+      border: 1px solid #d9dbde;
+      box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
+    }
 
-      .multiSelect_option:hover .multiSelect_text {
-        color: #fff;
-        background: #4d84fe;
-      }
+    .multiSelect_option {
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      -webkit-transform: translate(6px, 0);
+      transform: translate(6px, 0);
+      transition: all 0.15s ease;
+    }
 
-      .multiSelect_text {
-        cursor: pointer;
-        display: block;
-        padding: 5px 13px;
-        color: #525c67;
-        font-size: 14px;
-        text-decoration: none;
-        outline: none;
-        position: relative;
-        transition: all 0.15s ease;
-      }
+    .multiSelect_option.-selected {
+      display: none;
+    }
 
-      .multiSelect_list.-open {
-        opacity: 1;
-        visibility: visible;
-        -webkit-transform: scale(1) translate(0, 12px);
-        transform: scale(1) translate(0, 12px);
-        transition: opacity 0.15s ease, visibility 0.15s ease,
-          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        transition: opacity 0.15s ease, visibility 0.15s ease,
-          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-        transition: opacity 0.15s ease, visibility 0.15s ease,
-          transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
-          -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-      }
+    .multiSelect_option:hover .multiSelect_text {
+      color: #fff;
+      background: #4d84fe;
+    }
 
-      .multiSelect_list.-open + .multiSelect_arrow::before {
-        -webkit-transform: rotate(-130deg);
-        transform: rotate(-130deg);
-      }
+    .multiSelect_text {
+      cursor: pointer;
+      display: block;
+      padding: 5px 13px;
+      color: #525c67;
+      font-size: 14px;
+      text-decoration: none;
+      outline: none;
+      position: relative;
+      transition: all 0.15s ease;
+    }
 
-      .multiSelect_list.-open + .multiSelect_arrow::after {
-        -webkit-transform: rotate(130deg);
-        transform: rotate(130deg);
-      }
+    .multiSelect_list.-open {
+      opacity: 1;
+      visibility: visible;
+      -webkit-transform: scale(1) translate(0, 12px);
+      transform: scale(1) translate(0, 12px);
+      transition: opacity 0.15s ease, visibility 0.15s ease,
+        -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      transition: opacity 0.15s ease, visibility 0.15s ease,
+        transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+      transition: opacity 0.15s ease, visibility 0.15s ease,
+        transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32),
+        -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
+    }
 
-      .multiSelect_list.-open .multiSelect_option {
-        opacity: 1;
-        -webkit-transform: translate(0, 0);
-        transform: translate(0, 0);
-      }
+    .multiSelect_list.-open+.multiSelect_arrow::before {
+      -webkit-transform: rotate(-130deg);
+      transform: rotate(-130deg);
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(1) {
-        transition-delay: 10ms;
-      }
+    .multiSelect_list.-open+.multiSelect_arrow::after {
+      -webkit-transform: rotate(130deg);
+      transform: rotate(130deg);
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(2) {
-        transition-delay: 20ms;
-      }
+    .multiSelect_list.-open .multiSelect_option {
+      opacity: 1;
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(3) {
-        transition-delay: 30ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(1) {
+      transition-delay: 10ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(4) {
-        transition-delay: 40ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(2) {
+      transition-delay: 20ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(5) {
-        transition-delay: 50ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(3) {
+      transition-delay: 30ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(6) {
-        transition-delay: 60ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(4) {
+      transition-delay: 40ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(7) {
-        transition-delay: 70ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(5) {
+      transition-delay: 50ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(8) {
-        transition-delay: 80ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(6) {
+      transition-delay: 60ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(9) {
-        transition-delay: 90ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(7) {
+      transition-delay: 70ms;
+    }
 
-      .multiSelect_list.-open .multiSelect_option:nth-child(10) {
-        transition-delay: 100ms;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(8) {
+      transition-delay: 80ms;
+    }
 
-      .multiSelect_choice {
-        background: rgba(77, 132, 254, 0.1);
-        color: #444f5b;
-        padding: 4px 8px;
-        line-height: 17px;
-        margin: 5px;
-        display: inline-block;
-        font-size: 8px;
-        border-radius: 30px;
-        cursor: pointer;
-        font-weight: 500;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(9) {
+      transition-delay: 90ms;
+    }
 
-      .multiSelect_deselect {
-        width: 12px;
-        height: 12px;
-        display: inline-block;
-        stroke: #b2bac3;
-        stroke-width: 4px;
-        margin-top: -1px;
-        margin-left: 2px;
-        vertical-align: middle;
-      }
+    .multiSelect_list.-open .multiSelect_option:nth-child(10) {
+      transition-delay: 100ms;
+    }
 
-      .multiSelect_choice:hover .multiSelect_deselect {
-        stroke: #a1a8b1;
-      }
+    .multiSelect_choice {
+      background: rgba(77, 132, 254, 0.1);
+      color: #444f5b;
+      padding: 4px 8px;
+      line-height: 17px;
+      margin: 5px;
+      display: inline-block;
+      font-size: 8px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 500;
+    }
 
-      .multiSelect_noselections {
-        text-align: center;
-        padding: 7px;
-        color: #b2bac3;
-        font-weight: 450;
-        margin: 0;
-      }
+    .multiSelect_deselect {
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      stroke: #b2bac3;
+      stroke-width: 4px;
+      margin-top: -1px;
+      margin-left: 2px;
+      vertical-align: middle;
+    }
 
-      .multiSelect_placeholder {
-        position: absolute;
-        left: 20px;
-        font-size: 14px;
-        top: 8px;
-        padding: 0 4px;
-        background-color: #fff;
-        color: #b8bcbf;
-        pointer-events: none;
-        transition: all 0.1s ease;
-      }
+    .multiSelect_choice:hover .multiSelect_deselect {
+      stroke: #a1a8b1;
+    }
 
-      .multiSelect_dropdown.-open + .multiSelect_placeholder,
-      .multiSelect_dropdown.-open.-hasValue + .multiSelect_placeholder {
-        top: -11px;
-        left: 17px;
-        color: #4073ff;
-        font-size: 13px;
-      }
+    .multiSelect_noselections {
+      text-align: center;
+      padding: 7px;
+      color: #b2bac3;
+      font-weight: 450;
+      margin: 0;
+    }
 
-      .multiSelect_dropdown.-hasValue + .multiSelect_placeholder {
-        top: -11px;
-        left: 17px;
-        color: #6e7277;
-        font-size: 13px;
-      }
+    .multiSelect_placeholder {
+      position: absolute;
+      left: 20px;
+      font-size: 14px;
+      top: 8px;
+      padding: 0 4px;
+      background-color: #fff;
+      color: #b8bcbf;
+      pointer-events: none;
+      transition: all 0.1s ease;
+    }
 
-      /* multiselect css ends*/
+    .multiSelect_dropdown.-open+.multiSelect_placeholder,
+    .multiSelect_dropdown.-open.-hasValue+.multiSelect_placeholder {
+      top: -11px;
+      left: 17px;
+      color: #4073ff;
+      font-size: 13px;
+    }
 
-      /* Adjust the box width for smaller screens */
-      @media (max-width: 767px) {
-        .box {
-          width: calc(50% - 20px);
-        }
+    .multiSelect_dropdown.-hasValue+.multiSelect_placeholder {
+      top: -11px;
+      left: 17px;
+      color: #6e7277;
+      font-size: 13px;
+    }
+
+    /* multiselect css ends*/
+
+    /* Adjust the box width for smaller screens */
+    @media (max-width: 767px) {
+      .box {
+        width: calc(50% - 20px);
       }
+    }
 
       /* Adjust the box width for mobile screens */
       @media (max-width: 479px) {
@@ -356,17 +357,14 @@
 
         }
         div.dataTables_wrapper{
-          position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding-top: 2%;
             padding-bottom: 2%;
-            width: 70vw;
+            width: 90%;
             padding-left: 10%;
-            overflow-x: scroll;
-            overflow-y: scroll;
         }
         div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
             color: #777 !important;
@@ -383,25 +381,27 @@
             color: black !important;
         }
 
-        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
-            border: 1px solid gray !important;
-            background: gray !important;
-            color: black !important;
-        }
-        .dataTables_wrapper .dataTables_length{
-            display: none;
-        }
-        div.dataTables_wrapper div.dataTables_filter{
-            padding-bottom: 2%;
-        }
-        
-        div.dataTables_wrapper div.dataTables_filter input {
-            background-color: #222;
-            color: white;
-            border: 1px solid #FFF;
-            padding-bottom: 2%;
-            /* Add any other CSS styles as needed */
-        }
+    .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+      border: 1px solid gray !important;
+      background: gray !important;
+      color: black !important;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+      display: none;
+    }
+
+    div.dataTables_wrapper div.dataTables_filter {
+      padding-bottom: 2%;
+    }
+
+    div.dataTables_wrapper div.dataTables_filter input {
+      background-color: #222;
+      color: white;
+      border: 1px solid #FFF;
+      padding-bottom: 2%;
+      /* Add any other CSS styles as needed */
+    }
 
         /* Customize pagination buttons */
          .dark-table {
@@ -414,40 +414,96 @@
                     overflow-x: scroll;
                 }
 
-                .dark-table th,
-                .dark-table td {
-                    padding: 10px;
-                    border: 1px solid #555;
-                }
+    .dark-table th,
+    .dark-table td {
+      padding: 10px;
+      border: 1px solid #555;
+    }
 
-                .dark-table th {
-                    background-color: #222;
-                }
+    .dark-table th {
+      background-color: #222;
+    }
 
-                .dark-table td{
-                    background-color: #222;
-                }
+    .dark-table td {
+      background-color: #222;
+    }
 
-                .dark-table tr:hover {
-                    background-color: #444;
-                }
-    </style>
-  </head>
+    .dark-table tr:hover {
+      background-color: #444;
+    }
 
-  <body class="bg-white dark:bg-gray-900">
+    @keyframes rotate {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @-webkit-keyframes rotate {
+      from {
+        -webkit-transform: rotate(0deg);
+      }
+
+      to {
+        -webkit-transform: rotate(360deg);
+      }
+    }
+
+    .load {
+      z-index: 5;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      margin-left: calc(50vw - 50px);
+      margin-top: calc(50vh - 50px);
+      border: solid 10px rgb(26 86 219);
+      border-radius: 50%;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      -webkit-transition: all 0.5s ease-in;
+      -webkit-animation-name: rotate;
+      -webkit-animation-duration: 1.0s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-timing-function: linear;
+
+      transition: all 0.5s ease-in;
+      animation-name: rotate;
+      animation-duration: 1.0s;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+    }
+
+    #fade {
+      filter: blur(10px);
+    }
+  </style>
+</head>
+
+<body class="bg-white dark:bg-gray-900">
+  <div class="load"></div>
+  <div id="fade">
     {% include 'main/navbar.html' %}
     <div class="main-container bg-white dark:bg-gray-900">
 
-        <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 pt-20 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-            <span class="sr-only">Filters</span>
-            <div class="w-auto h-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" aria-hidden="true">
-               Filters
+      <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
+        type="button"
+        class="inline-flex items-center p-2 pt-20 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        <span class="sr-only">Filters</span>
+        <div
+          class="w-auto h-auto focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+          aria-hidden="true">
+          Filters
         </div>
-         </button>
-         
-         <aside id="default-sidebar" class="fixed top-0 left-0 pt-16 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-            <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-               <!-- <ul class="space-y-2 font-medium">
+      </button>
+
+      <aside id="default-sidebar"
+        class="fixed top-0 left-0 pt-16 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        aria-label="Sidebar">
+        <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+          <!-- <ul class="space-y-2 font-medium">
                   <li>
                      <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                         <svg class="w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 21">
@@ -733,6 +789,12 @@
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
+        window.addEventListener('load', function () {
+          setTimeout(()=>{
+            var loadingScreen = document.getElementsByClassName('load')[0];
+            loadingScreen.style.display = 'none';
+            document.getElementById('fade').style.filter = 'none';
+          },500)});
       jQuery(function ($) {
         // Your DataTables initialization code here
         $('#data_table').DataTable({
@@ -773,66 +835,69 @@
             <span class="multiSelect_placeholder">${placeholder}</span>
             <ul class="multiSelect_list"></ul>
             <span class="multiSelect_arrow"></span>`
-          );
-  
-          fieldOption.each(function () {
-            self.find(".multiSelect_list").append(
-              `<li class="multiSelect_option" data-value="${$(this).val()}">
+            );
+
+            fieldOption.each(function () {
+              self.find(".multiSelect_list").append(
+                `<li class="multiSelect_option" data-value="${$(this).val()}">
                 <a class="multiSelect_text">${$(this).text()}</a>
               </li>`
-            );
-          });
-  
-          var dropdown = self.find(".multiSelect_dropdown");
-          var list = self.find(".multiSelect_list");
-          var option = self.find(".multiSelect_option");
-          var optionText = self.find(".multiSelect_text");
-  
-          dropdown.attr("data-multiple", "true");
-          list.css("top", dropdown.height() + 5);
-  
-          option.click(function (e) {
-            var self = $(this);
-            e.stopPropagation();
-            self.addClass("-selected");
-            field.find("option:contains(" + self.children().text() + ")").prop("selected", true);
-            dropdown.append(function () {
-              return $('<span class="multiSelect_choice">' + self.children().text() +
-                '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>')
-                .click(function (e) {
-                  var self = $(this);
-                  e.stopPropagation();
-                  self.remove();
-                  list.find(".multiSelect_option:contains(" + self.text() + ")").removeClass("-selected");
-                  list.css("top", dropdown.height() + 5)
-                    .find(".multiSelect_noselections").remove();
-                  field.find("option:contains(" + self.text() + ")").prop("selected", false);
-                  if (dropdown.children(":visible").length === 0) {
-                    dropdown.removeClass("-hasValue");
-                  }
-                });
-            }).addClass("-hasValue");
+              );
+            });
+
+            var dropdown = self.find(".multiSelect_dropdown");
+            var list = self.find(".multiSelect_list");
+            var option = self.find(".multiSelect_option");
+            var optionText = self.find(".multiSelect_text");
+
+            dropdown.attr("data-multiple", "true");
             list.css("top", dropdown.height() + 5);
-            if (!option.not(".-selected").length) {
-              list.append('<h5 class="multiSelect_noselections">No Selections</h5>');
-            }
-          });
-  
-          dropdown.click(function (e) {
-            e.stopPropagation();
-            e.preventDefault();
-            dropdown.toggleClass("-open");
-            list.toggleClass("-open").scrollTop(0).css("top", dropdown.height() + 5);
-          });
-  
-          $(document).on("click touch", function (e) {
-            if (dropdown.hasClass("-open")) {
+
+            option.click(function (e) {
+              var self = $(this);
+              e.stopPropagation();
+              self.addClass("-selected");
+              field.find("option:contains(" + self.children().text() + ")").prop("selected", true);
+              dropdown.append(function () {
+                return $('<span class="multiSelect_choice">' + self.children().text() +
+                  '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>')
+                  .click(function (e) {
+                    var self = $(this);
+                    e.stopPropagation();
+                    self.remove();
+                    list.find(".multiSelect_option:contains(" + self.text() + ")").removeClass("-selected");
+                    list.css("top", dropdown.height() + 5)
+                      .find(".multiSelect_noselections").remove();
+                    field.find("option:contains(" + self.text() + ")").prop("selected", false);
+                    if (dropdown.children(":visible").length === 0) {
+                      dropdown.removeClass("-hasValue");
+                    }
+                  });
+              }).addClass("-hasValue");
+              list.css("top", dropdown.height() + 5);
+              if (!option.not(".-selected").length) {
+                list.append('<h5 class="multiSelect_noselections">No Selections</h5>');
+              }
+            });
+
+            dropdown.click(function (e) {
+              e.stopPropagation();
+              e.preventDefault();
               dropdown.toggleClass("-open");
-              list.removeClass("-open");
-            }
+              list.toggleClass("-open").scrollTop(0).css("top", dropdown.height() + 5);
+            });
+
+            $(document).on("click touch", function (e) {
+              if (dropdown.hasClass("-open")) {
+                dropdown.toggleClass("-open");
+                list.removeClass("-open");
+              }
+            });
           });
         });
-      });
-    </script>
-  </body>
+      </script>
+    </div>
+  </div>
+</body>
+
 </html>
