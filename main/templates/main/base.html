@@ -6,7 +6,8 @@
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.css"
       rel="stylesheet"
-    />
+    /><link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
     <title>{% block title %}Base{% endblock %}</title>
     {% block additional_content %} {% endblock %}
     <style>
@@ -364,6 +365,82 @@
           width: 100%;
         }
       }
+      div.dataTables_wrapper div.dataTables_filter{
+            color: gray;
+
+        }
+        div.dataTables_wrapper{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-top: 2%;
+            padding-bottom: 2%;
+            width: 90%;
+            padding-left: 10%;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .ellipsis{
+            color: #777 !important;
+        }
+        div.dataTables_wrapper div.dataTables_paginate span .paginate_button,.dataTables_wrapper .dataTables_paginate .paginate_button{
+            
+            color: gray !important;
+        }
+        
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate{
+            color: gray !important;
+        }
+         .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover{
+            color: black !important;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+            border: 1px solid gray !important;
+            background: gray !important;
+            color: black !important;
+        }
+        .dataTables_wrapper .dataTables_length{
+            display: none;
+        }
+        div.dataTables_wrapper div.dataTables_filter{
+            padding-bottom: 2%;
+        }
+        
+        div.dataTables_wrapper div.dataTables_filter input {
+            background-color: #222;
+            color: white;
+            border: 1px solid #FFF;
+            padding-bottom: 2%;
+            /* Add any other CSS styles as needed */
+        }
+
+        /* Customize pagination buttons */
+         .dark-table {
+                    background-color: #333;
+                    color: white;
+                    width: 70%;
+                    position: relative;
+                    text-align: center;
+                    justify-content: center;
+                }
+
+                .dark-table th,
+                .dark-table td {
+                    padding: 10px;
+                    border: 1px solid #555;
+                }
+
+                .dark-table th {
+                    background-color: #222;
+                }
+
+                .dark-table td{
+                    background-color: #222;
+                }
+
+                .dark-table tr:hover {
+                    background-color: #444;
+                }
     </style>
   </head>
 
@@ -538,6 +615,40 @@
       </div>
 
       <div class="chart-container"><div><div>{% block question%}{%endblock%}</div>{% block content %} {% endblock %}{% block desc%}{%endblock%}</div>
+      <div>
+        <table id="data_table" class="dark-table">
+            <thead>
+              <tr>
+                <th>SI No</th>
+                <th>Institute Name</th>
+                <th>Institute Type</th>
+                <th>Program</th>
+                <th>Seat Type</th>
+                <th>Gender</th>
+                <th>Opening Rank</th>
+                <th>Closing Rank</th>
+                <th>Year</th>
+                <th>Round No</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for data in alldata %}
+              <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{data.institute}}</td>
+                <td>{{data.institute_type}}</td>
+                <td>{{data.program}}</td>
+                <td>{{data.seat_type}}</td>
+                <td>{{data.gender}}</td>
+                <td>{{data.opening_rank}}</td>
+                <td>{{data.closing_rank}}</td>
+                <td>{{data.year}}</td>
+                <td>{{data.roundNo}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
     </div>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none">
       <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="iconX">
@@ -549,107 +660,103 @@
     </svg>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.6/flowbite.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Include DataTables JavaScript -->
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
-      $("#clearButton").click(function () {
-        // Clear form elements
-        $("form")[0].reset();
-
-        // Reset selected options in multiselect dropdowns
-        $(".multiSelect_choice").remove();
-        $(".multiSelect_option").removeClass("-selected");
-        $(".multiSelect_dropdown").removeClass("-hasValue");
-        $(".multiSelect_noselections").remove();
-      });
-    </script>
-    <script>
-      jQuery(function () {
-        jQuery(".multiSelect").each(function (index) {
-          var self = jQuery(this);
+      jQuery(function ($) {
+        // Your DataTables initialization code here
+        $('#data_table').DataTable({
+          paging: true,
+          lengthMenu: false,
+          pageLength: 10,
+          searching: true,
+          ordering: true,
+          language: {
+            info: "",
+            infoEmpty: "",
+            infoFiltered: ""
+          }
+        });
+  
+        // Clear button click event
+        $("#clearButton").click(function () {
+          // Clear form elements
+          $("form")[0].reset();
+  
+          // Reset selected options in multiselect dropdowns
+          $(".multiSelect_choice").remove();
+          $(".multiSelect_option").removeClass("-selected");
+          $(".multiSelect_dropdown").removeClass("-hasValue");
+          $(".multiSelect_noselections").remove();
+        });
+  
+        // MultiSelect
+        $(".multiSelect").each(function (index) {
+          var self = $(this);
           var field = self.find(".multiSelect_field");
           var fieldOption = field.find("option");
           var placeholder = field.attr("data-placeholder");
-
+  
           field.hide().after(
             `<div class="multiSelect_dropdown"></div>
-                        <span class="multiSelect_placeholder">` +
-              placeholder +
-              `</span>
-                        <ul class="multiSelect_list"></ul>
-                        <span class="multiSelect_arrow"></span>`
+            <span class="multiSelect_placeholder">${placeholder}</span>
+            <ul class="multiSelect_list"></ul>
+            <span class="multiSelect_arrow"></span>`
           );
-
+  
           fieldOption.each(function () {
             self.find(".multiSelect_list").append(
-              `<li class="multiSelect_option" data-value="` +
-                jQuery(this).val() +
-                `">
-                                            <a class="multiSelect_text">` +
-                jQuery(this).text() +
-                `</a>
-                                          </li>`
+              `<li class="multiSelect_option" data-value="${$(this).val()}">
+                <a class="multiSelect_text">${$(this).text()}</a>
+              </li>`
             );
           });
-
+  
           var dropdown = self.find(".multiSelect_dropdown");
           var list = self.find(".multiSelect_list");
           var option = self.find(".multiSelect_option");
           var optionText = self.find(".multiSelect_text");
-
+  
           dropdown.attr("data-multiple", "true");
           list.css("top", dropdown.height() + 5);
-
+  
           option.click(function (e) {
-            var self = jQuery(this);
+            var self = $(this);
             e.stopPropagation();
             self.addClass("-selected");
-            field
-              .find("option:contains(" + self.children().text() + ")")
-              .prop("selected", true);
-            dropdown
-              .append(function () {
-                return jQuery(
-                  '<span class="multiSelect_choice">' +
-                    self.children().text() +
-                    '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>'
-                ).click(function (e) {
-                  var self = jQuery(this);
+            field.find("option:contains(" + self.children().text() + ")").prop("selected", true);
+            dropdown.append(function () {
+              return $('<span class="multiSelect_choice">' + self.children().text() +
+                '<svg class="multiSelect_deselect -iconX"><use href="#iconX"></use></svg></span>')
+                .click(function (e) {
+                  var self = $(this);
                   e.stopPropagation();
                   self.remove();
-                  list
-                    .find(".multiSelect_option:contains(" + self.text() + ")")
-                    .removeClass("-selected");
-                  list
-                    .css("top", dropdown.height() + 5)
-                    .find(".multiSelect_noselections")
-                    .remove();
-                  field
-                    .find("option:contains(" + self.text() + ")")
-                    .prop("selected", false);
+                  list.find(".multiSelect_option:contains(" + self.text() + ")").removeClass("-selected");
+                  list.css("top", dropdown.height() + 5)
+                    .find(".multiSelect_noselections").remove();
+                  field.find("option:contains(" + self.text() + ")").prop("selected", false);
                   if (dropdown.children(":visible").length === 0) {
                     dropdown.removeClass("-hasValue");
                   }
                 });
-              })
-              .addClass("-hasValue");
+            }).addClass("-hasValue");
             list.css("top", dropdown.height() + 5);
             if (!option.not(".-selected").length) {
-              list.append(
-                '<h5 class="multiSelect_noselections">No Selections</h5>'
-              );
+              list.append('<h5 class="multiSelect_noselections">No Selections</h5>');
             }
           });
-
+  
           dropdown.click(function (e) {
             e.stopPropagation();
             e.preventDefault();
             dropdown.toggleClass("-open");
-            list
-              .toggleClass("-open")
-              .scrollTop(0)
-              .css("top", dropdown.height() + 5);
+            list.toggleClass("-open").scrollTop(0).css("top", dropdown.height() + 5);
           });
-
-          jQuery(document).on("click touch", function (e) {
+  
+          $(document).on("click touch", function (e) {
             if (dropdown.hasClass("-open")) {
               dropdown.toggleClass("-open");
               list.removeClass("-open");
