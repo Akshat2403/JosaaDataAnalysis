@@ -789,6 +789,12 @@
     <!-- Include DataTables JavaScript -->
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
     <script>
+        window.addEventListener('load', function () {
+          setTimeout(()=>{
+            var loadingScreen = document.getElementsByClassName('load')[0];
+            loadingScreen.style.display = 'none';
+            document.getElementById('fade').style.filter = 'none';
+          },500)});
       jQuery(function ($) {
         // Your DataTables initialization code here
         $('#data_table').DataTable({
