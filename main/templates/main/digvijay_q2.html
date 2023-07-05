@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 
 <head>
-    {% block title %}digvijay q1{% endblock %}
+    {% block title %}digvijay q2{% endblock %}
     {% block additional_content %}
     <style>
         table,
@@ -16,7 +16,6 @@
         #chart-container {
             height: 100vh;
             width: 100%;
-            
         }
     </style>
     {% endblock %}
@@ -31,36 +30,6 @@
       </div>
       <div> Showing data for {{year}}</div>
     <div id="chart-container"></div>
-
-    <table id="data_table" style="display: none;">
-        <tr>
-            <th>SI No</th>
-            <th>Institute Name</th>
-            <th>Institute Type</th>
-            <th>Program</th>
-            <th>Seat Type</th>
-            <th>Gender</th>
-            <th>Opening Rank</th>
-            <th>Closing Rank</th>
-            <th>Year</th>
-            <th>Round No</th>
-        </tr>
-        {% for data in alldata %}
-        <tr>
-            <td>{{forloop.counter}}</td>
-            <td>{{data.institute}}</td>
-            <td>{{data.institute_type}}</td>
-            <td>{{data.program}}</td>
-            <td>{{data.seat_type}}</td>
-            <td>{{data.gender}}</td>
-            <td>{{data.opening_rank}}</td>
-            <td>{{data.closing_rank}}</td>
-            <td>{{data.year}}</td>
-            <td>{{data.roundNo}}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
 
     <script src="https://fastly.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
 
