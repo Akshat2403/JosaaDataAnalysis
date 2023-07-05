@@ -289,7 +289,7 @@ def trendspecial(request):
         i += 1
     context = {
         'data': json.dumps(final),
-        # 'alldata':dualdata,
+        'alldata':dualdata,
         'year': json.dumps(list(year_set)),
         'seat_type': SEAT_TYPES,
         'colleges': IITS,
