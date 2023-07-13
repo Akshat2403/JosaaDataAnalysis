@@ -40,8 +40,8 @@
 </head>
 <body>
   {% block content %}
-  <h1 style="padding-top: 10px;text-align:center; font-size: max(3vh,2vw);color: gray;">Popularity Variation between New and Old IITs?
-  </h1>
+  <h2>Popularity Variation between New and Old IITs?
+  </h2>
   <div id="graph-container"></div>
   <div class="button-container">
     <button id="redirectButton" class="custom-button" onclick="redirectToMohitQ1()">Check variations among New IITS</button>
@@ -81,20 +81,20 @@
     var option = {
       legend: {
         data: ['New IIT', 'Old IIT'],
-        orient: 'vertical',
-        right: 10,
-        top: 'center',
-        textStyle: {
-            color: '#777'
+        zLevel: 1,
+                orient: "vertical",
+                type: "scroll",
+                top: 25,
+                textStyle:{
+                    color:'white',
         }
       },
-      grid: {
-        top:'2%',
-        left: "5%",
-        right: "25%",
-        bottom: "8%",
-        containLabel: true,
-      },
+        grid: {
+                left: "5%",
+                right: "7%",
+                bottom: "8%",
+                containLabel: true,
+            },
       xAxis: {
         type: 'category',
         data: years,

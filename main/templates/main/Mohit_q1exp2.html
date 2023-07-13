@@ -9,8 +9,8 @@
 </head>
 <body style="background-color: rgb(31, 41, 55); color: white;">
   {% block content %}
-  <h1 style="padding-top: 10px;text-align:center; font-size: max(3vh,2vw); color: gray;">Popularity Variation among Old IITs?
-  </h1>
+  <h2>Popularity Variation among Old IITs?
+  </h2>
   <div id="graph-container" style="width: 80vw; height: 70vh; "></div>
 
   <script>
@@ -43,14 +43,21 @@
       textStyle:{ color: 'gray',
       fontWeight:'600'},
       legend: {
-        type:'scroll',
-        height:'70',
-        orient: 'vertical',
-        right: 'center',
-        textStyle:{
-          color:'#777',
-      },      
+        zLevel: 1,
+                orient: "vertical",
+                type: "scroll",
+                top: 25,
+                textStyle:{
+                    color:'white',
+                }     
       },
+      grid: {
+                left: "5%",
+                right: "7%",
+                bottom: "8%",
+                containLabel: true,
+            },
+
       xAxis: {
         type: 'category',
         data: years,
