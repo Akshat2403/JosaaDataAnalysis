@@ -41,13 +41,23 @@ def upload_csv(request):
 def filter(request):
   alldata = data.objects.all()[:50]
   if request.method == 'POST' and 'apply_filter' in request.POST:
-        year = request.POST.get('year')
-        gender = request.POST.getlist('gender')
-        college = request.POST.getlist('college')
-        branch = request.POST.getlist('branch')
-        seat_type = request.POST.getlist('seat_type')
-        alldata = data.objects.filter(
-            institute__in=college, program__in=branch, seat_type__in=seat_type, year=year, gender__in=gender)
+        filters={}
+        year = request.POST.get('year',None)
+        gender = request.POST.getlist('gender',None)
+        college = request.POST.getlist('college',None)
+        branch = request.POST.getlist('branch',None)
+        seat_type = request.POST.getlist('seat_type',None)
+        if year:
+            filters['year__in']=year
+        if gender:
+            filters['gender__in']=gender
+        if college:
+            filters['institute__in']=college
+        if branch:
+            filters['program__in']=branch
+        if seat_type:
+            filters['seat_type__in']=seat_type
+        alldata = data.objects.filter(**filters)[:50]
         context = {
             'alldata': alldata,
             'colleges': IITS,
@@ -373,37 +383,104 @@ def dig_q1(request):
 
 
 def sid_q1(request):
+    if request.method == 'POST' and 'apply_filter' in request.POST:
+        filters = {'roundNo': 6}
+        gender = request.POST.getlist('gender', None)
+        college = request.POST.getlist('college', None)
+        seat_type = request.POST.getlist('seat_type', None)
+        if gender:
+            filters['gender__in'] = gender
+        if college:
+            filters['institute__in'] = college
+        if seat_type:
+            filters['seat_type__in'] = seat_type
+
+        filtered_data = data.objects.filter(**filters)
+        filtered_data = filtered_data.order_by('-year', 'institute', 'program', 'opening_rank')
+        jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program', '-year'))
+        jsdata = json.dumps(jsdata)
+
+        context = {
+            'alldata': filtered_data,
+            'jsdata': jsdata,
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "False",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "False",
+            'years': YEARS,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
+        }
+
+        return render(request, 'main/siddhant_q1.html', context)
+
+    else:  
+        all_data = data.objects.filter(
+            roundNo='6', seat_type='OPEN', gender='Gender-Neutral')
+        jsdata = all_data.values(
+            'institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = json.dumps(list(jsdata))
+        context = {
+            'alldata': all_data,
+            'jsdata': jsdata,
+            'isCollegeNeeded':"True",
+            'isBranchNeeded':"False",
+            'isSeatTypeNeeded':"True",
+            'isGenderNeeded':"True",
+            'isYearNeeded':"False",
+            'years':YEARS,
+            'colleges':IITS,
+            'branches':BRANCHES,
+            'seat_types':SEAT_TYPES,
+            'genders':GENDERS,
+        }
+        return render(request, 'main/siddhant_q1.html', context)
+
+
+def sid_q2(request):
  if request.method == 'POST' and 'apply_filter' in request.POST:
-            gender = request.POST.getlist('gender')
-            college = request.POST.getlist('college')
-            # branch = request.POST.getlist('branch')
-            seat_type = request.POST.getlist('seat_type')
-            filtered_data = data.objects.filter(roundNo='6', seat_type__in=seat_type, gender__in=gender,institute__in= college)
-            filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-            jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-            jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
-            jsdata = json.dumps(jsdata)
+        filters = {'roundNo': 6}
+        gender = request.POST.getlist('gender', None)
+        college = request.POST.getlist('college', None)
+        seat_type = request.POST.getlist('seat_type', None)
+        if gender:
+            filters['gender__in'] = gender
+        if college:
+            filters['institute__in'] = college
+        if seat_type:
+            filters['seat_type__in'] = seat_type
 
-            context = {
-                'alldata': filtered_data,
-                'jsdata': jsdata,
-                'isCollegeNeeded':"True",
-                'isBranchNeeded':"False",
-                'isSeatTypeNeeded':"True",
-                'isGenderNeeded':"True",
-                'isYearNeeded':"False",
-                'years':YEARS,
-                'colleges':IITS,
-                'branches':BRANCHES,
-                'seat_types':SEAT_TYPES,
-                'genders':GENDERS,
-            }
+        filtered_data = data.objects.filter(**filters)
+        filtered_data = filtered_data.order_by('-year', 'institute', 'program', 'opening_rank')
+        jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program', '-year'))
+        jsdata = json.dumps(jsdata)
 
+        context = {
+            'alldata': filtered_data,
+            'jsdata': jsdata,
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "False",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "False",
+            'years': YEARS,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
+        }
 
-            return render(request, 'main/siddhant_q1.html', context)
- else:  
+        return render(request, 'main/siddhant_q2.html', context)
+
+ else:   
+    colleges = [i[0] for i in IITS]
     all_data = data.objects.filter(
-        roundNo='6', seat_type='OPEN', gender='Gender-Neutral')
+        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
     jsdata = all_data.values(
         'institute', 'year', 'program', 'opening_rank', 'closing_rank')
     jsdata = json.dumps(list(jsdata))
@@ -421,91 +498,44 @@ def sid_q1(request):
         'seat_types':SEAT_TYPES,
         'genders':GENDERS,
     }
-    return render(request, 'main/siddhant_q1.html', context)
-
-
-def sid_q2(request):
- if request.method == 'POST' and 'apply_filter' in request.POST:
-            gender = request.POST.getlist('gender')
-            college = request.POST.getlist('college')
-            # branch = request.POST.getlist('branch')
-            seat_type = request.POST.getlist('seat_type')
-            filtered_data = data.objects.filter(roundNo='6', seat_type__in=seat_type, gender__in=gender,institute__in= college)
-            filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-            jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-            jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
-            jsdata = json.dumps(jsdata)
-
-            context = {
-                'alldata': filtered_data,
-                'jsdata': jsdata,
-                'isCollegeNeeded':"True",
-                'isBranchNeeded':"False",
-                'isSeatTypeNeeded':"True",
-                'isGenderNeeded':"True",
-                'isYearNeeded':"True",
-                'years':YEARS,
-                'colleges':IITS,
-                'branches':BRANCHES,
-                'seat_types':SEAT_TYPES,
-                'genders':GENDERS,
-            }
-
-
-            return render(request, 'main/siddhant_q2.html', context)
- else:   
-    colleges = [i[0] for i in IITS]
-    all_data = data.objects.filter(
-        roundNo='6', seat_type='OPEN', gender='Gender-Neutral', institute__in=colleges)
-    jsdata = all_data.values(
-        'institute', 'year', 'program', 'opening_rank', 'closing_rank')
-    jsdata = json.dumps(list(jsdata))
-    context = {
-        'alldata': all_data,
-        'jsdata': jsdata,
-        'isCollegeNeeded':"True",
-        'isBranchNeeded':"False",
-        'isSeatTypeNeeded':"True",
-        'isGenderNeeded':"True",
-        'isYearNeeded':"True",
-        'years':YEARS,
-        'colleges':IITS,
-        'branches':BRANCHES,
-        'seat_types':SEAT_TYPES,
-        'genders':GENDERS,
-    }
     return render(request, 'main/siddhant_q2.html', context)
 
 
 def sid_q3(request):
  if request.method == 'POST' and 'apply_filter' in request.POST:
-            gender = request.POST.getlist('gender')
-            college = request.POST.getlist('college')
-            # branch = request.POST.getlist('branch')
-            seat_type = request.POST.getlist('seat_type')
-            filtered_data = data.objects.filter(roundNo='6', seat_type__in=seat_type, gender__in=gender,institute__in= college)
-            filtered_data= filtered_data.order_by('-year', 'institute', 'program','opening_rank', )
-            jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
-            jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program','-year', ))
-            jsdata = json.dumps(jsdata)
+        filters = {'roundNo': 6}
+        gender = request.POST.getlist('gender', None)
+        college = request.POST.getlist('college', None)
+        seat_type = request.POST.getlist('seat_type', None)
+        if gender:
+            filters['gender__in'] = gender
+        if college:
+            filters['institute__in'] = college
+        if seat_type:
+            filters['seat_type__in'] = seat_type
 
-            context = {
-                'alldata': filtered_data,
-                'jsdata': jsdata,
-                'isCollegeNeeded':"True",
-                'isBranchNeeded':"False",
-                'isSeatTypeNeeded':"True",
-                'isGenderNeeded':"True",
-                'isYearNeeded':"True",
-                'years':YEARS,
-                'colleges':IITS,
-                'branches':BRANCHES,
-                'seat_types':SEAT_TYPES,
-                'genders':GENDERS,
-            }
+        filtered_data = data.objects.filter(**filters)
+        filtered_data = filtered_data.order_by('-year', 'institute', 'program', 'opening_rank')
+        jsdata = filtered_data.values('institute', 'year', 'program', 'opening_rank', 'closing_rank')
+        jsdata = list(jsdata.order_by('institute', 'opening_rank', 'program', '-year'))
+        jsdata = json.dumps(jsdata)
 
+        context = {
+            'alldata': filtered_data,
+            'jsdata': jsdata,
+            'isCollegeNeeded': "True",
+            'isBranchNeeded': "False",
+            'isSeatTypeNeeded': "True",
+            'isGenderNeeded': "True",
+            'isYearNeeded': "False",
+            'years': YEARS,
+            'colleges': IITS,
+            'branches': BRANCHES,
+            'seat_types': SEAT_TYPES,
+            'genders': GENDERS,
+        }
 
-            return render(request, 'main/siddhant_q3.html', context)
+        return render(request, 'main/siddhant_q3.html', context)
  else:   
     colleges = [i[0] for i in IITS]
     all_data = data.objects.filter(
@@ -520,7 +550,7 @@ def sid_q3(request):
         'isBranchNeeded':"False",
         'isSeatTypeNeeded':"True",
         'isGenderNeeded':"True",
-        'isYearNeeded':"True",
+        'isYearNeeded':"False",
         'years':YEARS,
         'colleges':IITS,
         'branches':BRANCHES,
