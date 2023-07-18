@@ -1,9 +1,9 @@
-# Jossa Data Analysis Portal
+# Josaa Data Analysis Portal
 
 ---
 
 ## Project Brief
-This project aims to visualize data provided by JOSSA (Joint Seat Allocation Authority) data using various types of graphs, including line, bar, and pie graphs. Additionally, a data table is incorporated with pagination and search functionalities for enhanced data exploration. The project also includes custom filters to allow users to refine and analyze the data according to their specific requirements. By combining these visualization techniques and interactive features, the project offers an effective way to understand and analyze the JOSSA data in a comprehensive and user-friendly manner.
+This project aims to visualize data provided by JOSAA (Joint Seat Allocation Authority) data using various types of graphs, including line, bar, and pie graphs. Additionally, a data table is incorporated with pagination and search functionalities for enhanced data exploration. The project also includes custom filters to allow users to refine and analyze the data according to their specific requirements. By combining these visualization techniques and interactive features, the project offers an effective way to understand and analyze the JOSSA data in a comprehensive and user-friendly manner.
 
 ---
 
@@ -41,7 +41,7 @@ Django, Pandas, Mechanize, Echarts.js
 
 ![What is the Popularity Variation between New IITs?](https://github.com/Akshat2403/JossaDataAnalysis/assets/95174507/f20b47e6-aa12-49d3-b3e1-3ba65afd2294)
 
-#### What is the Popularity Variation between Old IITs and  New IITs?
+#### What is the Popularity Variation between Old IITs and New IITs?
 
 ![What is the Popularity Variation between New IITs?](https://github.com/Akshat2403/JossaDataAnalysis/assets/95174507/f20b47e6-aa12-49d3-b3e1-3ba65afd2294)
 
